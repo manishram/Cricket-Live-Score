@@ -8,10 +8,10 @@ import * as Font from 'expo-font'
 import DetailScore from './src/screens/DetailScore'
 import Today from './src/screens/Today'
 import Home from './src/screens/Home'
+import PointsTable from './src/screens/PointsTable'
 const DrawerNavigation = createDrawerNavigator({
     Home: Home,
-    DetailScore: DetailScore,
-    Today: Today,
+    PointsTable: PointsTable,
 })
 
 const StackNavigation = createStackNavigator(
@@ -20,8 +20,7 @@ const StackNavigation = createStackNavigator(
             screen: DrawerNavigation,
         },
         Home: Home,
-        DetailScore: DetailScore,
-        Today: Today,
+        PointsTable: PointsTable,
     },
     {
         headerMode: 'none',

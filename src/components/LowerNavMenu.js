@@ -1,16 +1,15 @@
 import * as React from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
-import Today from './Today'
-import DetailScore from './DetailScore'
+import Home from '../screens/Today'
+import DetailScore from '../screens/DetailScore'
 import { ScrollView } from 'react-native-gesture-handler'
 import { TabBar } from 'react-native-tab-view'
-import LowerNavMenu from '../components/LowerNavMenu'
 
 const FirstRoute = () => (
     <View>
         <ScrollView showsVerticalScrollIndicator={false}>
-            <Today />
+            <Home />
         </ScrollView>
     </View>
 )
@@ -38,7 +37,7 @@ const renderScene = SceneMap({
     third: ThirdRoute,
 })
 
-function TabSwitchScreen() {
+function LowerNavMenu() {
     const [index, setIndex] = React.useState(1)
     const [routes] = React.useState([
         { key: 'second', title: 'Recent' },
@@ -58,6 +57,7 @@ function TabSwitchScreen() {
                     scrollEnabled={true}
                 />
             )}
+            tabBarPosition="bottom"
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
         width: 120,
     },
 })
-export default TabSwitchScreen
+export default LowerNavMenu

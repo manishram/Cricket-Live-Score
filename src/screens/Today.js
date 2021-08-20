@@ -3,8 +3,9 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
 import NewsCard from '../components/NewsCard'
+import * as RootNavigation from '../components/RootNavigation'
 
-function Home(props) {
+function Today(props) {
     return (
         <View style={styles.container}>
             <MatchCard style={styles.matchCard}></MatchCard>
@@ -192,4 +193,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Home
+export default Today
