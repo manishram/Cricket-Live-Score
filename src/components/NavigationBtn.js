@@ -52,7 +52,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         height: 22,
         width: 20,
-        alignSelf: 'flex-end',
+        right: 0,
+        position: 'absolute',
+        marginTop: 3,
     },
     iconRow: {
         height: 27,
