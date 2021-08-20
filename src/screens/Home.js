@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         height: 24,
         flexDirection: 'row',
         marginTop: 21,
-        marginLeft: 15,
+        marginLeft: 5,
         marginRight: 15,
     },
     newsCard: {

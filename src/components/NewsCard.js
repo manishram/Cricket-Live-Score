@@ -60,7 +60,9 @@ function NewsCard({ isFeatured }) {
 }
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        marginTop: 5,
+    },
 
     newsBody: {
         top: 7,
