@@ -1,88 +1,52 @@
-import * as React from "react";
-import { View, StyleSheet, Dimensions, StatusBar } from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
-import Home from "./Home";
-import DetailScore from "./DetailScore";
-import { ScrollView } from "react-native-gesture-handler";
-import { TabBar } from "react-native-tab-view";
+import * as React from 'react'
+import { View, StyleSheet, Dimensions, StatusBar } from 'react-native'
+import { TabView, SceneMap } from 'react-native-tab-view'
+import Home from './Home'
+import DetailScore from './DetailScore'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const FirstRoute = () => (
-  <View>
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <Home />
-    </ScrollView>
-  </View>
-);
+    <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <Home />
+        </ScrollView>
+    </View>
+)
 
 const SecondRoute = () => (
-  <View>
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <DetailScore />
-    </ScrollView>
-  </View>
-);
-const ThirdRoute = () => (
-  <View>
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <DetailScore />
-    </ScrollView>
-  </View>
-);
+    <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <DetailScore />
+        </ScrollView>
+    </View>
+)
 
-const initialLayout = { width: Dimensions.get("window").width };
+const initialLayout = { width: Dimensions.get('window').width }
 
 const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  third: ThirdRoute,
-});
+    first: FirstRoute,
+    second: SecondRoute,
+})
 
 function TabSwitchScreen() {
-  const [index, setIndex] = React.useState(1);
-  const [routes] = React.useState([
-    { key: "second", title: "Recent" },
-    { key: "first", title: "Today" },
-    { key: "third", title: "Upcoming" },
-  ]);
+    const [index, setIndex] = React.useState(0)
+    const [routes] = React.useState([
+        { key: 'first', title: 'First' },
+        { key: 'second', title: 'Second' },
+    ])
 
-  return (
-    <TabView
-      renderTabBar={(props) => (
-        <TabBar
-          {...props}
-          indicatorStyle={styles.indicator}
-          style={styles.tabbar}
-          labelStyle={styles.label}
-          tabStyle={styles.tabStyle}
-          scrollEnabled={true}
+    return (
+        <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={initialLayout}
+            style={{
+                backgroundColor: '#000',
+                elevation: 0,
+            }}
         />
-      )}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={initialLayout}
-      style={{
-        backgroundColor: "#000",
-        elevation: 0,
-      }}
-    />
-  );
+    )
 }
-const styles = StyleSheet.create({
-  tabbar: {
-    backgroundColor: "#0024A5",
-  },
-  indicator: {
-    backgroundColor: "#DA010E",
-    height: 4,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  label: {
-    fontWeight: "400",
-  },
-  tabStyle: {
-    width: 120,
-  },
-});
-export default TabSwitchScreen;
+
+export default TabSwitchScreen
