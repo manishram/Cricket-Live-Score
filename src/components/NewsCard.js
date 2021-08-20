@@ -14,9 +14,10 @@ function NewsCard({ isFeatured }) {
         <View style={styles.container}>
             <View style={styles.newsBodyStack}>
                 <View style={styles.newsBody}>
-                    <View style={styles.newsRect}>
-                        {isFeatured ? featuredLabel : null}
-                        <TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={styles.newsRect}>
+                            {isFeatured ? featuredLabel : null}
+
                             <View style={styles.imageRow}>
                                 <Image
                                     source={require('../assets/images/cardImage2.png')}
@@ -50,8 +51,8 @@ function NewsCard({ isFeatured }) {
                                     </View>
                                 </View>
                             </View>
-                        </TouchableOpacity>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     newsBody: {
         top: 7,
         left: 0,
-        width: 346,
+        width: '100%',
         height: 125,
         position: 'absolute',
     },
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     newsTitle: {
         fontFamily: 'inter-600',
         color: 'rgba(0,27,121,1)',
-        fontSize: 10,
+        fontSize: 12,
         marginTop: -5,
     },
     text: {
@@ -117,12 +118,11 @@ const styles = StyleSheet.create({
     },
     newsTextBody: {
         width: 170,
-        marginLeft: 7,
     },
     imageRow: {
-        height: 110,
+        height: 1,
         flexDirection: 'row',
-        marginTop: 10,
+        marginTop: 16,
         marginRight: 3,
     },
     featuredLabel: {
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 15,
         marginTop: -5,
+        position: 'absolute',
     },
     labelBox: {
         width: 50,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
         marginLeft: 8,
     },
     newsBodyStack: {
-        width: 346,
+        width: '100%',
         height: 132,
         marginTop: -1,
     },
