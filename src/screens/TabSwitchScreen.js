@@ -3,10 +3,23 @@ import { View, StyleSheet, Dimensions, StatusBar } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
 import Home from './Home'
 import DetailScore from './DetailScore'
+import { ScrollView } from 'react-native-gesture-handler'
 
-const FirstRoute = () => <Home />
+const FirstRoute = () => (
+    <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <Home />
+        </ScrollView>
+    </View>
+)
 
-const SecondRoute = () => <DetailScore />
+const SecondRoute = () => (
+    <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <DetailScore />
+        </ScrollView>
+    </View>
+)
 
 const initialLayout = { width: Dimensions.get('window').width }
 

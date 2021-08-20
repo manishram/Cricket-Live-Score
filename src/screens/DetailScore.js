@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgba(240,240,240,1)',
+        padding: 10,
     },
     topHeader: {
         position: 'absolute',

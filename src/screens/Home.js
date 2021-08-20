@@ -1,67 +1,54 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, StatusBar, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
-import Icon from 'react-native-vector-icons/Feather'
+import NewsCard from '../components/NewsCard'
 
 function Home(props) {
     return (
         <View style={styles.container}>
             <MatchCard style={styles.matchCard}></MatchCard>
-            <NavigationBtn style={styles.navigationBtn}></NavigationBtn>
-            <NavigationBtn style={styles.navigationBtn1}></NavigationBtn>
-            <NavigationBtn style={styles.navigationBtn2}></NavigationBtn>
-            <NavigationBtn style={styles.navigationBtn3}></NavigationBtn>
-            <NavigationBtn style={styles.navigationBtn4}></NavigationBtn>
+            <View style={styles.navContainer}>
+                <NavigationBtn
+                    icon="chart-bar"
+                    style={styles.navigationBtn}
+                    title="Points Table"
+                ></NavigationBtn>
+                <NavigationBtn
+                    icon="format-list-checkbox"
+                    style={styles.navigationBtn}
+                    title="Fixtures"
+                ></NavigationBtn>
+                <NavigationBtn
+                    icon="gavel"
+                    style={styles.navigationBtn}
+                    title="Auction"
+                ></NavigationBtn>
+                <NavigationBtn
+                    icon="trophy"
+                    style={styles.navigationBtn}
+                    title="Records"
+                ></NavigationBtn>
+                <NavigationBtn
+                    icon="google-maps"
+                    style={styles.navigationBtn}
+                    title="Venues"
+                ></NavigationBtn>
+            </View>
             <View style={styles.news3Row}>
                 <Text style={styles.news3}>NEWS</Text>
                 <View style={styles.news3Filler}></View>
                 <View style={styles.group}>
-                    <View style={styles.viewAllStack}>
+                    <TouchableOpacity>
                         <Text style={styles.viewAll}>View All</Text>
-                        <Icon name="arrow-right" style={styles.icon2}></Icon>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.newsCard}>
-                <View style={styles.newsBodyStack}>
-                    <View style={styles.newsBody}>
-                        <View style={styles.rect2}>
-                            <View style={styles.imageRow}>
-                                <Image
-                                    source={require('../assets/images/cardImage2.png')}
-                                    resizeMode="contain"
-                                    style={styles.image}
-                                ></Image>
-                                <View style={styles.loremIpsumColumn}>
-                                    <Text style={styles.loremIpsum}>
-                                        IPL 2021: 5 Players who can replace
-                                        Washington Sundar at RCB
-                                    </Text>
-                                    <View style={styles.textStack}>
-                                        <Text style={styles.text}>
-                                            5 Players who can replace Pat
-                                            Cummins in the UAE leg Not only has
-                                            Pat Cummins been sensational for
-                                            Australia but he has also been
-                                            superb for KKR in the Indian Premier
-                                            League (IPL).
-                                        </Text>
-                                        <Text style={styles.text1}>
-                                            6 hours ago
-                                        </Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.featuredLabel}>
-                        <View style={styles.rect3}>
-                            <Text style={styles.featured}>Featured</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
+            <NewsCard isFeatured={1} />
+            <NewsCard isFeatured={0} />
+            <NewsCard isFeatured={0} />
+            <NewsCard isFeatured={1} />
+            <NewsCard isFeatured={0} />
         </View>
     )
 }
@@ -70,16 +57,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgba(240,240,240,1)',
-    },
-    rect4: {
-        top: 117,
-        left: 143,
-        width: 89,
-        height: 3,
-        position: 'absolute',
-        backgroundColor: 'rgba(219,0,0,1)',
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
+        padding: 10,
     },
     matchCard: {
         height: 140,
@@ -89,55 +67,27 @@ const styles = StyleSheet.create({
     },
     navigationBtn: {
         height: 45,
-        width: 346,
+        width: '100%',
         backgroundColor: 'rgba(249,249,249,1)',
-        marginTop: 20,
-        marginLeft: 15,
+        margin: 5,
     },
-    navigationBtn1: {
-        height: 45,
-        width: 346,
-        marginTop: 10,
-        marginLeft: 15,
-    },
-    navigationBtn2: {
-        height: 45,
-        width: 346,
-        marginTop: 10,
-        marginLeft: 15,
-    },
-    navigationBtn3: {
-        height: 45,
-        width: 346,
-        marginTop: 10,
-        marginLeft: 15,
-    },
-    navigationBtn4: {
-        height: 45,
-        width: 346,
-        marginTop: 10,
-        marginLeft: 15,
-    },
+    navContainer: { width: '100%', marginTop: 25 },
     news3: {
         fontFamily: 'roboto-700',
         color: '#121212',
         height: 15,
         width: 39,
         fontSize: 12,
-        marginTop: 4,
     },
     news3Filler: {
         flex: 1,
         flexDirection: 'row',
     },
     group: {
-        width: 67,
+        width: 40,
         height: 24,
     },
     viewAll: {
-        top: 3,
-        left: 0,
-        position: 'absolute',
         fontFamily: 'roboto-700',
         color: 'rgba(0,27,121,1)',
         height: 13,
@@ -146,17 +96,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     icon2: {
-        top: 0,
-        left: 48,
-        position: 'absolute',
         color: 'rgba(0,27,121,1)',
         fontSize: 20,
-    },
-    viewAllStack: {
-        width: 68,
-        height: 20,
-        marginTop: 3,
-        marginLeft: -12,
     },
     news3Row: {
         height: 24,
@@ -166,20 +107,16 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     newsCard: {
-        width: 346,
+        width: '100%',
         height: 135,
         marginTop: 8,
-        marginLeft: 15,
     },
     newsBody: {
-        top: 7,
-        left: 0,
-        width: 346,
+        width: '100%',
         height: 125,
-        position: 'absolute',
     },
     rect2: {
-        width: 346,
+        width: '100%',
         height: 125,
         backgroundColor: 'rgba(255,255,255,1)',
         borderRadius: 5,
@@ -203,17 +140,11 @@ const styles = StyleSheet.create({
         fontSize: 10,
     },
     text: {
-        top: 0,
-        left: 0,
-        position: 'absolute',
         fontFamily: 'roboto-regular',
         color: 'rgba(99,99,99,1)',
         fontSize: 10,
     },
     text1: {
-        top: 70,
-        left: 112,
-        position: 'absolute',
         fontFamily: 'roboto-regular',
         color: 'rgba(74,74,74,1)',
         fontSize: 8,
@@ -234,11 +165,9 @@ const styles = StyleSheet.create({
         marginRight: 3,
     },
     featuredLabel: {
-        top: 0,
         left: 289,
         width: 50,
         height: 15,
-        position: 'absolute',
     },
     rect3: {
         width: 50,
@@ -252,11 +181,6 @@ const styles = StyleSheet.create({
         fontSize: 8,
         marginTop: 2,
         marginLeft: 8,
-    },
-    newsBodyStack: {
-        width: 346,
-        height: 132,
-        marginTop: -1,
     },
 })
 

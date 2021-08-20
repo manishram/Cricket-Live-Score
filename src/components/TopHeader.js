@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, ImageBackground } from 'react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 
 function TopHeader() {
     return <View style={styles.container}></View>
