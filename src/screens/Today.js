@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
 import NewsCard from '../components/NewsCard'
-import * as RootNavigation from '../components/RootNavigation'
 
 function Today(props) {
     return (
