@@ -9,9 +9,9 @@ import DetailScore from './src/screens/DetailScore'
 import Today from './src/screens/Today'
 import Home from './src/screens/Home'
 const DrawerNavigation = createDrawerNavigator({
-    Home2: Home2,
-    DetailScore: DetailScore,
     Home: Home,
+    DetailScore: DetailScore,
+    Today: Today,
 })
 
 const StackNavigation = createStackNavigator(
