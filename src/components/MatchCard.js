@@ -5,14 +5,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 function MatchCard() {
     return (
         <View style={styles.container}>
-            <View style={styles.cskVsMiRow}>
+            <View style={styles.matchNameRow}>
                 <Text style={styles.cskVsMi}>CSK vs MI</Text>
-                <View style={styles.rect4}>
+                <View style={styles.liveLabel}>
                     <Text style={styles.live}>Live</Text>
                 </View>
                 <Icon name="chevron-right" style={styles.icon}></Icon>
             </View>
-            <View style={styles.rect3}></View>
+            <View style={styles.divider}></View>
             <View style={styles.imageRow}>
                 <Image
                     source={require('../assets/images/image_iaYu..png')}
@@ -42,7 +42,7 @@ function MatchCard() {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 140,
+        height: 155,
         backgroundColor: 'rgba(249,249,249,1)',
         borderRadius: 5,
         shadowColor: 'rgba(0,0,0,1)',
@@ -58,38 +58,39 @@ const styles = StyleSheet.create({
         fontFamily: 'inter-700',
         color: '#121212',
         fontSize: 12,
-        marginTop: 4,
+        marginTop: 8,
     },
-    rect4: {
-        width: 21,
-        height: 10,
+    liveLabel: {
+        width: 30,
+        height: 15,
         backgroundColor: 'rgba(219,0,0,1)',
-        borderRadius: 2,
-        marginLeft: 9,
-        marginTop: 7,
+        borderRadius: 10,
+        marginLeft: 10,
+        marginTop: 8,
     },
     live: {
+        textAlign: 'center',
         fontFamily: 'inter-700',
         color: 'rgba(255,255,255,1)',
-        fontSize: 7,
-        marginTop: 1,
-        marginLeft: 3,
+        fontSize: 10,
     },
     icon: {
         color: 'rgba(0,27,121,1)',
         fontSize: 20,
         height: 22,
         width: 20,
-        marginLeft: 200,
+        marginTop: 5,
+        right: 0,
+        position: 'absolute',
     },
-    cskVsMiRow: {
-        height: 22,
+    matchNameRow: {
+        height: 30,
         flexDirection: 'row',
         marginTop: 4,
         marginLeft: 22,
         marginRight: 8,
     },
-    rect3: {
+    divider: {
         width: '100%',
         height: 1,
         backgroundColor: '#E6E6E6',
