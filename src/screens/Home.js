@@ -40,7 +40,9 @@ function Home(props) {
                 <View style={styles.news3Filler}></View>
                 <View style={styles.group}>
                     <TouchableOpacity>
-                        <Text style={styles.viewAll}>View All</Text>
+                        <View style={styles.viewAllLabel}>
+                            <Text style={styles.viewAll}>View All</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -71,6 +73,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(249,249,249,1)',
         margin: 5,
     },
+
     navContainer: { width: '100%', marginTop: 25 },
     news3: {
         fontFamily: 'roboto-700',
@@ -91,9 +94,14 @@ const styles = StyleSheet.create({
         fontFamily: 'roboto-700',
         color: 'rgba(0,27,121,1)',
         height: 13,
-        width: 51,
         fontSize: 12,
         textAlign: 'center',
+    },
+    viewAllLabel: {
+        height: 18,
+        width: 55,
+        borderRadius: 10,
+        backgroundColor: '#c3deff8c',
     },
     icon2: {
         color: 'rgba(0,27,121,1)',
