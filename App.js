@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StatusBar } from 'react-native'
+import { SafeAreaView, StatusBar, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 // import { createDrawerNavigator } from 'react-navigation-drawer'
@@ -10,6 +10,7 @@ import DetailScore from './src/screens/DetailScore'
 import Today from './src/screens/Today'
 import Home from './src/screens/Home'
 import PointsTable from './src/screens/PointsTable'
+import TopHeaderBox from './src/components/TopHeaderBox'
 // const DrawerNavigation = createDrawerNavigator({})
 
 const StackNavigation = createStackNavigator(
@@ -44,10 +45,18 @@ function App() {
                     animated={true}
                     backgroundColor="#001B79"
                     barStyle="default"
-                    showHideTransition="fade"
+                    showHideTransition="slide"
                     hidden={false}
                 />
-                <AppContainer />
+
+                <View style={{ flex: 1 }}>
+                    <View>
+                        <TopHeaderBox />
+                    </View>
+                    <View style={{ flex: 1, paddingTop: 50 }}>
+                        <AppContainer />
+                    </View>
+                </View>
             </SafeAreaView>
         ) : (
             <AppLoading />
