@@ -4,12 +4,14 @@ import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
 import NewsCard from '../components/NewsCard'
 
-function Today(props) {
+function Today({ navigation }) {
     return (
         <View style={styles.container}>
             <MatchCard style={styles.matchCard}></MatchCard>
             <View style={styles.navContainer}>
                 <NavigationBtn
+                    navigation={navigation}
+                    navigateTo="PointsTable"
                     icon="chart-bar"
                     style={styles.navigationBtn}
                     title="Points Table"

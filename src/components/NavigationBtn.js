@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-function NavigationBtn({ icon, title }) {
+function NavigationBtn({ icon, title, navigation, navigateTo }) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate(navigateTo)}
+            >
                 <View style={styles.iconRow}>
                     <Icon name={icon} style={styles.icon}></Icon>
                     <Text style={styles.btnText}>{title}</Text>

@@ -9,16 +9,13 @@ import DetailScore from './src/screens/DetailScore'
 import Today from './src/screens/Today'
 import Home from './src/screens/Home'
 import PointsTable from './src/screens/PointsTable'
-const DrawerNavigation = createDrawerNavigator({
-    Home: Home,
-    PointsTable: PointsTable,
-})
+// const DrawerNavigation = createDrawerNavigator({})
 
 const StackNavigation = createStackNavigator(
     {
-        DrawerNavigation: {
-            screen: DrawerNavigation,
-        },
+        // DrawerNavigation: {
+        //     screen: DrawerNavigation,
+        // },
         Home: Home,
         PointsTable: PointsTable,
     },

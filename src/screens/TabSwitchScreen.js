@@ -7,38 +7,38 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { TabBar } from 'react-native-tab-view'
 import LowerNavMenu from '../components/LowerNavMenu'
 
-const FirstRoute = () => (
-    <View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <Today />
-        </ScrollView>
-    </View>
-)
+function TabSwitchScreen({ navigation }) {
+    const FirstRoute = () => (
+        <View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Today navigation={navigation} />
+            </ScrollView>
+        </View>
+    )
 
-const SecondRoute = () => (
-    <View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <DetailScore />
-        </ScrollView>
-    </View>
-)
-const ThirdRoute = () => (
-    <View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <DetailScore />
-        </ScrollView>
-    </View>
-)
+    const SecondRoute = () => (
+        <View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <DetailScore />
+            </ScrollView>
+        </View>
+    )
+    const ThirdRoute = () => (
+        <View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <DetailScore />
+            </ScrollView>
+        </View>
+    )
 
-const initialLayout = { width: Dimensions.get('window').width }
+    const initialLayout = { width: Dimensions.get('window').width }
 
-const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-})
+    const renderScene = SceneMap({
+        first: FirstRoute,
+        second: SecondRoute,
+        third: ThirdRoute,
+    })
 
-function TabSwitchScreen() {
     const [index, setIndex] = React.useState(1)
     const [routes] = React.useState([
         { key: 'second', title: 'Recent' },
