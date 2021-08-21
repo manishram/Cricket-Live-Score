@@ -35,7 +35,14 @@ function TopHeaderBox(props) {
 }
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        height: 50,
+        width: '100%',
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        backgroundColor: '#0024A5',
+    },
     leftIcon: {
         backgroundColor: 'transparent',
         color: '#FFFFFF',

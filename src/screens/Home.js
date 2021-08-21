@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import { View, StatusBar, TouchableOpacity, Text } from 'react-native'
-import TopHeader from '../components/TopHeader'
 import TopHeaderBox from '../components/TopHeaderBox'
 import TabSwitchScreen from './TabSwitchScreen'
 import LowerNavMenu from '../components/LowerNavMenu'
+import PointsTable from './PointsTable'
 function Home(props) {
     return (
         <View style={{ flex: 1 }}>
             <StatusBar />
             <View>
-                <TopHeader />
                 <TopHeaderBox />
             </View>
-            <TabSwitchScreen navigation={props.navigation} />
+            <View style={{ flex: 1, paddingTop: 50 }}>
+                <TabSwitchScreen navigation={props.navigation} />
+            </View>
+
             {/* <LowerNavMenu /> */}
         </View>
     )
