@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { SafeAreaView, StatusBar } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import { createDrawerNavigator } from 'react-navigation-drawer'
+// import { createDrawerNavigator } from 'react-navigation-drawer'
 import AppLoading from 'expo-app-loading'
 
 import * as Font from 'expo-font'
@@ -37,7 +38,20 @@ function App() {
             />
         )
     } else {
-        return isLoadingComplete ? <AppContainer /> : <AppLoading />
+        return isLoadingComplete ? (
+            <SafeAreaView style={{ flex: 1 }}>
+                <StatusBar
+                    animated={true}
+                    backgroundColor="#001B79"
+                    barStyle="default"
+                    showHideTransition="fade"
+                    hidden={false}
+                />
+                <AppContainer />
+            </SafeAreaView>
+        ) : (
+            <AppLoading />
+        )
     }
 }
 async function loadResourcesAsync() {
