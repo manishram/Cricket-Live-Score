@@ -12,7 +12,7 @@ function Home(props) {
                 <TopHeader />
                 <TopHeaderBox />
             </View>
-            <TabSwitchScreen props={props} />
+            <TabSwitchScreen />
             {/* <LowerNavMenu /> */}
         </View>
     )
