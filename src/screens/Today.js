@@ -17,21 +17,29 @@ function Today({ navigation }) {
                     title="Points Table"
                 ></NavigationBtn>
                 <NavigationBtn
+                    navigation={navigation}
+                    navigateTo="Fixtures"
                     icon="format-list-checkbox"
                     style={styles.navigationBtn}
                     title="Fixtures"
                 ></NavigationBtn>
                 <NavigationBtn
+                    navigation={navigation}
+                    navigateTo="Auction"
                     icon="gavel"
                     style={styles.navigationBtn}
                     title="Auction"
                 ></NavigationBtn>
                 <NavigationBtn
+                    navigation={navigation}
+                    navigateTo="Records"
                     icon="trophy"
                     style={styles.navigationBtn}
                     title="Records"
                 ></NavigationBtn>
                 <NavigationBtn
+                    navigation={navigation}
+                    navigateTo="Venues"
                     icon="google-maps"
                     style={styles.navigationBtn}
                     title="Venues"

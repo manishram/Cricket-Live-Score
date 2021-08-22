@@ -11,6 +11,10 @@ import Today from './src/screens/Today'
 import Home from './src/screens/Home'
 import PointsTable from './src/screens/PointsTable'
 import TopHeaderBox from './src/components/TopHeaderBox'
+import Fixtures from './src/screens/Fixtures'
+import Auction from './src/screens/Auction'
+import Records from './src/screens/Records'
+import Venues from './src/screens/Venues'
 // const DrawerNavigation = createDrawerNavigator({})
 
 const StackNavigation = createStackNavigator(
@@ -20,6 +24,10 @@ const StackNavigation = createStackNavigator(
         // },
         Home: Home,
         PointsTable: PointsTable,
+        Fixtures: Fixtures,
+        Auction: Auction,
+        Records: Records,
+        Venues: Venues,
     },
     {
         headerMode: 'none',
