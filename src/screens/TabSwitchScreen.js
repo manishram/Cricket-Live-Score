@@ -5,8 +5,8 @@ import Today from './Today'
 import DetailScore from './DetailScore'
 import { ScrollView } from 'react-native-gesture-handler'
 import { TabBar } from 'react-native-tab-view'
-import LowerNavMenu from '../components/LowerNavMenu'
-
+import Recent from './Recent'
+import Upcoming from './Upcoming'
 const initialLayout = { width: Dimensions.get('window').width }
 
 function TabSwitchScreen({ navigation }) {
@@ -31,7 +31,7 @@ function TabSwitchScreen({ navigation }) {
                 return (
                     <View>
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <DetailScore />
+                            <Recent navigation={navigation} />
                         </ScrollView>
                     </View>
                 )
@@ -39,7 +39,7 @@ function TabSwitchScreen({ navigation }) {
                 return (
                     <View>
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <DetailScore />
+                            <Upcoming navigation={navigation} />
                         </ScrollView>
                     </View>
                 )

@@ -7,7 +7,7 @@ import NewsCard from '../components/NewsCard'
 function Today({ navigation }) {
     return (
         <View style={styles.container}>
-            <MatchCard style={styles.matchCard}></MatchCard>
+            <MatchCard navigation={navigation}></MatchCard>
             <View style={styles.navContainer}>
                 <NavigationBtn
                     navigation={navigation}
@@ -49,7 +49,9 @@ function Today({ navigation }) {
                 <Text style={styles.news3}>NEWS</Text>
                 <View style={styles.news3Filler}></View>
                 <View style={styles.group}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('News')}
+                    >
                         <View style={styles.viewAllLabel}>
                             <Text style={styles.viewAll}>View All</Text>
                         </View>
@@ -71,12 +73,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(240,240,240,1)',
         padding: 10,
     },
-    matchCard: {
-        height: 140,
-        width: '100%',
-        backgroundColor: '#fff',
-        margin: 15,
-    },
     navigationBtn: {
         height: 45,
         width: '100%',
@@ -84,7 +80,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
 
-    navContainer: { width: '100%', marginTop: 25 },
+    navContainer: { width: '100%', marginTop: 15 },
     news3: {
         fontFamily: 'roboto-700',
         color: '#121212',

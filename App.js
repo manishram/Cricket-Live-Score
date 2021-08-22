@@ -15,6 +15,7 @@ import Fixtures from './src/screens/Fixtures'
 import Auction from './src/screens/Auction'
 import Records from './src/screens/Records'
 import Venues from './src/screens/Venues'
+import News from './src/screens/News'
 // const DrawerNavigation = createDrawerNavigator({})
 
 const StackNavigation = createStackNavigator(
@@ -28,6 +29,8 @@ const StackNavigation = createStackNavigator(
         Auction: Auction,
         Records: Records,
         Venues: Venues,
+        News: News,
+        DetailScore: DetailScore,
     },
     {
         headerMode: 'none',

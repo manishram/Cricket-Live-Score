@@ -1,40 +1,44 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-function MatchCard() {
+function MatchCard({ navigation }) {
     return (
         <View style={styles.container}>
-            <View style={styles.matchNameRow}>
-                <Text style={styles.cskVsMi}>CSK vs MI</Text>
-                <View style={styles.liveLabel}>
-                    <Text style={styles.live}>Live</Text>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('DetailScore')}
+            >
+                <View style={styles.matchNameRow}>
+                    <Text style={styles.cskVsMi}>CSK vs MI</Text>
+                    <View style={styles.liveLabel}>
+                        <Text style={styles.live}>Live</Text>
+                    </View>
+                    <Icon name="chevron-right" style={styles.icon}></Icon>
                 </View>
-                <Icon name="chevron-right" style={styles.icon}></Icon>
-            </View>
-            <View style={styles.divider}></View>
-            <View style={styles.imageRow}>
-                <Image
-                    source={require('../assets/images/image_iaYu..png')}
-                    resizeMode="contain"
-                    style={styles.image}
-                ></Image>
-                <Text style={styles.csk2}>CSK</Text>
-                <Text style={styles.csk5}>203/11</Text>
-            </View>
-            <View style={styles.image1Row}>
-                <Image
-                    source={require('../assets/images/image_iaYu..png')}
-                    resizeMode="contain"
-                    style={styles.image1}
-                ></Image>
-                <Text style={styles.csk3}>CSK</Text>
-                <Text style={styles.csk6}>203/11</Text>
-            </View>
-            <View style={styles.rect5}></View>
-            <Text style={styles.text}>
-                CSK won the toss and decided to bat first
-            </Text>
+                <View style={styles.divider}></View>
+                <View style={styles.imageRow}>
+                    <Image
+                        source={require('../assets/images/image_iaYu..png')}
+                        resizeMode="contain"
+                        style={styles.image}
+                    ></Image>
+                    <Text style={styles.csk2}>CSK</Text>
+                    <Text style={styles.csk5}>203/11</Text>
+                </View>
+                <View style={styles.image1Row}>
+                    <Image
+                        source={require('../assets/images/image_iaYu..png')}
+                        resizeMode="contain"
+                        style={styles.image1}
+                    ></Image>
+                    <Text style={styles.csk3}>CSK</Text>
+                    <Text style={styles.csk6}>203/11</Text>
+                </View>
+                <View style={styles.rect5}></View>
+                <Text style={styles.text}>
+                    CSK won the toss and decided to bat first
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -53,6 +57,7 @@ const styles = StyleSheet.create({
         elevation: 4,
         shadowOpacity: 0.25,
         shadowRadius: 4,
+        marginBottom: 10,
     },
     cskVsMi: {
         fontFamily: 'inter-700',
