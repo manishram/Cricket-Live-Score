@@ -7,38 +7,9 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { TabBar } from 'react-native-tab-view'
 import LowerNavMenu from '../components/LowerNavMenu'
 
+const initialLayout = { width: Dimensions.get('window').width }
+
 function TabSwitchScreen({ navigation }) {
-    const FirstRoute = () => (
-        <View>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <Today navigation={navigation} />
-            </ScrollView>
-        </View>
-    )
-
-    const SecondRoute = () => (
-        <View>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <DetailScore />
-            </ScrollView>
-        </View>
-    )
-    const ThirdRoute = () => (
-        <View>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <DetailScore />
-            </ScrollView>
-        </View>
-    )
-
-    const initialLayout = { width: Dimensions.get('window').width }
-
-    const renderScene = SceneMap({
-        first: FirstRoute,
-        second: SecondRoute,
-        third: ThirdRoute,
-    })
-
     const [index, setIndex] = React.useState(1)
     const [routes] = React.useState([
         { key: 'second', title: 'Recent' },
@@ -46,6 +17,36 @@ function TabSwitchScreen({ navigation }) {
         { key: 'third', title: 'Upcoming' },
     ])
 
+    const renderScene = ({ route }) => {
+        switch (route.key) {
+            case 'first':
+                return (
+                    <View>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <Today navigation={navigation} />
+                        </ScrollView>
+                    </View>
+                )
+            case 'second':
+                return (
+                    <View>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <DetailScore />
+                        </ScrollView>
+                    </View>
+                )
+            case 'third':
+                return (
+                    <View>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <DetailScore />
+                        </ScrollView>
+                    </View>
+                )
+            default:
+                return null
+        }
+    }
     return (
         <TabView
             renderTabBar={(props) => (
