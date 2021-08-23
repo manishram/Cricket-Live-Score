@@ -17,20 +17,20 @@ function MatchCard({ navigation }) {
                 </View>
                 <View style={styles.divider}></View>
                 <View style={styles.imageRow}>
-                    <Image
+                    {/* <Image
                         source={require('../assets/images/image_iaYu..png')}
                         resizeMode="contain"
                         style={styles.image}
-                    ></Image>
+                    ></Image> */}
                     <Text style={styles.csk2}>CSK</Text>
                     <Text style={styles.csk5}>203/11</Text>
                 </View>
                 <View style={styles.image1Row}>
-                    <Image
+                    {/* <Image
                         source={require('../assets/images/image_iaYu..png')}
                         resizeMode="contain"
                         style={styles.image1}
-                    ></Image>
+                    ></Image> */}
                     <Text style={styles.csk3}>CSK</Text>
                     <Text style={styles.csk6}>203/11</Text>
                 </View>
