@@ -1,12 +1,21 @@
 import * as React from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import {
+    View,
+    StyleSheet,
+    Dimensions,
+    RefreshControl,
+    ScrollView,
+} from 'react-native'
 import { TabView } from 'react-native-tab-view'
 import Today from './Today'
-import { ScrollView } from 'react-native-gesture-handler'
 import { TabBar } from 'react-native-tab-view'
 import Recent from './Recent'
 import Upcoming from './Upcoming'
 const initialLayout = { width: Dimensions.get('window').width }
+
+const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout))
+}
 
 function TabSwitchScreen({ navigation }) {
     const [index, setIndex] = React.useState(1)
@@ -16,12 +25,27 @@ function TabSwitchScreen({ navigation }) {
         { key: 'third', title: 'Upcoming' },
     ])
 
+    const [refreshing, setRefreshing] = React.useState(false)
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true)
+        wait(2000).then(() => setRefreshing(false))
+    }, [])
+
     const renderScene = ({ route }) => {
         switch (route.key) {
             case 'first':
                 return (
                     <View>
-                        <ScrollView showsVerticalScrollIndicator={false}>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
                             <Today navigation={navigation} />
                         </ScrollView>
                     </View>
@@ -29,7 +53,15 @@ function TabSwitchScreen({ navigation }) {
             case 'second':
                 return (
                     <View>
-                        <ScrollView showsVerticalScrollIndicator={false}>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
                             <Recent navigation={navigation} />
                         </ScrollView>
                     </View>
@@ -37,7 +69,15 @@ function TabSwitchScreen({ navigation }) {
             case 'third':
                 return (
                     <View>
-                        <ScrollView showsVerticalScrollIndicator={false}>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
                             <Upcoming navigation={navigation} />
                         </ScrollView>
                     </View>
