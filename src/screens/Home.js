@@ -1,11 +1,33 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import TopHeaderBox from '../components/TopHeaderBox'
+import { createAppContainer } from 'react-navigation'
 import TabSwitchScreen from './TabSwitchScreen'
-import LowerNavMenu from '../components/LowerNavMenu'
+import { createStackNavigator } from 'react-navigation-stack'
+import DetailScore from './DetailScore'
 import PointsTable from './PointsTable'
-function Home(props) {
-    return <TabSwitchScreen navigation={props.navigation} />
+import Fixtures from './Fixtures'
+import Auction from './Auction'
+import Records from './Records'
+import Venues from './Venues'
+import News from './News'
+
+function Home() {
+    const StackNavigation = createStackNavigator(
+        {
+            TabSwitchScreen: TabSwitchScreen,
+            PointsTable: PointsTable,
+            Fixtures: Fixtures,
+            Auction: Auction,
+            Records: Records,
+            Venues: Venues,
+            News: News,
+            DetailScore: DetailScore,
+        },
+        {
+            headerMode: 'none',
+        }
+    )
+    const AppContainer = createAppContainer(StackNavigation)
+    return <AppContainer />
 }
 
 export default Home

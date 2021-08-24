@@ -1,43 +1,21 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StatusBar, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
-// import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 import AppLoading from 'expo-app-loading'
 
 import * as Font from 'expo-font'
-import DetailScore from './src/screens/DetailScore'
-import Today from './src/screens/Today'
 import Home from './src/screens/Home'
-import PointsTable from './src/screens/PointsTable'
 import TopHeaderBox from './src/components/TopHeaderBox'
 import Fixtures from './src/screens/Fixtures'
-import Auction from './src/screens/Auction'
-import Records from './src/screens/Records'
-import Venues from './src/screens/Venues'
 import News from './src/screens/News'
-// const DrawerNavigation = createDrawerNavigator({})
 
-const StackNavigation = createStackNavigator(
-    {
-        // DrawerNavigation: {
-        //     screen: DrawerNavigation,
-        // },
-        Home: Home,
-        PointsTable: PointsTable,
-        Fixtures: Fixtures,
-        Auction: Auction,
-        Records: Records,
-        Venues: Venues,
-        News: News,
-        DetailScore: DetailScore,
-    },
-    {
-        headerMode: 'none',
-    }
-)
-
-const AppContainer = createAppContainer(StackNavigation)
+const TabNavigator = createBottomTabNavigator({
+    Home: Home,
+    Fixtures: Fixtures,
+    News: News,
+})
+const AppContainer = createAppContainer(TabNavigator)
 
 function App() {
     const [isLoadingComplete, setLoadingComplete] = useState(false)
