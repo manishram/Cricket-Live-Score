@@ -3,6 +3,7 @@ import { SafeAreaView, StatusBar, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import AppLoading from 'expo-app-loading'
+import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import * as Font from 'expo-font'
 import Home from './src/screens/Home'
@@ -10,11 +11,47 @@ import TopHeaderBox from './src/components/TopHeaderBox'
 import Fixtures from './src/screens/Fixtures'
 import News from './src/screens/News'
 
-const TabNavigator = createBottomTabNavigator({
-    Home: Home,
-    Fixtures: Fixtures,
-    News: News,
-})
+const TabNavigator = createBottomTabNavigator(
+    {
+        Home: Home,
+        Series: Fixtures,
+        Fixtures: Fixtures,
+        News: News,
+    },
+    {
+        defaultNavigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, horizontal, tintColor }) => {
+                const { routeName } = navigation.state
+                let IconComponent = Ionicons
+                let iconName
+                if (routeName === 'Home') {
+                    iconName = focused ? 'home' : 'home'
+                    // Sometimes we want to add badges to some icons.
+                    // You can check the implementation below.
+                } else if (routeName === 'Fixtures') {
+                    iconName = focused ? 'tournament' : 'tournament'
+                } else if (routeName === 'News') {
+                    iconName = focused ? 'newspaper' : 'newspaper'
+                } else if (routeName === 'Series') {
+                    iconName = focused ? 'cricket' : 'cricket'
+                }
+
+                // You can return any component that you like here!
+                return (
+                    <IconComponent
+                        name={iconName}
+                        size={25}
+                        color={tintColor}
+                    />
+                )
+            },
+        }),
+        tabBarOptions: {
+            activeTintColor: '#001B79',
+            inactiveTintColor: 'gray',
+        },
+    }
+)
 const AppContainer = createAppContainer(TabNavigator)
 
 function App() {

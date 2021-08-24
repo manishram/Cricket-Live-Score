@@ -19,7 +19,7 @@ function Today({ navigation }) {
                 <NavigationBtn
                     navigation={navigation}
                     navigateTo="Fixtures"
-                    icon="format-list-checkbox"
+                    icon="tournament"
                     style={styles.navigationBtn}
                     title="Fixtures"
                 ></NavigationBtn>
