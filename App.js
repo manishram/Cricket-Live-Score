@@ -7,8 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import AppLoading from 'expo-app-loading'
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Font from 'expo-font'
-import Drawer from './src/components/Drawer'
-import TabNavigator from './src/components/TabNavigator'
+import DrawerNavigator from './src/components/DrawerNavigator'
 import Home from './src/screens/Home'
 import TopHeaderBox from './src/components/TopHeaderBox'
 import Fixtures from './src/screens/Fixtures'
@@ -56,7 +55,7 @@ function App() {
                     </View>
                     <View style={{ flex: 1, paddingTop: 50 }}>
                         <NavigationContainer>
-                            <Drawer />
+                            <DrawerNavigator />
                         </NavigationContainer>
                     </View>
                 </View>

@@ -9,8 +9,7 @@ import Auction from '../screens/Auction'
 import Records from '../screens/Records'
 import Venues from '../screens/Venues'
 import News from '../screens/News'
-import PrivacyPolicy from '../screens/PrivacyPolicy'
-import TermsAndCondition from '../screens/TermsAndCondition'
+import TabNavigator from './TabNavigator'
 
 const Stack = createStackNavigator()
 
@@ -21,7 +20,7 @@ const screenOptionStyle = {
 const MainStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="TabSwitchScreen" component={TabSwitchScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="PointsTable" component={PointsTable} />
             <Stack.Screen name="Fixtures" component={Fixtures} />
             <Stack.Screen name="Auction" component={Auction} />
@@ -33,22 +32,12 @@ const MainStackNavigator = () => {
     )
 }
 
-const TermsAndConditionStack = () => {
+const ContactStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen
-                name="Terms and Condition"
-                component={TermsAndCondition}
-            />
-        </Stack.Navigator>
-    )
-}
-const PrivacyPolicyStack = () => {
-    return (
-        <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
+            <Stack.Screen name="Venues" component={Venues} />
         </Stack.Navigator>
     )
 }
 
-export { MainStackNavigator, TermsAndConditionStack, PrivacyPolicyStack }
+export { MainStackNavigator, ContactStackNavigator }
