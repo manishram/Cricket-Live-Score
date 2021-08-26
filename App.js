@@ -7,7 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import AppLoading from 'expo-app-loading'
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Font from 'expo-font'
-
+import Drawer from './src/components/Drawer'
+import TabNavigator from './src/components/TabNavigator'
 import Home from './src/screens/Home'
 import TopHeaderBox from './src/components/TopHeaderBox'
 import Fixtures from './src/screens/Fixtures'
@@ -55,58 +56,7 @@ function App() {
                     </View>
                     <View style={{ flex: 1, paddingTop: 50 }}>
                         <NavigationContainer>
-                            <Tab.Navigator
-                                screenOptions={({ route }) => ({
-                                    tabBarIcon: ({ focused, color, size }) => {
-                                        let iconName
-                                        if (route.name === 'Home') {
-                                            iconName = focused ? 'home' : 'home'
-                                        } else if (route.name === 'Fixture') {
-                                            iconName = focused
-                                                ? 'tournament'
-                                                : 'tournament'
-                                        } else if (route.name === 'News') {
-                                            iconName = focused
-                                                ? 'newspaper'
-                                                : 'newspaper'
-                                        } else if (route.name === 'Series') {
-                                            iconName = focused
-                                                ? 'cricket'
-                                                : 'cricket'
-                                        }
-                                        return (
-                                            <Icons
-                                                name={iconName}
-                                                size={size}
-                                                color={color}
-                                            />
-                                        )
-                                    },
-
-                                    headerShown: false,
-                                })}
-                                tabBarOptions={{
-                                    activeTintColor: '#001B79',
-                                    inactiveTintColor: 'gray',
-                                }}
-                            >
-                                <Tab.Screen
-                                    name="Home"
-                                    component={HomeScreen}
-                                />
-                                <Tab.Screen
-                                    name="Series"
-                                    component={SeriesScreen}
-                                />
-                                <Tab.Screen
-                                    name="Fixture"
-                                    component={FixturesScreen}
-                                />
-                                <Tab.Screen
-                                    name="News"
-                                    component={NewsScreen}
-                                />
-                            </Tab.Navigator>
+                            <Drawer />
                         </NavigationContainer>
                     </View>
                 </View>
