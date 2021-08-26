@@ -10,35 +10,30 @@ function Today({ navigation }) {
             <MatchCard navigation={navigation}></MatchCard>
             <View style={styles.navContainer}>
                 <NavigationBtn
-                    navigation={navigation}
                     navigateTo="PointsTable"
                     icon="chart-bar"
                     style={styles.navigationBtn}
                     title="Points Table"
                 ></NavigationBtn>
                 <NavigationBtn
-                    navigation={navigation}
                     navigateTo="Fixtures"
                     icon="tournament"
                     style={styles.navigationBtn}
                     title="Fixtures"
                 ></NavigationBtn>
                 <NavigationBtn
-                    navigation={navigation}
                     navigateTo="Auction"
                     icon="gavel"
                     style={styles.navigationBtn}
                     title="Auction"
                 ></NavigationBtn>
                 <NavigationBtn
-                    navigation={navigation}
                     navigateTo="Records"
                     icon="trophy"
                     style={styles.navigationBtn}
                     title="Records"
                 ></NavigationBtn>
                 <NavigationBtn
-                    navigation={navigation}
                     navigateTo="Venues"
                     icon="google-maps"
                     style={styles.navigationBtn}

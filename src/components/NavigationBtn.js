@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-function NavigationBtn({ icon, title, navigation, navigateTo }) {
+function NavigationBtn({ icon, title, navigateTo }) {
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
             <TouchableOpacity
