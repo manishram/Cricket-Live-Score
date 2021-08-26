@@ -8,7 +8,13 @@ const Drawer = createDrawerNavigator()
 
 const DrawerNavigator = () => {
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator
+            edgeWidth={75}
+            drawerStyle={{
+                backgroundColor: 'white',
+                width: 240,
+            }}
+        >
             <Drawer.Screen name="Home" component={MainStackNavigator} />
             <Drawer.Screen name="Share" component={MainStackNavigator} />
             <Drawer.Screen name="Share2" component={ContactStackNavigator} />
