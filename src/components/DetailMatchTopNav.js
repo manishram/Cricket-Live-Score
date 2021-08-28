@@ -12,7 +12,9 @@ import { TabView } from 'react-native-tab-view'
 import { TabBar } from 'react-native-tab-view'
 import Info from '../screens/Info'
 import Live from '../screens/Live'
-
+import Scorecard from '../screens/Scorecard'
+import Hightlights from '../screens/Highlights'
+import Overs from '../screens/Overs'
 const initialLayout = { width: Dimensions.get('window').width }
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
@@ -69,6 +71,55 @@ function DetailMatchTopNav(props) {
                             }
                         >
                             <Live matchDetail={matchData} />
+                        </ScrollView>
+                    </View>
+                )
+
+            case 'scorecard':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <Scorecard matchDetail={matchData} />
+                        </ScrollView>
+                    </View>
+                )
+            case 'highlights':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <Hightlights matchDetail={matchData} />
+                        </ScrollView>
+                    </View>
+                )
+            case 'overs':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <Overs matchDetail={matchData} />
                         </ScrollView>
                     </View>
                 )

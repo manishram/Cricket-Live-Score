@@ -7,28 +7,30 @@ function Circle({ textValue }) {
         case 'W':
             color = 'red'
             break
-
-        case '1':
+        case 0:
+            color = '#ccc'
+            break
+        case 1:
             color = '#39739d'
             break
 
-        case '2':
+        case 2:
             color = '#39739d'
             break
 
-        case '3':
+        case 3:
             color = '#39739d'
             break
 
-        case '4':
+        case 4:
             color = '#b01dca'
             break
 
-        case '6':
+        case 6:
             color = 'green'
             break
         default:
-            color = '#cacaca'
+            color = '#ff9800'
     }
     return (
         <View

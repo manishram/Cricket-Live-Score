@@ -10,7 +10,7 @@ import RequestApi from '../api/RequestApi'
 import MatchCard from '../components/MatchCard'
 import Circle from '../components/Circle'
 
-function Live({ matchDetail }) {
+function Scorecard({ matchDetail }) {
     let matchId = matchDetail.match_id
 
     const [batsman, setBatsman] = useState([])
@@ -32,10 +32,8 @@ function Live({ matchDetail }) {
     }, [])
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Live Score</Text>
-            <MatchCard matchData={matchDetail} />
+            <Text style={styles.title}>Scorecard</Text>
 
-            <Text style={styles.title}>Player Stats</Text>
             <View style={styles.card}>
                 <View style={styles.livePlayerRow}>
                     <Text style={[styles.livePlayerHeaderText, styles.a]}>
@@ -137,47 +135,6 @@ function Live({ matchDetail }) {
                     }}
                 />
             </View>
-            <View style={styles.card}>
-                <View style={styles.overBoxTopRow}>
-                    <Text style={[styles.title, { flex: 1 }]}>
-                        Commentaries
-                    </Text>
-                    {/* <Circle textValue="W" style={styles.circle} />
-                    <Circle textValue="1" style={styles.circle} />
-                    <Circle textValue="2" style={styles.circle} />
-                    <Circle textValue="0" style={styles.circle} />
-                    <Circle textValue="4" style={styles.circle} />
-                    <Circle textValue="6" style={styles.circle} /> */}
-                </View>
-                <View style={styles.lineStyle} />
-                <FlatList
-                    data={commentary}
-                    inverted={true}
-                    keyExtractor={(commentary, index) => index.toString()}
-                    renderItem={(items) => {
-                        return items.item.event !== 'overend' ? (
-                            <View style={[styles.CommetaryRow]}>
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontFamily: 'inter-600' }}>
-                                        {items.item.over +
-                                            '.' +
-                                            items.item.ball}
-                                    </Text>
-                                    <Circle
-                                        textValue={items.item.score}
-                                        style={styles.circle}
-                                    />
-                                </View>
-                                <Text style={styles.CommentaryText}>
-                                    {items.item.commentary}
-                                </Text>
-                            </View>
-                        ) : (
-                            <View style={styles.lineStyle} />
-                        )
-                    }}
-                />
-            </View>
         </View>
     )
 }
@@ -267,4 +224,4 @@ const styles = StyleSheet.create({
     CommentaryText: { flex: 6, marginLeft: 10 },
 })
 
-export default Live
+export default Scorecard
