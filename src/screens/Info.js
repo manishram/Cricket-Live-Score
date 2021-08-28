@@ -33,7 +33,6 @@ function Info({ matchDetail }) {
     useEffect(() => {
         teamPlayers()
     }, [])
-    console.log(teamAPlayers)
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Match Info</Text>

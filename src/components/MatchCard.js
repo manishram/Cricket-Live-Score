@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         marginBottom: 10,
+        marginTop: 10,
     },
     cskVsMi: {
         fontFamily: 'inter-700',

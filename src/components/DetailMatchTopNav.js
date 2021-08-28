@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/core'
 import { TabView } from 'react-native-tab-view'
 import { TabBar } from 'react-native-tab-view'
 import Info from '../screens/Info'
+import Live from '../screens/Live'
 
 const initialLayout = { width: Dimensions.get('window').width }
 const wait = (timeout) => {
@@ -20,10 +21,10 @@ const wait = (timeout) => {
 function DetailMatchTopNav(props) {
     // const { itemId, otherParam } = route.params
     const matchData = props.route.params.matchData
-    const [index, setIndex] = React.useState(0)
+    const [index, setIndex] = React.useState(1)
     const [routes] = React.useState([
         { key: 'info', title: 'Info' },
-        { key: 'Live', title: 'Live' },
+        { key: 'live', title: 'Live' },
         { key: 'scorecard', title: 'Scorecard' },
         { key: 'highlights', title: 'Highlights' },
         { key: 'overs', title: 'Overs' },
@@ -51,6 +52,23 @@ function DetailMatchTopNav(props) {
                             }
                         >
                             <Info matchDetail={matchData} />
+                        </ScrollView>
+                    </View>
+                )
+
+            case 'live':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <Live matchDetail={matchData} />
                         </ScrollView>
                     </View>
                 )
