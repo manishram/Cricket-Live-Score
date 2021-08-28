@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react'
-import { StyleSheet, View, ScrollView, Text } from 'react-native'
+import React, { Component, useState, useEffect } from 'react'
+import { StyleSheet, View, ScrollView, Text, FlatList } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import RequestApi from '../api/RequestApi'
 
@@ -10,22 +10,30 @@ const Recent = ({ navigation }) => {
             const response = await RequestApi.get('matches/', {
                 params: {
                     status: 2,
-                    format: 4,
-                    token: 'ec471071441bb2ac538a0ff901abd249',
+                    format: 3,
+                    paged: 1,
+                    per_page: 10,
                 },
             })
-            setResults(response)
+            setResults(response.data.response.items)
         } catch (err) {
             console.log(err)
         }
     }
+    useEffect(() => {
+        recentMatch()
+    }, [])
+
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
-                <MatchCard navigation={navigation}></MatchCard>
-                <MatchCard navigation={navigation}></MatchCard>
-                <MatchCard navigation={navigation}></MatchCard>
-                <MatchCard navigation={navigation}></MatchCard>
+                <FlatList
+                    data={results}
+                    keyExtractor={(results) => results.result}
+                    renderItem={(items) => {
+                        return <MatchCard matchData={items.item} />
+                    }}
+                />
             </View>
         </ScrollView>
     )

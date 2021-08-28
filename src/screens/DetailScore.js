@@ -2,59 +2,61 @@ import React, { Component } from 'react'
 import { StyleSheet, View, StatusBar, Text, ScrollView } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import CommentaryBox from '../components/CommentaryBox'
+import DetailMatchTopNav from '../components/DetailMatchTopNav'
 
 function DetailScore(props) {
     return (
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.container}>
-                <MatchCard style={styles.matchCard}></MatchCard>
-                <View style={styles.rect}>
-                    <View style={styles.batsmanRow}>
-                        <Text style={styles.batsman}>Batsman</Text>
-                        <Text style={styles.r5}>R</Text>
-                        <Text style={styles.b2}>B</Text>
-                        <Text style={styles.b3}>4s</Text>
-                        <Text style={styles.b4}>6s</Text>
-                        <Text style={styles.sr}>SR</Text>
-                    </View>
-                    <View style={styles.rect2}></View>
-                    <View style={styles.batsman3Row}>
-                        <Text style={styles.batsman3}>Batsman</Text>
-                        <Text style={styles.r6}>R</Text>
-                        <Text style={styles.b7}>B</Text>
-                        <Text style={styles.b6}>4s</Text>
-                        <Text style={styles.b5}>6s</Text>
-                        <Text style={styles.sr1}>SR</Text>
-                    </View>
-                    <View style={styles.batsman4Row}>
-                        <Text style={styles.batsman4}>Batsman</Text>
-                        <Text style={styles.r7}>R</Text>
-                        <Text style={styles.b8}>B</Text>
-                        <Text style={styles.b9}>4s</Text>
-                        <Text style={styles.b10}>6s</Text>
-                        <Text style={styles.sr2}>SR</Text>
-                    </View>
-                    <View style={styles.bowlerRow}>
-                        <Text style={styles.bowler}>Bowler</Text>
-                        <Text style={styles.r8}>R</Text>
-                        <Text style={styles.b13}>B</Text>
-                        <Text style={styles.b12}>4s</Text>
-                        <Text style={styles.b11}>6s</Text>
-                        <Text style={styles.sr3}>SR</Text>
-                    </View>
-                    <View style={styles.rect3}></View>
-                    <View style={styles.batsman5Row}>
-                        <Text style={styles.batsman5}>Batsman</Text>
-                        <Text style={styles.r9}>R</Text>
-                        <Text style={styles.b14}>B</Text>
-                        <Text style={styles.b15}>4s</Text>
-                        <Text style={styles.b16}>6s</Text>
-                        <Text style={styles.sr4}>SR</Text>
-                    </View>
-                </View>
-                <CommentaryBox />
-            </View>
-        </ScrollView>
+        // <ScrollView showsVerticalScrollIndicator={false}>
+        //     <View style={styles.container}>
+        //         {/* <MatchCard style={styles.matchCard}></MatchCard> */}
+        //         <View style={styles.rect}>
+        //             <View style={styles.batsmanRow}>
+        //                 <Text style={styles.batsman}>Batsman</Text>
+        //                 <Text style={styles.r5}>R</Text>
+        //                 <Text style={styles.b2}>B</Text>
+        //                 <Text style={styles.b3}>4s</Text>
+        //                 <Text style={styles.b4}>6s</Text>
+        //                 <Text style={styles.sr}>SR</Text>
+        //             </View>
+        //             <View style={styles.rect2}></View>
+        //             <View style={styles.batsman3Row}>
+        //                 <Text style={styles.batsman3}>Batsman</Text>
+        //                 <Text style={styles.r6}>R</Text>
+        //                 <Text style={styles.b7}>B</Text>
+        //                 <Text style={styles.b6}>4s</Text>
+        //                 <Text style={styles.b5}>6s</Text>
+        //                 <Text style={styles.sr1}>SR</Text>
+        //             </View>
+        //             <View style={styles.batsman4Row}>
+        //                 <Text style={styles.batsman4}>Batsman</Text>
+        //                 <Text style={styles.r7}>R</Text>
+        //                 <Text style={styles.b8}>B</Text>
+        //                 <Text style={styles.b9}>4s</Text>
+        //                 <Text style={styles.b10}>6s</Text>
+        //                 <Text style={styles.sr2}>SR</Text>
+        //             </View>
+        //             <View style={styles.bowlerRow}>
+        //                 <Text style={styles.bowler}>Bowler</Text>
+        //                 <Text style={styles.r8}>R</Text>
+        //                 <Text style={styles.b13}>B</Text>
+        //                 <Text style={styles.b12}>4s</Text>
+        //                 <Text style={styles.b11}>6s</Text>
+        //                 <Text style={styles.sr3}>SR</Text>
+        //             </View>
+        //             <View style={styles.rect3}></View>
+        //             <View style={styles.batsman5Row}>
+        //                 <Text style={styles.batsman5}>Batsman</Text>
+        //                 <Text style={styles.r9}>R</Text>
+        //                 <Text style={styles.b14}>B</Text>
+        //                 <Text style={styles.b15}>4s</Text>
+        //                 <Text style={styles.b16}>6s</Text>
+        //                 <Text style={styles.sr4}>SR</Text>
+        //             </View>
+        //         </View>
+        //         <CommentaryBox />
+        //     </View>
+        // </ScrollView>
+        <DetailMatchTopNav />
     )
 }
 

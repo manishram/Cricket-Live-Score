@@ -3,11 +3,13 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
 import NewsCard from '../components/NewsCard'
+import { useNavigation } from '@react-navigation/native'
 
-function Today({ navigation }) {
+function Today() {
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
-            <MatchCard navigation={navigation}></MatchCard>
+            {/* <MatchCard navigation={navigation}></MatchCard> */}
             <View style={styles.navContainer}>
                 <NavigationBtn
                     navigateTo="PointsTable"

@@ -5,24 +5,28 @@ import {
     Dimensions,
     RefreshControl,
     ScrollView,
+    Text,
 } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
 import { TabView } from 'react-native-tab-view'
-import Today from './Today'
 import { TabBar } from 'react-native-tab-view'
-import Recent from './Recent'
-import Upcoming from './Upcoming'
-const initialLayout = { width: Dimensions.get('window').width }
+import Info from '../screens/Info'
 
+const initialLayout = { width: Dimensions.get('window').width }
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
 }
 
-function TabSwitchScreen({ navigation }) {
-    const [index, setIndex] = React.useState(1)
+function DetailMatchTopNav(props) {
+    // const { itemId, otherParam } = route.params
+    const matchData = props.route.params.matchData
+    const [index, setIndex] = React.useState(0)
     const [routes] = React.useState([
-        { key: 'second', title: 'Recent' },
-        { key: 'first', title: 'Today' },
-        { key: 'third', title: 'Upcoming' },
+        { key: 'info', title: 'Info' },
+        { key: 'Live', title: 'Live' },
+        { key: 'scorecard', title: 'Scorecard' },
+        { key: 'highlights', title: 'Highlights' },
+        { key: 'overs', title: 'Overs' },
     ])
 
     const [refreshing, setRefreshing] = React.useState(false)
@@ -34,7 +38,7 @@ function TabSwitchScreen({ navigation }) {
 
     const renderScene = ({ route }) => {
         switch (route.key) {
-            case 'first':
+            case 'info':
                 return (
                     <View>
                         <ScrollView
@@ -46,42 +50,11 @@ function TabSwitchScreen({ navigation }) {
                                 />
                             }
                         >
-                            <Today navigation={navigation} />
+                            <Info matchDetail={matchData} />
                         </ScrollView>
                     </View>
                 )
-            case 'second':
-                return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <Recent navigation={navigation} />
-                        </ScrollView>
-                    </View>
-                )
-            case 'third':
-                return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <Upcoming navigation={navigation} />
-                        </ScrollView>
-                    </View>
-                )
+
             default:
                 return null
         }
@@ -123,7 +96,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
     },
     tabStyle: {
-        width: 120,
+        width: 'auto',
     },
 })
-export default TabSwitchScreen
+export default DetailMatchTopNav

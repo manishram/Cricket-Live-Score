@@ -1,43 +1,62 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useNavigation } from '@react-navigation/native'
 
-function MatchCard({ navigation }) {
+function MatchCard(props) {
+    const navigation = useNavigation()
+
+    let teama_name = props.matchData.teama.name
+    let teamb_name = props.matchData.teamb.name
+    let teama_logo = props.matchData.teama.logo_url
+    let teamb_logo = props.matchData.teamb.logo_url
+    let tournament_name = props.matchData.competition.title
+    let matchStatus = props.matchData.status
+    let liveMatchStatusCode = 3
+    let statusNote = props.matchData.status_note
+    let teamaScore = props.matchData.teama.scores_full
+    let teambScore = props.matchData.teamb.scores_full
+
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('DetailScore')}
+                onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    navigation.navigate('DetailMatchTopNav', {
+                        matchData: props.matchData,
+                    })
+                }}
             >
                 <View style={styles.matchNameRow}>
-                    <Text style={styles.cskVsMi}>CSK vs MI</Text>
-                    <View style={styles.liveLabel}>
-                        <Text style={styles.live}>Live</Text>
-                    </View>
+                    <Text style={styles.cskVsMi}>{tournament_name}</Text>
+                    {matchStatus === liveMatchStatusCode ? (
+                        <View style={styles.liveLabel}>
+                            <Text style={styles.live}>Live</Text>
+                        </View>
+                    ) : null}
                     <Icon name="chevron-right" style={styles.icon}></Icon>
                 </View>
                 <View style={styles.divider}></View>
                 <View style={styles.imageRow}>
-                    {/* <Image
-                        source={require('../assets/images/image_iaYu..png')}
+                    <Image
+                        source={{ uri: teama_logo }}
                         resizeMode="contain"
                         style={styles.image}
-                    ></Image> */}
-                    <Text style={styles.csk2}>CSK</Text>
-                    <Text style={styles.csk5}>203/11</Text>
+                    ></Image>
+                    <Text style={styles.csk2}>{teama_name}</Text>
+                    <Text style={styles.csk5}>{teamaScore}</Text>
                 </View>
                 <View style={styles.image1Row}>
-                    {/* <Image
-                        source={require('../assets/images/image_iaYu..png')}
+                    <Image
+                        source={{ uri: teamb_logo }}
                         resizeMode="contain"
                         style={styles.image1}
-                    ></Image> */}
-                    <Text style={styles.csk3}>CSK</Text>
-                    <Text style={styles.csk6}>203/11</Text>
+                    ></Image>
+                    <Text style={styles.csk3}>{teamb_name}</Text>
+                    <Text style={styles.csk6}>{teambScore}</Text>
                 </View>
                 <View style={styles.rect5}></View>
-                <Text style={styles.text}>
-                    CSK won the toss and decided to bat first
-                </Text>
+                <Text style={styles.text}>{statusNote}</Text>
             </TouchableOpacity>
         </View>
     )
@@ -116,7 +135,7 @@ const styles = StyleSheet.create({
         fontFamily: 'inter-500',
         color: 'rgba(99,99,99,1)',
         fontSize: 12,
-        marginLeft: 191,
+        marginLeft: 130,
         marginTop: 9,
     },
     imageRow: {
@@ -141,7 +160,7 @@ const styles = StyleSheet.create({
         fontFamily: 'inter-500',
         color: 'rgba(99,99,99,1)',
         fontSize: 12,
-        marginLeft: 191,
+        marginLeft: 135,
         marginTop: 8,
     },
     image1Row: {
@@ -152,7 +171,7 @@ const styles = StyleSheet.create({
         marginRight: 28,
     },
     rect5: {
-        width: 346,
+        width: '100%',
         height: 1,
         backgroundColor: '#E6E6E6',
         marginTop: 8,
@@ -162,7 +181,7 @@ const styles = StyleSheet.create({
         color: 'rgba(99,99,99,1)',
         fontSize: 10,
         marginTop: 3,
-        marginLeft: 74,
+        alignSelf: 'center',
     },
 })
 

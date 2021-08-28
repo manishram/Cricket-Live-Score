@@ -10,6 +10,7 @@ import Records from '../screens/Records'
 import Venues from '../screens/Venues'
 import News from '../screens/News'
 import TabNavigator from './TabNavigator'
+import DetailMatchTopNav from './DetailMatchTopNav'
 
 const Stack = createStackNavigator()
 
@@ -28,6 +29,10 @@ const MainStackNavigator = () => {
             <Stack.Screen name="Venues" component={Venues} />
             <Stack.Screen name="News" component={News} />
             <Stack.Screen name="DetailScore" component={DetailScore} />
+            <Stack.Screen
+                name="DetailMatchTopNav"
+                component={DetailMatchTopNav}
+            />
         </Stack.Navigator>
     )
 }
