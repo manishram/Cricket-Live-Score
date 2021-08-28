@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     StyleSheet,
     View,
@@ -17,7 +17,23 @@ function Info({ matchDetail }) {
     let match_title = matchDetail.title
     let teamAname = matchDetail.teama.name
     let teamBname = matchDetail.teamb.name
+    let matchId = matchDetail.match_id
 
+    const [teamAPlayers, setTeamAplayer] = useState([])
+    const [teamBPlayers, setTeaBAplayer] = useState([])
+    const teamPlayers = async () => {
+        try {
+            const response = await RequestApi.get(`matches/${matchId}/squads`)
+            setTeamAplayer(response.data.response.teama.squads)
+            setTeaBAplayer(response.data.response.teamb.squads)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        teamPlayers()
+    }, [])
+    console.log(teamAPlayers)
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Match Info</Text>
@@ -40,10 +56,10 @@ function Info({ matchDetail }) {
                     <Text style={styles.infoName}>Venue</Text>
                     <Text style={styles.infoText}>{venue}</Text>
                 </View>
-                <View style={styles.infoRow}>
+                {/* <View style={styles.infoRow}>
                     <Text style={styles.infoName}>Capacity</Text>
-                    <Text style={styles.infoText}>Match Info</Text>
-                </View>
+                    <Text style={styles.infoText}>10000</Text>
+                </View> */}
                 <View style={styles.infoRow}>
                     <Text style={styles.infoName}>Toss</Text>
                     <Text style={styles.infoText}>{toss}</Text>
@@ -60,12 +76,39 @@ function Info({ matchDetail }) {
             <Text style={styles.title}>Starting XI</Text>
             <View style={styles.card}>
                 <View style={styles.infoRow}>
-                    <Text style={styles.teamAname}>{teamAname}</Text>
-                    <Text style={styles.teamBname}>{teamBname}</Text>
-                </View>
-                <View style={styles.infoRow}>
-                    <Text style={styles.teamAMemberName}>England</Text>
-                    <Text style={styles.teamBMemberName}>India</Text>
+                    <View style={styles.playerCol}>
+                        <Text style={styles.teamAname}>{teamAname}</Text>
+                        <FlatList
+                            data={teamAPlayers}
+                            keyExtractor={(teamAPlayers) =>
+                                teamAPlayers.player_id
+                            }
+                            renderItem={(items) => {
+                                return items.item.playing11 === 'true' ? (
+                                    <Text style={styles.teamAMemberName}>
+                                        {items.item.name + items.item.role_str}
+                                    </Text>
+                                ) : null
+                            }}
+                        />
+                    </View>
+
+                    <View style={styles.playerCol}>
+                        <Text style={styles.teamBname}>{teamBname}</Text>
+                        <FlatList
+                            data={teamBPlayers}
+                            keyExtractor={(teamBPlayers) =>
+                                teamBPlayers.player_id
+                            }
+                            renderItem={(items) => {
+                                return items.item.playing11 === 'true' ? (
+                                    <Text style={styles.teamBMemberName}>
+                                        {items.item.name + items.item.role_str}
+                                    </Text>
+                                ) : null
+                            }}
+                        />
+                    </View>
                 </View>
             </View>
         </View>
@@ -117,24 +160,29 @@ const styles = StyleSheet.create({
     teamAname: {
         fontFamily: 'inter-700',
         flex: 1,
-        fontSize: 12,
+        fontSize: 14,
     },
     teamBname: {
         fontFamily: 'inter-700',
         flex: 1,
         textAlign: 'right',
-        fontSize: 12,
+        fontSize: 14,
     },
     teamAMemberName: {
         fontFamily: 'inter-500',
-        flex: 1,
         fontSize: 12,
+        marginTop: 5,
+        marginBottom: 5,
     },
     teamBMemberName: {
         fontFamily: 'inter-500',
-        flex: 1,
-        textAlign: 'right',
         fontSize: 12,
+        textAlign: 'right',
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    playerCol: {
+        flex: 1,
     },
 })
 
