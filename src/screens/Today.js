@@ -1,15 +1,48 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import React, { Component, useState, useEffect } from 'react'
+import {
+    StyleSheet,
+    View,
+    Text,
+    TouchableOpacity,
+    FlatList,
+} from 'react-native'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
 import NewsCard from '../components/NewsCard'
 import { useNavigation } from '@react-navigation/native'
+import RequestApi from '../api/RequestApi'
 
 function Today() {
     const navigation = useNavigation()
+
+    const [results, setResults] = useState([])
+    const todayMatch = async () => {
+        try {
+            const response = await RequestApi.get('matches/', {
+                params: {
+                    status: 1,
+                    format: 6,
+                    paged: 1,
+                    per_page: 10,
+                },
+            })
+            setResults(response.data.response.items)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        todayMatch()
+    }, [])
     return (
         <View style={styles.container}>
-            {/* <MatchCard navigation={navigation}></MatchCard> */}
+            <FlatList
+                data={results}
+                keyExtractor={(results) => results.match_id}
+                renderItem={(items) => {
+                    return <MatchCard matchData={items.item} />
+                }}
+            />
             <View style={styles.navContainer}>
                 <NavigationBtn
                     navigateTo="PointsTable"

@@ -1,10 +1,30 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, Text } from 'react-native'
+import React, { Component, useState } from 'react'
+import { StyleSheet, View, ScrollView, Text, Switch } from 'react-native'
 import AuctionPlayerCard from '../components/AuctionPlayerCard'
 const Auction = () => {
+    const [isEnabled, setIsEnabled] = useState(false)
+    const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Text>Unsold</Text>
+                    <Switch
+                        style={{ marginTop: -5 }}
+                        trackColor={{ false: '#767577', true: '#81b0ff' }}
+                        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleSwitch}
+                        value={isEnabled}
+                    />
+                    <Text>Sold</Text>
+                </View>
                 <Text style={styles.role}>Batsmen</Text>
                 <AuctionPlayerCard />
                 <AuctionPlayerCard />
