@@ -2,15 +2,14 @@ import React, { Component, useState, useEffect } from 'react'
 import { StyleSheet, View, ScrollView, Text, FlatList } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import RequestApi from '../api/RequestApi'
+import SeriesCard from '../components/SeriesCard'
 
-const Recent = ({ navigation }) => {
+const Series = ({ navigation }) => {
     const [results, setResults] = useState([])
-    const recentMatch = async () => {
+    const series = async () => {
         try {
-            const response = await RequestApi.get('matches/', {
+            const response = await RequestApi.get('competitions/', {
                 params: {
-                    status: 2,
-                    format: 3,
                     paged: 1,
                     per_page: 10,
                 },
@@ -21,7 +20,7 @@ const Recent = ({ navigation }) => {
         }
     }
     useEffect(() => {
-        recentMatch()
+        series()
     }, [])
 
     return (
@@ -29,9 +28,9 @@ const Recent = ({ navigation }) => {
             <View style={styles.container}>
                 <FlatList
                     data={results}
-                    keyExtractor={(results) => results.match_id.toString()}
+                    keyExtractor={(results) => results.cid.toString()}
                     renderItem={(items) => {
-                        return <MatchCard matchData={items.item} />
+                        return <SeriesCard seriesData={items.item} />
                     }}
                 />
             </View>
@@ -46,4 +45,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Recent
+export default Series

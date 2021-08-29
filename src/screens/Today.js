@@ -11,6 +11,7 @@ import NavigationBtn from '../components/NavigationBtn'
 import NewsCard from '../components/NewsCard'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
+import AppApi from '../api/AppApi'
 
 function Today() {
     const navigation = useNavigation()
@@ -34,6 +35,41 @@ function Today() {
     useEffect(() => {
         todayMatch()
     }, [])
+
+    const [featuredNews, setFeaturedNews] = useState([])
+    const getFeaturedNews = async () => {
+        try {
+            const response = await AppApi.get('/news', {
+                params: {
+                    featured: 'true',
+                },
+            })
+            setFeaturedNews(response.data.response)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        getFeaturedNews()
+    }, [])
+
+    const [notFeaturedNews, setNotFeatured] = useState([])
+    const getNotFeaturedNews = async () => {
+        try {
+            const response = await AppApi.get('/news', {
+                params: {
+                    featured: 'false',
+                },
+            })
+            setNotFeatured(response.data.response)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        getNotFeaturedNews()
+    }, [])
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -88,11 +124,20 @@ function Today() {
                     </TouchableOpacity>
                 </View>
             </View>
-            <NewsCard isFeatured={1} />
-            <NewsCard isFeatured={0} />
-            <NewsCard isFeatured={0} />
-            <NewsCard isFeatured={1} />
-            <NewsCard isFeatured={0} />
+            <FlatList
+                data={featuredNews}
+                keyExtractor={(news) => news.id.toString()}
+                renderItem={(items) => {
+                    return <NewsCard newsData={items.item} />
+                }}
+            />
+            <FlatList
+                data={notFeaturedNews}
+                keyExtractor={(news) => news.id.toString()}
+                renderItem={(items) => {
+                    return <NewsCard newsData={items.item} />
+                }}
+            />
         </View>
     )
 }

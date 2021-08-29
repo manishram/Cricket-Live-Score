@@ -11,6 +11,7 @@ import Venues from '../screens/Venues'
 import News from '../screens/News'
 import TabNavigator from './TabNavigator'
 import DetailMatchTopNav from './DetailMatchTopNav'
+import SeriesMatches from '../screens/SeriesMatches'
 
 const Stack = createStackNavigator()
 
@@ -33,6 +34,7 @@ const MainStackNavigator = () => {
                 name="DetailMatchTopNav"
                 component={DetailMatchTopNav}
             />
+            <Stack.Screen name="SeriesMatches" component={SeriesMatches} />
         </Stack.Navigator>
     )
 }

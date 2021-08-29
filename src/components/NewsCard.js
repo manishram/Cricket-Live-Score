@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 
-function NewsCard({ isFeatured }) {
+function NewsCard(props) {
     featuredLabel = (
         <View style={styles.featuredLabel}>
             <View style={styles.labelBox}>
@@ -10,17 +10,23 @@ function NewsCard({ isFeatured }) {
         </View>
     )
 
+    let image = props.newsData.image
+    let title = props.newsData.title
+    let description = props.newsData.description
+    let news_body = props.newsData.news_body
+    let isFeatured = props.newsData.featured
+
     return (
         <View style={styles.container}>
             <View style={styles.newsBodyStack}>
                 <View style={styles.newsBody}>
                     <TouchableOpacity>
                         <View style={styles.newsRect}>
-                            {isFeatured ? featuredLabel : null}
+                            {isFeatured == 1 ? featuredLabel : null}
 
                             <View style={styles.imageRow}>
                                 <Image
-                                    source={require('../assets/images/cardImage2.png')}
+                                    source={{ uri: image }}
                                     resizeMode="contain"
                                     style={styles.image}
                                 ></Image>
@@ -29,8 +35,7 @@ function NewsCard({ isFeatured }) {
                                         numberOfLines={2}
                                         style={styles.newsTitle}
                                     >
-                                        IPL 2021: 5 Players who can replace
-                                        Washington Sundar at RCB
+                                        {title}
                                     </Text>
 
                                     <View style={styles.textStack}>
@@ -38,12 +43,7 @@ function NewsCard({ isFeatured }) {
                                             numberOfLines={5}
                                             style={styles.text}
                                         >
-                                            5 Players who can replace Pat
-                                            Cummins in the UAE leg Not only has
-                                            Pat Cummins been sensational for
-                                            Australia but he has also been
-                                            superb for KKR in the Indian Premier
-                                            League (IPL).
+                                            {description}
                                         </Text>
                                         <Text style={styles.newsTitme}>
                                             6 hours ago

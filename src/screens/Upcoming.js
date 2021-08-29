@@ -29,7 +29,7 @@ const Upcoming = () => {
             <View style={styles.container}>
                 <FlatList
                     data={results}
-                    keyExtractor={(results) => results.result}
+                    keyExtractor={(results) => results.match_id.toString()}
                     renderItem={(items) => {
                         return <MatchCard matchData={items.item} />
                     }}

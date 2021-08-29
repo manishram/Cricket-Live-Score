@@ -5,12 +5,13 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Home from '../screens/TabSwitchScreen'
 import Fixtures from '../screens/Fixtures'
 import News from '../screens/News'
+import Series from '../screens/Series'
 
 function HomeScreen({ navigation }) {
     return <Home />
 }
 function SeriesScreen() {
-    return <Fixtures />
+    return <Series />
 }
 function FixturesScreen() {
     return <Fixtures />
