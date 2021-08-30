@@ -12,6 +12,7 @@ import NewsCard from '../components/NewsCard'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
 import AppApi from '../api/AppApi'
+import BannerAd from '../components/BannerAd'
 
 function Today() {
     const navigation = useNavigation()
@@ -110,6 +111,7 @@ function Today() {
                     style={styles.navigationBtn}
                     title="Venues"
                 ></NavigationBtn>
+                <BannerAd id="1249709505449779_1249712162116180" />
             </View>
             <View style={styles.news3Row}>
                 <Text style={styles.news3}>NEWS</Text>
