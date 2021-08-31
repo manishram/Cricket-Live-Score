@@ -3,16 +3,15 @@ import { StyleSheet, View, ScrollView, Text, FlatList } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import RequestApi from '../api/RequestApi'
 
-const Recent = ({ navigation }) => {
+const Recent = ({ navigation, startDate, endDate }) => {
     const [results, setResults] = useState([])
     const recentMatch = async () => {
         try {
             const response = await RequestApi.get('matches/', {
                 params: {
-                    status: 2,
-                    format: 3,
+                    date: `${startDate}_${endDate}`,
                     paged: 1,
-                    per_page: 10,
+                    per_page: 100,
                 },
             })
             setResults(response.data.response.items)

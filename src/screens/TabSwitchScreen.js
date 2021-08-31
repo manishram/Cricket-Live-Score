@@ -9,20 +9,63 @@ import {
 import { TabView } from 'react-native-tab-view'
 import Today from './Today'
 import { TabBar } from 'react-native-tab-view'
-import Recent from './Recent'
+import MatchLists from './MatchLists'
 import Upcoming from './Upcoming'
 const initialLayout = { width: Dimensions.get('window').width }
 
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
 }
+const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+const today = new Date()
+
+let day1 = new Date()
+day1.setDate(today.getDate() + 1)
+
+let day2 = new Date()
+day2.setDate(today.getDate() + 2)
+
+let day3 = new Date()
+day3.setDate(today.getDate() + 3)
+
+let day_1 = new Date()
+day_1.setDate(today.getDate() - 1)
+
+let day_2 = new Date()
+day_2.setDate(today.getDate() - 2)
+
+let day_3 = new Date()
+day_3.setDate(today.getDate() - 3)
 
 function TabSwitchScreen({ navigation }) {
-    const [index, setIndex] = React.useState(1)
+    const [index, setIndex] = React.useState(3)
     const [routes] = React.useState([
-        { key: 'second', title: 'Recent' },
-        { key: 'first', title: 'Today' },
-        { key: 'third', title: 'Upcoming' },
+        {
+            key: '1',
+            title: `${dayNames[day_3.getDay()]} ${day_3.getDate()}`,
+        },
+        {
+            key: '2',
+            title: `${dayNames[day_2.getDay()]} ${day_2.getDate()}`,
+        },
+        {
+            key: '3',
+            title: `${dayNames[day_1.getDay()]} ${day_1.getDate()}`,
+        },
+        { key: '4', title: 'Today' },
+        {
+            key: '5',
+            title: `${dayNames[day1.getDay()]} ${day1.getDate()}`,
+        },
+        {
+            key: '6',
+            title: `${dayNames[day2.getDay()]} ${day2.getDate()}`,
+        },
+        {
+            key: '7',
+            title: `${dayNames[day3.getDay()]} ${day3.getDate()}`,
+        },
     ])
 
     const [refreshing, setRefreshing] = React.useState(false)
@@ -34,7 +77,67 @@ function TabSwitchScreen({ navigation }) {
 
     const renderScene = ({ route }) => {
         switch (route.key) {
-            case 'first':
+            case '1':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <MatchLists
+                                navigation={navigation}
+                                startDate={day_3.toISOString().slice(0, 10)}
+                                endDate={day_3.toISOString().slice(0, 10)}
+                            />
+                        </ScrollView>
+                    </View>
+                )
+            case '2':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <MatchLists
+                                navigation={navigation}
+                                startDate={day_2.toISOString().slice(0, 10)}
+                                endDate={day_2.toISOString().slice(0, 10)}
+                            />
+                        </ScrollView>
+                    </View>
+                )
+            case '3':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <MatchLists
+                                navigation={navigation}
+                                startDate={day_1.toISOString().slice(0, 10)}
+                                endDate={day_1.toISOString().slice(0, 10)}
+                            />
+                        </ScrollView>
+                    </View>
+                )
+            case '4':
                 return (
                     <View>
                         <ScrollView
@@ -50,7 +153,7 @@ function TabSwitchScreen({ navigation }) {
                         </ScrollView>
                     </View>
                 )
-            case 'second':
+            case '5':
                 return (
                     <View>
                         <ScrollView
@@ -62,11 +165,15 @@ function TabSwitchScreen({ navigation }) {
                                 />
                             }
                         >
-                            <Recent navigation={navigation} />
+                            <MatchLists
+                                navigation={navigation}
+                                startDate={day1.toISOString().slice(0, 10)}
+                                endDate={day1.toISOString().slice(0, 10)}
+                            />
                         </ScrollView>
                     </View>
                 )
-            case 'third':
+            case '6':
                 return (
                     <View>
                         <ScrollView
@@ -78,7 +185,31 @@ function TabSwitchScreen({ navigation }) {
                                 />
                             }
                         >
-                            <Upcoming navigation={navigation} />
+                            <MatchLists
+                                navigation={navigation}
+                                startDate={day2.toISOString().slice(0, 10)}
+                                endDate={day2.toISOString().slice(0, 10)}
+                            />
+                        </ScrollView>
+                    </View>
+                )
+            case '7':
+                return (
+                    <View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />
+                            }
+                        >
+                            <MatchLists
+                                navigation={navigation}
+                                startDate={day3.toISOString().slice(0, 10)}
+                                endDate={day3.toISOString().slice(0, 10)}
+                            />
                         </ScrollView>
                     </View>
                 )
@@ -123,7 +254,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
     },
     tabStyle: {
-        width: 120,
+        width: 'auto',
     },
 })
 export default TabSwitchScreen
