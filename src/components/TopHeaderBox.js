@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 function TopHeaderBox(props) {
+    //const navigation = useNavigation()
     return (
         <View style={[styles.container, props.style]}>
             <View style={styles.topHeaderRow}>
@@ -11,24 +13,18 @@ function TopHeaderBox(props) {
                         <MaterialCommunityIconsIcon
                             name="menu"
                             style={styles.leftIcon}
+                            //onPress={() => navigation.openDrawer()}
                         ></MaterialCommunityIconsIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.leftIconButtonRowFiller}>
                     <View>
                         <Text numberOfLines={1} style={styles.iplLive2021}>
-                            IPL Live 2021
+                            CricScore
                         </Text>
                     </View>
                 </View>
-                <View style={styles.shareIcon}>
-                    <TouchableOpacity>
-                        <MaterialCommunityIconsIcon
-                            name="share-variant"
-                            style={styles.icon}
-                        ></MaterialCommunityIconsIcon>
-                    </TouchableOpacity>
-                </View>
+                <View style={styles.shareIcon}></View>
             </View>
         </View>
     )
