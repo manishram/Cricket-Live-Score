@@ -139,19 +139,20 @@ function TabSwitchScreen({ navigation }) {
                 )
             case '4':
                 return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <Today navigation={navigation} />
-                        </ScrollView>
-                    </View>
+                    <Today navigation={navigation} />
+                    // <View>
+                    //     <ScrollView
+                    //         showsVerticalScrollIndicator={false}
+                    //         refreshControl={
+                    //             <RefreshControl
+                    //                 refreshing={refreshing}
+                    //                 onRefresh={onRefresh}
+                    //             />
+                    //         }
+                    //     >
+                    //         <Today navigation={navigation} />
+                    //     </ScrollView>
+                    // </View>
                 )
             case '5':
                 return (
