@@ -79,140 +79,53 @@ function TabSwitchScreen({ navigation }) {
         switch (route.key) {
             case '1':
                 return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <MatchLists
-                                navigation={navigation}
-                                startDate={day_3.toISOString().slice(0, 10)}
-                                endDate={day_3.toISOString().slice(0, 10)}
-                            />
-                        </ScrollView>
-                    </View>
+                    <MatchLists
+                        navigation={navigation}
+                        startDate={day_2.toISOString().slice(0, 10)}
+                        endDate={day_2.toISOString().slice(0, 10)}
+                    />
                 )
             case '2':
                 return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <MatchLists
-                                navigation={navigation}
-                                startDate={day_2.toISOString().slice(0, 10)}
-                                endDate={day_2.toISOString().slice(0, 10)}
-                            />
-                        </ScrollView>
-                    </View>
+                    <MatchLists
+                        navigation={navigation}
+                        startDate={day_2.toISOString().slice(0, 10)}
+                        endDate={day_2.toISOString().slice(0, 10)}
+                    />
                 )
             case '3':
                 return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <MatchLists
-                                navigation={navigation}
-                                startDate={day_1.toISOString().slice(0, 10)}
-                                endDate={day_1.toISOString().slice(0, 10)}
-                            />
-                        </ScrollView>
-                    </View>
+                    <MatchLists
+                        navigation={navigation}
+                        startDate={day_1.toISOString().slice(0, 10)}
+                        endDate={day_1.toISOString().slice(0, 10)}
+                    />
                 )
             case '4':
-                return (
-                    <Today navigation={navigation} />
-                    // <View>
-                    //     <ScrollView
-                    //         showsVerticalScrollIndicator={false}
-                    //         refreshControl={
-                    //             <RefreshControl
-                    //                 refreshing={refreshing}
-                    //                 onRefresh={onRefresh}
-                    //             />
-                    //         }
-                    //     >
-                    //         <Today navigation={navigation} />
-                    //     </ScrollView>
-                    // </View>
-                )
+                return <Today navigation={navigation} />
             case '5':
                 return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <MatchLists
-                                navigation={navigation}
-                                startDate={day1.toISOString().slice(0, 10)}
-                                endDate={day1.toISOString().slice(0, 10)}
-                            />
-                        </ScrollView>
-                    </View>
+                    <MatchLists
+                        navigation={navigation}
+                        startDate={day_2.toISOString().slice(0, 10)}
+                        endDate={day_2.toISOString().slice(0, 10)}
+                    />
                 )
             case '6':
                 return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <MatchLists
-                                navigation={navigation}
-                                startDate={day2.toISOString().slice(0, 10)}
-                                endDate={day2.toISOString().slice(0, 10)}
-                            />
-                        </ScrollView>
-                    </View>
+                    <MatchLists
+                        navigation={navigation}
+                        startDate={day_2.toISOString().slice(0, 10)}
+                        endDate={day_2.toISOString().slice(0, 10)}
+                    />
                 )
             case '7':
                 return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <MatchLists
-                                navigation={navigation}
-                                startDate={day3.toISOString().slice(0, 10)}
-                                endDate={day3.toISOString().slice(0, 10)}
-                            />
-                        </ScrollView>
-                    </View>
+                    <MatchLists
+                        navigation={navigation}
+                        startDate={day_2.toISOString().slice(0, 10)}
+                        endDate={day_2.toISOString().slice(0, 10)}
+                    />
                 )
             default:
                 return null

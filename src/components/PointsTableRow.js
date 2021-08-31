@@ -5,11 +5,11 @@ function PointsTableRow() {
     return (
         <View style={styles.image1StackStack}>
             <View style={styles.image1Stack}>
-                <Image
+                {/* <Image
                     source={require('../assets/images/image_iaYu..png')}
                     resizeMode="contain"
                     style={styles.image1}
-                ></Image>
+                ></Image> */}
             </View>
             <Text style={styles.csk4}>CSK</Text>
             <Text style={styles.csk5}>0</Text>

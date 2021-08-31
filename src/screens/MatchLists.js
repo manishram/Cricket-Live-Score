@@ -22,25 +22,34 @@ const Recent = ({ navigation, startDate, endDate }) => {
     useEffect(() => {
         recentMatch()
     }, [])
-
+    const [isFetching, setIsFetching] = useState(false)
+    async function onRefresh() {
+        setIsFetching(true)
+        await recentMatch()
+        setIsFetching(false)
+    }
     return (
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.container}>
-                <FlatList
-                    data={results}
-                    keyExtractor={(results) => results.match_id.toString()}
-                    renderItem={(items) => {
-                        return <MatchCard matchData={items.item} />
-                    }}
-                />
-            </View>
-        </ScrollView>
+        <View style={styles.container}>
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                onRefresh={() => onRefresh()}
+                refreshing={isFetching}
+                data={results}
+                keyExtractor={(results) => results.match_id.toString()}
+                renderItem={(items) => {
+                    return (
+                        <View style={{ marginLeft: 10, marginRight: 10 }}>
+                            <MatchCard matchData={items.item} />
+                        </View>
+                    )
+                }}
+            />
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
         backgroundColor: 'rgba(240, 240, 240, 1)',
     },
 })

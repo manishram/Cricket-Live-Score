@@ -65,7 +65,6 @@ function MatchCard(props) {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 155,
         backgroundColor: 'rgba(249,249,249,1)',
         borderRadius: 5,
         shadowColor: 'rgba(0,0,0,1)',

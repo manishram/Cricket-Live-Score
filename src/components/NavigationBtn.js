@@ -8,6 +8,7 @@ function NavigationBtn({ icon, title, navigateTo }) {
     return (
         <View style={styles.container}>
             <TouchableOpacity
+                activeOpacity={0.8}
                 style={styles.button}
                 onPress={() => navigation.navigate(navigateTo)}
             >

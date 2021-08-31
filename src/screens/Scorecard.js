@@ -32,6 +32,7 @@ function Scorecard({ matchDetail }) {
     }, [])
     return (
         <View style={styles.container}>
+            <MatchCard matchData={matchDetail} />
             <Text style={styles.title}>Scorecard</Text>
 
             <View style={styles.card}>

@@ -14,7 +14,6 @@ import Info from '../screens/Info'
 import Live from '../screens/Live'
 import Scorecard from '../screens/Scorecard'
 import Hightlights from '../screens/Highlights'
-import Overs from '../screens/Overs'
 const initialLayout = { width: Dimensions.get('window').width }
 const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout))
@@ -29,7 +28,6 @@ function DetailMatchTopNav(props) {
         { key: 'live', title: 'Live' },
         { key: 'scorecard', title: 'Scorecard' },
         { key: 'highlights', title: 'Highlights' },
-        { key: 'overs', title: 'Overs' },
     ])
 
     const [refreshing, setRefreshing] = React.useState(false)
@@ -107,23 +105,6 @@ function DetailMatchTopNav(props) {
                         </ScrollView>
                     </View>
                 )
-            case 'overs':
-                return (
-                    <View>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                />
-                            }
-                        >
-                            <Overs matchDetail={matchData} />
-                        </ScrollView>
-                    </View>
-                )
-
             default:
                 return null
         }

@@ -10,11 +10,11 @@ function TopHeaderBox(props) {
             <View style={styles.topHeaderRow}>
                 <View style={styles.menuIcon}>
                     <TouchableOpacity>
-                        <MaterialCommunityIconsIcon
+                        {/* <MaterialCommunityIconsIcon
                             name="menu"
                             style={styles.leftIcon}
                             //onPress={() => navigation.openDrawer()}
-                        ></MaterialCommunityIconsIcon>
+                        ></MaterialCommunityIconsIcon> */}
                     </TouchableOpacity>
                 </View>
                 <View style={styles.leftIconButtonRowFiller}>

@@ -81,12 +81,77 @@ function Today() {
     return (
         <View style={styles.container}>
             <FlatList
+                showsVerticalScrollIndicator={false}
                 onRefresh={() => onRefresh()}
                 refreshing={isFetching}
                 data={results}
                 keyExtractor={(results) => results.match_id.toString()}
                 renderItem={(items) => {
-                    return <MatchCard matchData={items.item} />
+                    return (
+                        <View style={{ marginLeft: 10, marginRight: 10 }}>
+                            <MatchCard matchData={items.item} />
+                        </View>
+                    )
+                }}
+            />
+            <View style={styles.navContainer}>
+                <NavigationBtn
+                    navigateTo="PointsTable"
+                    icon="chart-bar"
+                    style={styles.navigationBtn}
+                    title="Points Table"
+                ></NavigationBtn>
+                <NavigationBtn
+                    navigateTo="Fixtures"
+                    icon="tournament"
+                    style={styles.navigationBtn}
+                    title="Fixtures"
+                ></NavigationBtn>
+                <NavigationBtn
+                    navigateTo="Auction"
+                    icon="gavel"
+                    style={styles.navigationBtn}
+                    title="Auction"
+                ></NavigationBtn>
+                <NavigationBtn
+                    navigateTo="Records"
+                    icon="trophy"
+                    style={styles.navigationBtn}
+                    title="Records"
+                ></NavigationBtn>
+                <NavigationBtn
+                    navigateTo="Venues"
+                    icon="google-maps"
+                    style={styles.navigationBtn}
+                    title="Venues"
+                ></NavigationBtn>
+                {/* <BannerAd id="1249709505449779_1249712162116180" /> */}
+            </View>
+            <View style={styles.news3Row}>
+                <Text style={styles.news3}>NEWS</Text>
+                <View style={styles.news3Filler}></View>
+                <View style={styles.group}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('News')}
+                    >
+                        <View style={styles.viewAllLabel}>
+                            <Text style={styles.viewAll}>View All</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <FlatList
+                data={featuredNews}
+                keyExtractor={(news) => news.id.toString()}
+                renderItem={(items) => {
+                    return <NewsCard newsData={items.item} />
+                }}
+            />
+            <FlatList
+                data={notFeaturedNews}
+                keyExtractor={(news) => news.id.toString()}
+                renderItem={(items) => {
+                    return <NewsCard newsData={items.item} />
                 }}
             />
         </View>
@@ -97,7 +162,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgba(240,240,240,1)',
-        padding: 10,
+    },
+    list: {
+        flexGrow: 0,
     },
     navigationBtn: {
         height: 45,

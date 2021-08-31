@@ -32,6 +32,7 @@ function Hightlights({ matchDetail }) {
     }, [])
     return (
         <View style={styles.container}>
+            <MatchCard matchData={matchDetail} />
             <Text style={styles.title}>Highlights</Text>
 
             <View style={styles.card}>

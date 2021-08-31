@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import RequestApi from '../api/RequestApi'
+import MatchCard from '../components/MatchCard'
 function Info({ matchDetail }) {
     let umpire = matchDetail.umpires
     let referee = matchDetail.referee
@@ -35,6 +36,7 @@ function Info({ matchDetail }) {
     }, [])
     return (
         <View style={styles.container}>
+            <MatchCard matchData={matchDetail} />
             <Text style={styles.title}>Match Info</Text>
             <View style={styles.card}>
                 <View style={styles.infoRow}>
