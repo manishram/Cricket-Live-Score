@@ -125,6 +125,12 @@ function Today() {
                     style={styles.navigationBtn}
                     title="Venues"
                 ></NavigationBtn>
+                <NavigationBtn
+                    navigateTo="Winners"
+                    icon="trophy-award"
+                    style={styles.navigationBtn}
+                    title="Winners"
+                ></NavigationBtn>
                 {/* <BannerAd id="1249709505449779_1249712162116180" /> */}
             </View>
             <View style={styles.news3Row}>

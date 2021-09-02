@@ -9,7 +9,7 @@ const Recent = ({ navigation, startDate, endDate }) => {
         try {
             const response = await RequestApi.get('matches/', {
                 params: {
-                    date: `${startDate}_${endDate}`,
+                    // date: `${startDate}_${endDate}`,
                     paged: 1,
                     per_page: 100,
                 },

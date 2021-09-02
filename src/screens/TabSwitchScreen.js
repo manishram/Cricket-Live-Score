@@ -102,7 +102,11 @@ function TabSwitchScreen({ navigation }) {
                     />
                 )
             case '4':
-                return <Today navigation={navigation} />
+                return (
+                    <ScrollView>
+                        <Today navigation={navigation} />
+                    </ScrollView>
+                )
             case '5':
                 return (
                     <MatchLists

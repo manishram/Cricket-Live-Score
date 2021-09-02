@@ -15,6 +15,7 @@ import SeriesMatches from '../screens/SeriesMatches'
 import Privacy from '../screens/Privacy'
 import tNc from '../screens/tNc'
 import AboutUs from '../screens/AboutUs'
+import Winners from '../screens/Winners'
 
 const Stack = createStackNavigator()
 
@@ -38,6 +39,7 @@ const MainStackNavigator = () => {
                 component={DetailMatchTopNav}
             />
             <Stack.Screen name="SeriesMatches" component={SeriesMatches} />
+            <Stack.Screen name="Winners" component={Winners} />
             <Stack.Screen name="AboutUs" component={AboutUs} />
             <Stack.Screen name="tNc" component={tNc} />
             <Stack.Screen name="Privacy" component={Privacy} />

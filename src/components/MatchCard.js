@@ -6,22 +6,37 @@ import { useNavigation } from '@react-navigation/native'
 function MatchCard(props) {
     const navigation = useNavigation()
 
+    const matchUpcoming = 1
+    const matchComplete = 2
+    const matchLive = 3
+
     let teama_name = props.matchData.teama.name
     let teamb_name = props.matchData.teamb.name
     let teama_logo = props.matchData.teama.logo_url
     let teamb_logo = props.matchData.teamb.logo_url
     let tournament_name = props.matchData.competition.title
     let matchStatus = props.matchData.status
-    let liveMatchStatusCode = 3
     let statusNote = props.matchData.status_note
     let teamaScore = props.matchData.teama.scores_full
     let teambScore = props.matchData.teamb.scores_full
+    let timeStart = props.matchData.timestamp_start
+    var date = new Date(timeStart * 1000)
+    var hours = date.getHours()
+    var minutes = '0' + date.getMinutes()
+    let ampm = 'AM'
+    if (hours >= 12) {
+        ampm = 'PM'
+    }
+    hours = hours % 12
+    hours = hours ? hours : 12
+    minutes = minutes < 10 ? '0' + minutes : minutes
+
+    var time = hours + ':' + minutes.substr(-2) + ' ' + ampm
 
     return (
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => {
-                    /* 1. Navigate to the Details route with params */
                     navigation.navigate('DetailMatchTopNav', {
                         matchData: props.matchData,
                     })
@@ -29,34 +44,112 @@ function MatchCard(props) {
             >
                 <View style={styles.matchNameRow}>
                     <Text style={styles.cskVsMi}>{tournament_name}</Text>
-                    {matchStatus === liveMatchStatusCode ? (
-                        <View style={styles.liveLabel}>
-                            <Text style={styles.live}>Live</Text>
-                        </View>
-                    ) : null}
+
                     <Icon name="chevron-right" style={styles.icon}></Icon>
                 </View>
                 <View style={styles.divider}></View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        marginLeft: 10,
+                        marginRight: 10,
+                    }}
+                >
+                    {matchStatus === matchLive ? (
+                        <Text
+                            style={{
+                                marginTop: 5,
+                                color: 'white',
+                                backgroundColor: 'rgba(219,0,0,1)',
+                                paddingLeft: 5,
+                                paddingRight: 5,
+                                borderRadius: 5,
+                                fontSize: 12,
+                                fontFamily: 'inter-600',
+                            }}
+                        >
+                            Live
+                        </Text>
+                    ) : matchStatus != matchComplete ? (
+                        <Text
+                            style={{ marginTop: 5, color: 'gray' }}
+                        >{`Time: ${time}`}</Text>
+                    ) : (
+                        <Text
+                            style={{
+                                marginTop: 5,
+                                color: '#616161',
+                                backgroundColor: '#dcdcdc',
+                                paddingLeft: 5,
+                                paddingRight: 5,
+                                padding: 2,
+                                borderRadius: 5,
+                                fontSize: 12,
+                                fontFamily: 'inter-600',
+                            }}
+                        >
+                            Finished
+                        </Text>
+                    )}
+                </View>
+
                 <View style={styles.imageRow}>
-                    <Image
-                        source={{ uri: teama_logo }}
-                        resizeMode="contain"
-                        style={styles.image}
-                    ></Image>
-                    <Text style={styles.csk2}>{teama_name}</Text>
-                    <Text style={styles.csk5}>{teamaScore}</Text>
+                    <View style={{ flex: 1 }}>
+                        <Image
+                            source={{ uri: teama_logo }}
+                            style={styles.image}
+                        ></Image>
+                    </View>
+                    <View
+                        style={{
+                            flex: 3,
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Text style={styles.teamNameText}>{teama_name}</Text>
+                    </View>
+                    <View
+                        style={{
+                            flex: 2,
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Text style={styles.scoreText}>{teamaScore}</Text>
+                    </View>
                 </View>
-                <View style={styles.image1Row}>
-                    <Image
-                        source={{ uri: teamb_logo }}
-                        resizeMode="contain"
-                        style={styles.image1}
-                    ></Image>
-                    <Text style={styles.csk3}>{teamb_name}</Text>
-                    <Text style={styles.csk6}>{teambScore}</Text>
+
+                <View style={styles.imageRow}>
+                    <View style={{ flex: 1 }}>
+                        <Image
+                            source={{ uri: teamb_logo }}
+                            resizeMode="contain"
+                            style={styles.image}
+                        ></Image>
+                    </View>
+                    <View
+                        style={{
+                            flex: 3,
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Text style={styles.teamNameText}>{teamb_name}</Text>
+                    </View>
+                    <View
+                        style={{
+                            flex: 2,
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Text style={styles.scoreText}>{teambScore}</Text>
+                    </View>
                 </View>
-                <View style={styles.rect5}></View>
-                <Text style={styles.text}>{statusNote}</Text>
+
+                {matchStatus === matchComplete ? (
+                    <View>
+                        <View style={styles.divider}></View>
+                        <Text style={styles.text}>{statusNote}</Text>
+                    </View>
+                ) : null}
             </TouchableOpacity>
         </View>
     )
@@ -89,7 +182,6 @@ const styles = StyleSheet.create({
         height: 15,
         backgroundColor: 'rgba(219,0,0,1)',
         borderRadius: 10,
-        marginLeft: 10,
         marginTop: 8,
     },
     live: {
@@ -104,15 +196,14 @@ const styles = StyleSheet.create({
         height: 22,
         width: 20,
         marginTop: 5,
-        right: 0,
+        right: 10,
         position: 'absolute',
     },
     matchNameRow: {
         height: 30,
         flexDirection: 'row',
         marginTop: 4,
-        marginLeft: 22,
-        marginRight: 8,
+        marginLeft: 10,
     },
     divider: {
         width: '100%',
@@ -124,52 +215,28 @@ const styles = StyleSheet.create({
         height: 32,
         width: 32,
     },
-    csk2: {
+    teamNameText: {
         fontFamily: 'inter-700',
         color: '#121212',
         fontSize: 12,
-        marginLeft: 15,
-        marginTop: 9,
     },
-    csk5: {
+    scoreText: {
         fontFamily: 'inter-500',
         color: 'rgba(99,99,99,1)',
         fontSize: 12,
-        marginLeft: 130,
-        marginTop: 9,
+        textAlign: 'right',
     },
     imageRow: {
         height: 32,
         flexDirection: 'row',
         marginTop: 8,
-        marginLeft: 22,
-        marginRight: 28,
+        margin: 10,
     },
     image1: {
         height: 32,
         width: 32,
     },
-    csk3: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 15,
-        marginTop: 9,
-    },
-    csk6: {
-        fontFamily: 'inter-500',
-        color: 'rgba(99,99,99,1)',
-        fontSize: 12,
-        marginLeft: 135,
-        marginTop: 8,
-    },
-    image1Row: {
-        height: 32,
-        flexDirection: 'row',
-        marginTop: 10,
-        marginLeft: 22,
-        marginRight: 28,
-    },
+
     rect5: {
         width: '100%',
         height: 1,
@@ -180,7 +247,8 @@ const styles = StyleSheet.create({
         fontFamily: 'inter-regular',
         color: 'rgba(99,99,99,1)',
         fontSize: 10,
-        marginTop: 3,
+        marginTop: 5,
+        marginBottom: 5,
         alignSelf: 'center',
     },
 })
