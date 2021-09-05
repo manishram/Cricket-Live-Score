@@ -3,28 +3,10 @@ import React, { useState } from 'react'
 import { SafeAreaView, StatusBar, View } from 'react-native'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createStackNavigator } from '@react-navigation/stack'
 import AppLoading from 'expo-app-loading'
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import * as Font from 'expo-font'
 import DrawerNavigator from './src/components/DrawerNavigator'
-import Home from './src/screens/Home'
 import TopHeaderBox from './src/components/TopHeaderBox'
-import Fixtures from './src/screens/Fixtures'
-import News from './src/screens/News'
-
-function HomeScreen({ navigation }) {
-    return <Home />
-}
-function SeriesScreen() {
-    return <Fixtures />
-}
-function FixturesScreen() {
-    return <Fixtures />
-}
-function NewsScreen() {
-    return <News />
-}
 
 const Tab = createBottomTabNavigator()
 

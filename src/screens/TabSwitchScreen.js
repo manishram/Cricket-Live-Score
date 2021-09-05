@@ -10,7 +10,6 @@ import { TabView } from 'react-native-tab-view'
 import Today from './Today'
 import { TabBar } from 'react-native-tab-view'
 import MatchLists from './MatchLists'
-import Upcoming from './Upcoming'
 const initialLayout = { width: Dimensions.get('window').width }
 
 const wait = (timeout) => {
