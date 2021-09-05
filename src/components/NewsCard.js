@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 
 function NewsCard(props) {
-    featuredLabel = (
+    let featuredLabel = (
         <View style={styles.featuredLabel}>
             <View style={styles.labelBox}>
                 <Text style={styles.featured}>Featured</Text>

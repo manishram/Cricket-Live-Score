@@ -11,7 +11,7 @@ const Recent = ({ navigation, startDate, endDate }) => {
                 params: {
                     // date: `${startDate}_${endDate}`,
                     paged: 1,
-                    per_page: 100,
+                    per_page: 1,
                 },
             })
             setResults(response.data.response.items)

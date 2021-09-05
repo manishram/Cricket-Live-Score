@@ -1,127 +1,149 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
-import VenueCard from '../components/VenueCard'
+import React, { Component, useEffect, useState } from 'react'
+import {
+    StyleSheet,
+    View,
+    ScrollView,
+    Text,
+    Image,
+    FlatList,
+} from 'react-native'
+import AppApi from '../api/AppApi'
 
 const Venues = () => {
+    const [venueList, setvenueList] = useState([])
+    const getVenues = async () => {
+        try {
+            const response = await AppApi.get('/venues/')
+            setvenueList(response.data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        getVenues()
+    }, [])
     return (
-        <View style={styles.containerOuter}>
+        <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <VenueCard />
-                <VenueCard />
-                <VenueCard />
-                <VenueCard />
+                <Text style={{ fontFamily: 'inter-700', textAlign: 'center' }}>
+                    Venues
+                </Text>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={venueList}
+                    keyExtractor={(venueList) => venueList.name}
+                    renderItem={(items) => {
+                        return (
+                            <View style={styles.card}>
+                                <Text
+                                    style={{
+                                        fontFamily: 'inter-600',
+                                        textAlign: 'center',
+                                        marginBottom: 10,
+                                    }}
+                                >
+                                    {items.item.name}
+                                </Text>
+                                <View style={styles.divider}></View>
+
+                                <Image
+                                    source={{
+                                        uri: `${AppApi.defaults.baseURL}/venues/images/${items.item.image}`,
+                                    }}
+                                    style={styles.image}
+                                ></Image>
+                                <View
+                                    style={{
+                                        paddingLeft: 50,
+                                    }}
+                                >
+                                    <View style={styles.tableRow}>
+                                        <Text style={styles.leftText}>
+                                            City
+                                        </Text>
+                                        <Text style={styles.rightText}>
+                                            {items.item.city}
+                                        </Text>
+                                    </View>
+
+                                    <View style={styles.tableRow}>
+                                        <Text style={styles.leftText}>
+                                            Opened
+                                        </Text>
+                                        <Text style={styles.rightText}>
+                                            {items.item.opened}
+                                        </Text>
+                                    </View>
+
+                                    <View style={styles.tableRow}>
+                                        <Text style={styles.leftText}>
+                                            Located
+                                        </Text>
+                                        <Text style={styles.rightText}>
+                                            {items.item.located}
+                                        </Text>
+                                    </View>
+
+                                    <View style={styles.tableRow}>
+                                        <Text style={styles.leftText}>
+                                            Capacity
+                                        </Text>
+                                        <Text style={styles.rightText}>
+                                            {items.item.capacity}
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        )
+                    }}
+                />
             </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    containerOuter: {
+    container: {
         padding: 10,
-        backgroundColor: 'rgba(240, 240, 240, 1)',
     },
-    container: { marginBottom: 10 },
-    rect: {
-        top: 0,
+    card: {
         width: '100%',
-        height: 150,
-        position: 'absolute',
-        backgroundColor: 'rgba(255,255,255,1)',
-        borderRadius: 4,
+        backgroundColor: 'rgba(249,249,249,1)',
+        borderRadius: 5,
         shadowColor: 'rgba(0,0,0,1)',
         shadowOffset: {
-            width: 0,
             height: 0,
+            width: 0,
         },
         elevation: 4,
         shadowOpacity: 0.25,
         shadowRadius: 4,
-    },
-    steveSmith: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-    },
-    delhiCapitals: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 150,
+        marginBottom: 10,
+        marginTop: 10,
+        padding: 10,
     },
     divider: {
         width: '100%',
         height: 1,
         backgroundColor: '#E6E6E6',
         marginTop: 10,
-    },
-    steveSmithRow: {
-        height: 15,
-        flexDirection: 'row',
-        marginTop: 7,
-        marginLeft: 16,
-        marginRight: 21,
-    },
-    basePrice: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-    },
-    basePrice1: {
-        fontFamily: 'inter-500',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 5,
-    },
-    basePriceRow: {
-        height: 15,
-        flexDirection: 'row',
-        marginRight: 21,
-    },
-    sellingPrice: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-    },
-    basePrice2: {
-        fontFamily: 'inter-500',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 4,
-    },
-    sellingPriceRow: {
-        height: 15,
-        flexDirection: 'row',
-        marginTop: 20,
-    },
-    basePriceRowColumn: {
-        width: 118,
-        marginBottom: 2,
-    },
-    image1: {
-        height: 60,
-        width: 60,
-        marginLeft: 117,
-        marginTop: 20,
-    },
-    basePriceRowColumnRow: {
-        height: 60,
-        flexDirection: 'row',
-        marginLeft: 16,
-        marginRight: 27,
-    },
-    rect1: {
-        top: 29,
-        left: 0,
-        width: 338,
-        height: 1,
-        position: 'absolute',
-        backgroundColor: '#E6E6E6',
-    },
-    rectStack: {
-        width: '100%',
-        height: 140,
         marginBottom: 10,
     },
+    image: {
+        height: 200,
+        marginBottom: 20,
+    },
+    tableRow: {
+        flexDirection: 'row',
+        marginBottom: 10,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    leftText: {
+        flex: 1,
+        fontFamily: 'inter-600',
+    },
+    rightText: { flex: 1 },
 })
 
 export default Venues

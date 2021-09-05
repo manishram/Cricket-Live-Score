@@ -13,7 +13,7 @@ const Winners = () => {
     const [winnerList, setwinnerList] = useState([])
     const getWinners = async () => {
         try {
-            const response = await AppApi.get('/winners/winners.json')
+            const response = await AppApi.get('/winners/')
             setwinnerList(response.data)
         } catch (err) {
             console.log(err)

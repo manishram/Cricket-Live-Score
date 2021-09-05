@@ -1,15 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
+import RequestApi from '../api/RequestApi'
+import AppApi from '../api/AppApi'
 
 function MatchCard(props) {
     const navigation = useNavigation()
 
     const matchUpcoming = 1
-    const matchComplete = 2
-    const matchLive = 3
+    const matchComplete = 3
+    const matchLive = 2
 
+    let matchId = props.matchData.matchId
+    let teamaId = 21
+    let teambId = props.matchData.teamb.team_id
     let teama_name = props.matchData.teama.name
     let teamb_name = props.matchData.teamb.name
     let teama_logo = props.matchData.teama.logo_url
@@ -17,8 +22,6 @@ function MatchCard(props) {
     let tournament_name = props.matchData.competition.title
     let matchStatus = props.matchData.status
     let statusNote = props.matchData.status_note
-    let teamaScore = props.matchData.teama.scores_full
-    let teambScore = props.matchData.teamb.scores_full
     let timeStart = props.matchData.timestamp_start
     var date = new Date(timeStart * 1000)
     var hours = date.getHours()
@@ -33,6 +36,42 @@ function MatchCard(props) {
 
     var time = hours + ':' + minutes.substr(-2) + ' ' + ampm
 
+    const [teamaScore, setTeamaScore] = useState('0/0 (0.0)')
+    const [teambScore, setTeambScore] = useState('0/0 (0.0)')
+
+    const [liveMatchData, setliveMatchData] = useState([])
+
+    const updateScore = async () => {
+        try {
+            const response = await AppApi.get(`/live/`)
+            setliveMatchData(response.data.response)
+
+            if (teamaId == response.data.response.live_inning.batting_team_id) {
+                setTeamaScore(response.data.response.live_inning.scores_full)
+                if (response.data.response.live_inning_number == 2) {
+                    setTeambScore(response.data.response.live_score.target)
+                }
+            } else {
+                setTebmaScore(response.data.response.live_inning.scores_full)
+                if (response.data.response.live_inning_number == 2) {
+                    setTeamaScore(response.data.response.live_score.target)
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        if (matchStatus === matchLive) {
+            updateScore()
+            const interval = setInterval(() => {
+                updateScore()
+            }, 10000)
+            return () => clearInterval(interval)
+        } else {
+        }
+    }, [])
     return (
         <View style={styles.container}>
             <TouchableOpacity

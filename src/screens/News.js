@@ -15,17 +15,10 @@ const wait = (timeout) => {
 }
 
 const News = () => {
-    const [refreshing, setRefreshing] = React.useState(false)
-
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true)
-        wait(2000).then(() => setRefreshing(false))
-    }, [])
-
     const [featuredNews, setFeaturedNews] = useState([])
     const getFeaturedNews = async () => {
         try {
-            const response = await AppApi.get('/news', {
+            const response = await AppApi.get('/news/', {
                 params: {
                     featured: 'true',
                 },
@@ -42,7 +35,7 @@ const News = () => {
     const [notFeaturedNews, setNotFeatured] = useState([])
     const getNotFeaturedNews = async () => {
         try {
-            const response = await AppApi.get('/news', {
+            const response = await AppApi.get('/news/', {
                 params: {
                     featured: 'false',
                 },
@@ -55,31 +48,40 @@ const News = () => {
     useEffect(() => {
         getNotFeaturedNews()
     }, [])
-
+    const [isFetching, setIsFetching] = useState(false)
+    async function onRefresh() {
+        setIsFetching(true)
+        await getFeaturedNews()
+        await getNotFeaturedNews()
+        setIsFetching(false)
+    }
     return (
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-            refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-        >
-            <View style={styles.container}>
-                <FlatList
-                    data={featuredNews}
-                    keyExtractor={(news) => news.id.toString()}
-                    renderItem={(items) => {
-                        return <NewsCard newsData={items.item} />
-                    }}
-                />
-                <FlatList
-                    data={notFeaturedNews}
-                    keyExtractor={(news) => news.id.toString()}
-                    renderItem={(items) => {
-                        return <NewsCard newsData={items.item} />
-                    }}
-                />
-            </View>
-        </ScrollView>
+        <View style={styles.container}>
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                onRefresh={() => onRefresh()}
+                refreshing={isFetching}
+                extraData={isFetching}
+                inverted={true}
+                data={featuredNews}
+                keyExtractor={(news) => news.id.toString()}
+                renderItem={(items) => {
+                    return <NewsCard newsData={items.item} />
+                }}
+            />
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                onRefresh={() => onRefresh()}
+                refreshing={isFetching}
+                extraData={isFetching}
+                inverted={true}
+                data={notFeaturedNews}
+                keyExtractor={(news) => news.id.toString()}
+                renderItem={(items) => {
+                    return <NewsCard newsData={items.item} />
+                }}
+            />
+        </View>
     )
 }
 

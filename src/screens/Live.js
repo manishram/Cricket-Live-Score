@@ -16,6 +16,7 @@ function Live({ matchDetail }) {
     const [batsman, setBatsman] = useState([])
     const [bowler, setBowler] = useState([])
     const [commentary, setCommentary] = useState([])
+    const [update, setUpdate] = useState(false)
 
     const livePlayers = async () => {
         try {
@@ -23,12 +24,17 @@ function Live({ matchDetail }) {
             setBatsman(response.data.response.batsmen)
             setBowler(response.data.response.bowlers)
             setCommentary(response.data.response.commentaries)
+            setUpdate(true)
         } catch (err) {
             console.log(err)
         }
     }
     useEffect(() => {
         livePlayers()
+        const interval = setInterval(() => {
+            livePlayers()
+        }, 10000)
+        return () => clearInterval(interval)
     }, [])
     return (
         <View style={styles.container}>
@@ -59,7 +65,8 @@ function Live({ matchDetail }) {
                 </View>
                 <FlatList
                     data={batsman}
-                    keyExtractor={(batsman) => batsman.batsman_id}
+                    extraData={update}
+                    keyExtractor={(batsman) => batsman.batsman_id.toString()}
                     renderItem={(items) => {
                         return (
                             <View style={styles.livePlayerRow}>
@@ -110,6 +117,7 @@ function Live({ matchDetail }) {
 
                 <FlatList
                     data={bowler}
+                    extraData={update}
                     keyExtractor={(bowler) => bowler.bowler_id}
                     renderItem={(items) => {
                         return (
@@ -142,16 +150,11 @@ function Live({ matchDetail }) {
                     <Text style={[styles.title, { flex: 1 }]}>
                         Commentaries
                     </Text>
-                    {/* <Circle textValue="W" style={styles.circle} />
-                    <Circle textValue="1" style={styles.circle} />
-                    <Circle textValue="2" style={styles.circle} />
-                    <Circle textValue="0" style={styles.circle} />
-                    <Circle textValue="4" style={styles.circle} />
-                    <Circle textValue="6" style={styles.circle} /> */}
                 </View>
                 <View style={styles.lineStyle} />
                 <FlatList
                     data={commentary}
+                    extraData={update}
                     inverted={true}
                     keyExtractor={(commentary, index) => index.toString()}
                     renderItem={(items) => {

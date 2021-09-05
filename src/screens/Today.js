@@ -12,6 +12,7 @@ import NewsCard from '../components/NewsCard'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
 import AppApi from '../api/AppApi'
+import News from '../screens/News'
 // import BannerAd from '../components/BannerAd'
 
 function Today() {
@@ -146,20 +147,7 @@ function Today() {
                     </TouchableOpacity>
                 </View>
             </View>
-            <FlatList
-                data={featuredNews}
-                keyExtractor={(news) => news.id.toString()}
-                renderItem={(items) => {
-                    return <NewsCard newsData={items.item} />
-                }}
-            />
-            <FlatList
-                data={notFeaturedNews}
-                keyExtractor={(news) => news.id.toString()}
-                renderItem={(items) => {
-                    return <NewsCard newsData={items.item} />
-                }}
-            />
+            <News />
         </View>
     )
 }
