@@ -9,11 +9,11 @@ function MatchCard(props) {
     const navigation = useNavigation()
 
     const matchUpcoming = 1
-    const matchComplete = 3
-    const matchLive = 2
+    const matchComplete = 2
+    const matchLive = 3
 
     let matchId = props.matchData.matchId
-    let teamaId = 21
+    let teamaId = props.matchData.teama.team_id
     let teambId = props.matchData.teamb.team_id
     let teama_name = props.matchData.teama.name
     let teamb_name = props.matchData.teamb.name
@@ -70,6 +70,8 @@ function MatchCard(props) {
             }, 10000)
             return () => clearInterval(interval)
         } else {
+            setTeamaScore(props.matchData.teama.scores_full)
+            setTeambScore(props.matchData.teamb.scores_full)
         }
     }, [])
     return (
