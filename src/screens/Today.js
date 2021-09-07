@@ -20,16 +20,35 @@ import News from '../screens/News'
 
 function Today(props) {
     const navigation = useNavigation()
-
+    const iplMatches = []
+    const specialTournamentName = 'Indian Premier League'
+    let i = 0
+    const [specialMatches, setSpecialMatches] = useState([])
     const [results, setResults] = useState([])
     const todayMatch = async () => {
+        specialMatchArray = []
+        generalMatchArray = []
         try {
             const response = await RequestApi.get('matches/', {
                 params: {
                     date: `${props.startDate}_${props.endDate}`,
                 },
             })
-            setResults(response.data.response.items)
+
+            while (i < response.data.response.items.length) {
+                if (
+                    response.data.response.items[i].competition.title ===
+                    specialTournamentName
+                ) {
+                    specialMatchArray.push(response.data.response.items[i])
+                } else {
+                    generalMatchArray.push(response.data.response.items[i])
+                }
+                i = i + 1
+            }
+            setResults(generalMatchArray)
+            setSpecialMatches(specialMatchArray)
+            console.log(results)
         } catch (err) {
             console.log(err)
         }
@@ -85,39 +104,61 @@ function Today(props) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground
-                source={{
-                    uri: `${AppApi.defaults.baseURL}/images/ipl-poster.jpg`,
-                }}
-                style={{ left: 0, right: 0, height: 180 }}
-            >
-                <View
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: 'rgba(0,0,0,0.45)',
+            {timeLeft > 0 ? (
+                <ImageBackground
+                    source={{
+                        uri: `${AppApi.defaults.baseURL}/images/ipl-poster.jpg`,
                     }}
+                    style={{ left: 0, right: 0, height: 180 }}
                 >
-                    <CountDown
-                        until={timeLeft}
-                        size={20}
-                        separatorStyle={{
-                            color: '#1CC625',
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: 'rgba(0,0,0,0.45)',
                         }}
-                        timeLabelStyle={{
-                            color: 'orange',
-                            fontFamily: 'inter-700',
-                        }}
-                        timeLabels={{ d: 'Days', h: 'Hr', m: 'Min', s: 'Sec' }}
-                    />
-                </View>
-            </ImageBackground>
-
+                    >
+                        <CountDown
+                            until={timeLeft}
+                            size={20}
+                            separatorStyle={{
+                                color: '#1CC625',
+                            }}
+                            timeLabelStyle={{
+                                color: 'orange',
+                                fontFamily: 'inter-700',
+                            }}
+                            timeLabels={{
+                                d: 'Days',
+                                h: 'Hrs',
+                                m: 'Min',
+                                s: 'Sec',
+                            }}
+                        />
+                    </View>
+                </ImageBackground>
+            ) : null}
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                data={specialMatches.sort(function (a, b) {
+                    return a.timestamp_start - b.timestamp_start
+                })}
+                keyExtractor={(specialMatches) =>
+                    specialMatches.match_id.toString()
+                }
+                renderItem={(items) => {
+                    return (
+                        <View style={{ marginLeft: 10, marginRight: 10 }}>
+                            <MatchCard matchData={items.item} />
+                        </View>
+                    )
+                }}
+            />
             <View style={styles.navContainer}>
                 <NavigationBtn
                     navigateTo="PointsTable"
