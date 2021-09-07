@@ -45,9 +45,7 @@ function NewsCard(props) {
                                         >
                                             {description}
                                         </Text>
-                                        <Text style={styles.newsTitme}>
-                                            6 hours ago
-                                        </Text>
+                                        <Text style={styles.newsTitme}>{}</Text>
                                     </View>
                                 </View>
                             </View>

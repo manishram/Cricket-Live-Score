@@ -5,7 +5,10 @@ import {
     Text,
     TouchableOpacity,
     FlatList,
+    Image,
+    ImageBackground,
 } from 'react-native'
+import CountDown from 'react-native-countdown-component'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
 import NewsCard from '../components/NewsCard'
@@ -75,25 +78,46 @@ function Today(props) {
         await todayMatch()
         setIsFetching(false)
     }
+    let ipldate = 1632060000000
+
+    let now = new Date().getTime()
+    let timeLeft = (ipldate - now) / 1000
 
     return (
         <View style={styles.container}>
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                onRefresh={() => onRefresh()}
-                refreshing={isFetching}
-                data={results.sort(function (a, b) {
-                    return a.timestamp_start - b.timestamp_start
-                })}
-                keyExtractor={(results) => results.match_id.toString()}
-                renderItem={(items) => {
-                    return (
-                        <View style={{ marginLeft: 10, marginRight: 10 }}>
-                            <MatchCard matchData={items.item} />
-                        </View>
-                    )
+            <ImageBackground
+                source={{
+                    uri: `${AppApi.defaults.baseURL}/images/ipl-poster.jpg`,
                 }}
-            />
+                style={{ left: 0, right: 0, height: 180 }}
+            >
+                <View
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(0,0,0,0.45)',
+                    }}
+                >
+                    <CountDown
+                        until={timeLeft}
+                        size={20}
+                        separatorStyle={{
+                            color: '#1CC625',
+                        }}
+                        timeLabelStyle={{
+                            color: 'orange',
+                            fontFamily: 'inter-700',
+                        }}
+                        timeLabels={{ d: 'Days', h: 'Hr', m: 'Min', s: 'Sec' }}
+                    />
+                </View>
+            </ImageBackground>
+
             <View style={styles.navContainer}>
                 <NavigationBtn
                     navigateTo="PointsTable"
@@ -133,6 +157,24 @@ function Today(props) {
                 ></NavigationBtn>
                 {/* <BannerAd id="1249709505449779_1249712162116180" /> */}
             </View>
+
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                onRefresh={() => onRefresh()}
+                refreshing={isFetching}
+                data={results.sort(function (a, b) {
+                    return a.timestamp_start - b.timestamp_start
+                })}
+                keyExtractor={(results) => results.match_id.toString()}
+                renderItem={(items) => {
+                    return (
+                        <View style={{ marginLeft: 10, marginRight: 10 }}>
+                            <MatchCard matchData={items.item} />
+                        </View>
+                    )
+                }}
+            />
+
             <View style={styles.news3Row}>
                 <Text style={styles.news3}>NEWS</Text>
                 <View style={styles.news3Filler}></View>
@@ -166,7 +208,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
 
-    navContainer: { width: '100%', marginTop: 15 },
+    navContainer: { width: '100%', marginTop: 15, padding: 10 },
     news3: {
         fontFamily: 'roboto-700',
         color: '#121212',
@@ -230,9 +272,11 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     image: {
-        width: 166,
-        height: 102,
-        marginTop: 2,
+        flex: 1,
+        height: 180,
+        left: 0,
+        right: 0,
+        marginTop: -1,
     },
     loremIpsum: {
         fontFamily: 'inter-600',
