@@ -21,7 +21,7 @@ import News from '../screens/News'
 function Today(props) {
     const navigation = useNavigation()
     const iplMatches = []
-    const specialTournamentName = 'Indian Premier League'
+    const specialTournamentCid = 118273
     let i = 0
     const [specialMatches, setSpecialMatches] = useState([])
     const [results, setResults] = useState([])
@@ -37,8 +37,8 @@ function Today(props) {
 
             while (i < response.data.response.items.length) {
                 if (
-                    response.data.response.items[i].competition.title ===
-                    specialTournamentName
+                    response.data.response.items[i].competition.cid ===
+                    specialTournamentCid
                 ) {
                     specialMatchArray.push(response.data.response.items[i])
                 } else {

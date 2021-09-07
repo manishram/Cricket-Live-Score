@@ -19,6 +19,7 @@ function MatchCard(props) {
     let teama_logo = props.matchData.teama.logo_url
     let teamb_logo = props.matchData.teamb.logo_url
     let tournament_name = props.matchData.competition.title
+    let matchSubTitle = props.matchData.subtitle
     let matchStatus = props.matchData.status
     let statusNote = props.matchData.status_note
     let matchStatusStr = props.matchData.status_str
@@ -97,7 +98,11 @@ function MatchCard(props) {
                     }
                 >
                     <View style={{ flex: 4 }}>
-                        <Text style={styles.cskVsMi}>{tournament_name}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.cskVsMi, { flex: 1 }]}>
+                                {tournament_name}
+                            </Text>
+                        </View>
                     </View>
 
                     <View style={{ flex: 1 }}>
@@ -217,6 +222,19 @@ function MatchCard(props) {
                             >{` ${endDate}`}</Text>
                         </View>
                     )}
+                    <Text
+                        style={[
+                            styles.cskVsMi,
+                            {
+                                flex: 1,
+                                fontFamily: 'inter-500',
+                                color: 'rgba(0,27,121,1)',
+                                textAlign: 'right',
+                            },
+                        ]}
+                    >
+                        {matchSubTitle}
+                    </Text>
                 </View>
 
                 <View style={styles.imageRow}>
