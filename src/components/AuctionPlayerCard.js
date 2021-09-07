@@ -1,39 +1,96 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
+import AppApi from '../api/AppApi'
 
 function AuctionPlayerCard(props) {
+    let name = props.name
+    let team = props.team
+    let selling = props.selling
+    let status = props.status
+
+    let player_image = `${AppApi.defaults.baseURL}/auction/images/${name}.png`
     return (
-        <View style={[styles.container, props.style]}>
+        <View style={styles.container}>
             <View style={styles.rectStack}>
                 <View style={styles.rect}>
-                    <View style={styles.steveSmithRow}>
-                        <Text style={styles.steveSmith}>Steve Smith</Text>
-                        <Text style={styles.delhiCapitals}>Delhi Capitals</Text>
+                    <View style={styles.topRow}>
+                        <Text style={styles.playerName}>{name}</Text>
+                        <Text style={styles.teamName}>{team}</Text>
                     </View>
                     <View style={styles.divider}></View>
-                    <View style={styles.basePriceRowColumnRow}>
-                        <View style={styles.basePriceRowColumn}>
-                            <View style={styles.basePriceRow}>
-                                <Text style={styles.basePrice}>
-                                    Base Price:
+                    <View style={{ flexDirection: 'row', padding: 15 }}>
+                        <View style={{ flex: 2 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text
+                                    style={{ flex: 1, fontFamily: 'inter-600' }}
+                                >
+                                    Selling Price
                                 </Text>
-                                <Text style={styles.basePrice1}>2 CR</Text>
+                                <Text
+                                    style={{ flex: 1, fontFamily: 'inter-500' }}
+                                >
+                                    {selling}
+                                </Text>
                             </View>
-                            <View style={styles.sellingPriceRow}>
-                                <Text style={styles.sellingPrice}>
-                                    Selling Price:
+                            <View
+                                style={{ flexDirection: 'row', marginTop: 10 }}
+                            >
+                                <Text
+                                    style={{ flex: 1, fontFamily: 'inter-600' }}
+                                >
+                                    Status
                                 </Text>
-                                <Text style={styles.basePrice2}>2.2 CR</Text>
+
+                                {status == 'Sold' ? (
+                                    <View style={{ flex: 1 }}>
+                                        <Text
+                                            style={{
+                                                color: 'white',
+                                                backgroundColor: 'green',
+                                                paddingLeft: 5,
+                                                paddingRight: 5,
+                                                borderRadius: 5,
+                                                fontSize: 12,
+                                                fontFamily: 'inter-500',
+                                                width: 38,
+                                            }}
+                                        >
+                                            Sold
+                                        </Text>
+                                    </View>
+                                ) : (
+                                    <View style={{ flex: 1 }}>
+                                        <Text
+                                            style={{
+                                                color: 'white',
+                                                backgroundColor: 'orange',
+                                                paddingLeft: 5,
+                                                paddingRight: 5,
+                                                borderRadius: 5,
+                                                fontSize: 12,
+                                                fontFamily: 'inter-500',
+                                                width: 55,
+                                            }}
+                                        >
+                                            Unsold
+                                        </Text>
+                                    </View>
+                                )}
                             </View>
                         </View>
-                        <Image
-                            source={require('../assets/images/image_iaYu..png')}
-                            resizeMode="contain"
-                            style={styles.image1}
-                        ></Image>
+
+                        <View style={{ flex: 1 }}>
+                            <Image
+                                source={{
+                                    uri: player_image,
+                                }}
+                                defaultSource={{}}
+                                resizeMode="contain"
+                                style={styles.image}
+                            ></Image>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.rect1}></View>
             </View>
         </View>
     )
@@ -57,16 +114,18 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
     },
-    steveSmith: {
+    playerName: {
         fontFamily: 'inter-700',
         color: '#121212',
         fontSize: 12,
+        flex: 1,
     },
-    delhiCapitals: {
+    teamName: {
         fontFamily: 'inter-700',
         color: '#121212',
         fontSize: 12,
-        marginLeft: 150,
+        flex: 1,
+        textAlign: 'right',
     },
     divider: {
         width: '100%',
@@ -74,74 +133,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#E6E6E6',
         marginTop: 10,
     },
-    steveSmithRow: {
+    topRow: {
         height: 15,
         flexDirection: 'row',
         marginTop: 7,
         marginLeft: 16,
         marginRight: 21,
     },
-    basePrice: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-    },
-    basePrice1: {
-        fontFamily: 'inter-500',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 5,
-    },
-    basePriceRow: {
-        height: 15,
-        flexDirection: 'row',
-        marginRight: 21,
-    },
-    sellingPrice: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-    },
-    basePrice2: {
-        fontFamily: 'inter-500',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 4,
-    },
-    sellingPriceRow: {
-        height: 15,
-        flexDirection: 'row',
-        marginTop: 20,
-    },
-    basePriceRowColumn: {
-        width: 118,
-        marginTop: 8,
-        marginBottom: 2,
-    },
-    image1: {
-        height: 60,
-        width: 60,
-        marginLeft: 117,
-    },
-    basePriceRowColumnRow: {
-        height: 60,
-        flexDirection: 'row',
-        marginTop: 17,
-        marginLeft: 16,
-        marginRight: 27,
-    },
-    rect1: {
-        top: 29,
-        left: 0,
-        width: 338,
-        height: 1,
-        position: 'absolute',
-        backgroundColor: '#E6E6E6',
-    },
     rectStack: {
         width: '100%',
         height: 107,
         marginBottom: 10,
+    },
+    image: {
+        height: 64,
+        width: 64,
     },
 })
 
