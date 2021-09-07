@@ -1,34 +1,23 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-function PointsTableRow() {
+function PointsTableRow({ name, match, win, loss, draw, nrr, points, image }) {
     return (
         <View style={styles.image1StackStack}>
             <View style={styles.image1Stack}>
-                {/* <Image
-                    source={require('../assets/images/image_iaYu..png')}
+                <Image
+                    source={{ uri: image }}
                     resizeMode="contain"
                     style={styles.image1}
-                ></Image> */}
+                ></Image>
             </View>
-            <Text style={styles.csk4}>CSK</Text>
-            <Text style={styles.csk5}>0</Text>
-            <Text style={styles.csk6}>0</Text>
-            <Text style={styles.csk7}>0</Text>
-            <Text style={styles.csk8}>0</Text>
-            <Text style={styles.csk9}>0</Text>
-            <View style={styles.csk10Stack}>
-                <Text style={styles.csk10}></Text>
-            </View>
-            <View style={styles.lastFive}>
-                <View style={styles.rect2}></View>
-                <View style={styles.rect4}></View>
-
-                <View style={styles.rect5}></View>
-
-                <View style={styles.rect6}></View>
-                <View style={styles.rect7}></View>
-            </View>
+            <Text style={styles.csk4}>{name}</Text>
+            <Text style={styles.csk5}>{match}</Text>
+            <Text style={styles.csk6}>{win}</Text>
+            <Text style={styles.csk7}>{loss}</Text>
+            <Text style={styles.csk8}>{draw}</Text>
+            <Text style={styles.csk9}>{nrr}</Text>
+            <Text style={styles.csk9}>{points}</Text>
             <View style={styles.divider}></View>
         </View>
     )
