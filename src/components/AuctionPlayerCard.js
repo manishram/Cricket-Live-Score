@@ -84,7 +84,6 @@ function AuctionPlayerCard(props) {
                                 source={{
                                     uri: player_image,
                                 }}
-                                defaultSource={{}}
                                 resizeMode="contain"
                                 style={styles.image}
                             ></Image>
