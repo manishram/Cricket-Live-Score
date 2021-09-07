@@ -20,7 +20,6 @@ const wait = (timeout) => {
 }
 
 function DetailMatchTopNav(props) {
-    // const { itemId, otherParam } = route.params
     const matchData = props.route.params.matchData
     const [index, setIndex] = React.useState(1)
     const [routes] = React.useState([

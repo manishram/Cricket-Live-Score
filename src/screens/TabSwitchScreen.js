@@ -28,6 +28,9 @@ day2.setDate(today.getDate() + 2)
 let day3 = new Date()
 day3.setDate(today.getDate() + 3)
 
+let day4 = new Date()
+day4.setDate(today.getDate() + 4)
+
 let day_1 = new Date()
 day_1.setDate(today.getDate() - 1)
 
@@ -36,6 +39,9 @@ day_2.setDate(today.getDate() - 2)
 
 let day_3 = new Date()
 day_3.setDate(today.getDate() - 3)
+
+let day_4 = new Date()
+day_4.setDate(today.getDate() - 4)
 
 function TabSwitchScreen({ navigation }) {
     const [index, setIndex] = React.useState(3)
@@ -80,15 +86,15 @@ function TabSwitchScreen({ navigation }) {
                 return (
                     <MatchLists
                         navigation={navigation}
-                        startDate={day_2.toISOString().slice(0, 10)}
-                        endDate={day_2.toISOString().slice(0, 10)}
+                        startDate={day_4.toISOString().slice(0, 10)}
+                        endDate={day_3.toISOString().slice(0, 10)}
                     />
                 )
             case '2':
                 return (
                     <MatchLists
                         navigation={navigation}
-                        startDate={day_2.toISOString().slice(0, 10)}
+                        startDate={day_3.toISOString().slice(0, 10)}
                         endDate={day_2.toISOString().slice(0, 10)}
                     />
                 )
@@ -96,38 +102,42 @@ function TabSwitchScreen({ navigation }) {
                 return (
                     <MatchLists
                         navigation={navigation}
-                        startDate={day_1.toISOString().slice(0, 10)}
+                        startDate={day_2.toISOString().slice(0, 10)}
                         endDate={day_1.toISOString().slice(0, 10)}
                     />
                 )
             case '4':
                 return (
                     <ScrollView>
-                        <Today navigation={navigation} />
+                        <Today
+                            navigation={navigation}
+                            startDate={today.toISOString().slice(0, 10)}
+                            endDate={day1.toISOString().slice(0, 10)}
+                        />
                     </ScrollView>
                 )
             case '5':
                 return (
                     <MatchLists
                         navigation={navigation}
-                        startDate={day_2.toISOString().slice(0, 10)}
-                        endDate={day_2.toISOString().slice(0, 10)}
+                        startDate={day1.toISOString().slice(0, 10)}
+                        endDate={day2.toISOString().slice(0, 10)}
                     />
                 )
             case '6':
                 return (
                     <MatchLists
                         navigation={navigation}
-                        startDate={day_2.toISOString().slice(0, 10)}
-                        endDate={day_2.toISOString().slice(0, 10)}
+                        startDate={day2.toISOString().slice(0, 10)}
+                        endDate={day3.toISOString().slice(0, 10)}
                     />
                 )
             case '7':
                 return (
                     <MatchLists
                         navigation={navigation}
-                        startDate={day_2.toISOString().slice(0, 10)}
-                        endDate={day_2.toISOString().slice(0, 10)}
+                        startDate={day3.toISOString().slice(0, 10)}
+                        endDate={day4.toISOString().slice(0, 10)}
                     />
                 )
             default:

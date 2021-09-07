@@ -5,13 +5,11 @@ import RequestApi from '../api/RequestApi'
 
 const Recent = ({ navigation, startDate, endDate }) => {
     const [results, setResults] = useState([])
-    const recentMatch = async () => {
+    const getMatchList = async () => {
         try {
             const response = await RequestApi.get('matches/', {
                 params: {
-                    // date: `${startDate}_${endDate}`,
-                    paged: 1,
-                    per_page: 1,
+                    date: `${startDate}_${endDate}`,
                 },
             })
             setResults(response.data.response.items)
@@ -20,21 +18,25 @@ const Recent = ({ navigation, startDate, endDate }) => {
         }
     }
     useEffect(() => {
-        recentMatch()
+        getMatchList()
     }, [])
     const [isFetching, setIsFetching] = useState(false)
     async function onRefresh() {
         setIsFetching(true)
-        await recentMatch()
+        await getMatchList()
         setIsFetching(false)
     }
-    return (
+    return results.length === 0 ? (
+        <Text>No Matches</Text>
+    ) : (
         <View style={styles.container}>
             <FlatList
                 showsVerticalScrollIndicator={false}
                 onRefresh={() => onRefresh()}
                 refreshing={isFetching}
-                data={results}
+                data={results.sort(function (a, b) {
+                    return a.timestamp_start - b.timestamp_start
+                })}
                 keyExtractor={(results) => results.match_id.toString()}
                 renderItem={(items) => {
                     return (

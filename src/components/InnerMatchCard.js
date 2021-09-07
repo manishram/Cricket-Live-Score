@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
 
-function MatchCard(props) {
+function InnerMatchCard(props) {
     const navigation = useNavigation()
 
     const matchUpcoming = 1
@@ -48,21 +48,39 @@ function MatchCard(props) {
     let gameState
     matchStatus == matchLive ? (gameState = props.matchData.game_state) : null
 
-    const [teamaScore, setTeamaScore] = useState('0/0 (0.0)')
-    const [teambScore, setTeambScore] = useState('0/0 (0.0)')
+    const [battingTeamScore, setbattingTeamScore] = useState('-')
+    const [battingTeam, setBattingTeam] = useState('-')
+    const [liveUpdate, setLiveUpdate] = useState('-')
     const updateScore = async () => {
         try {
             const response = await RequestApi.get(`/matches/${matchId}/live`)
+            setBattingTeam(response.data.response.team_batting)
+            setbattingTeamScore(response.data.response.live_inning.scores_full)
 
-            if (teamaId == response.data.response.live_inning.batting_team_id) {
-                setTeamaScore(response.data.response.live_inning.scores_full)
-                if (response.data.response.live_inning_number == 2) {
-                    setTeambScore(response.data.response.live_score.target)
+            switch (
+                response.data.response.commentaries[
+                    response.data.response.commentaries.length - 1
+                ].event
+            ) {
+                case 'ball': {
+                    return setLiveUpdate(
+                        response.data.response.commentaries[
+                            response.data.response.commentaries.length - 1
+                        ].score == 0
+                            ? 'Ball'
+                            : response.data.response.commentaries[
+                                  response.data.response.commentaries.length - 1
+                              ].score
+                    )
                 }
-            } else {
-                setTeambScore(response.data.response.live_inning.scores_full)
-                if (response.data.response.live_inning_number == 2) {
-                    setTeamaScore(response.data.response.live_score.target)
+                case 'wicket': {
+                    return setLiveUpdate('WKT')
+                }
+                case 'overend': {
+                    return setLiveUpdate('OVER')
+                }
+                default: {
+                    return setLiveUpdate('..')
                 }
             }
         } catch (err) {
@@ -106,13 +124,7 @@ function MatchCard(props) {
                 </TouchableOpacity>
             </View>
             <View style={styles.divider}></View>
-            <TouchableOpacity
-                onPress={() => {
-                    navigation.navigate('DetailMatchTopNav', {
-                        matchData: props.matchData,
-                    })
-                }}
-            >
+            <View>
                 <View
                     style={{
                         flexDirection: 'row',
@@ -228,11 +240,15 @@ function MatchCard(props) {
                     </View>
                     <View
                         style={{
-                            flex: 3,
+                            flex: 2,
                             justifyContent: 'center',
+                            borderRightColor: '#ccc',
+                            borderRightWidth: 1,
+                            height: 45,
                         }}
                     >
-                        <Text style={styles.teamNameText}>{teama_name}</Text>
+                        <Text style={styles.teamNameText}>{battingTeam}</Text>
+                        <Text style={styles.scoreText}>{battingTeamScore}</Text>
                     </View>
                     <View
                         style={{
@@ -240,43 +256,24 @@ function MatchCard(props) {
                             justifyContent: 'center',
                         }}
                     >
-                        <Text style={styles.scoreText}>{teamaScore}</Text>
-                    </View>
-                </View>
-
-                <View style={styles.imageRow}>
-                    <View style={{ flex: 1 }}>
-                        <Image
-                            source={{ uri: teamb_logo }}
-                            resizeMode="contain"
-                            style={styles.image}
-                        ></Image>
-                    </View>
-                    <View
-                        style={{
-                            flex: 3,
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <Text style={styles.teamNameText}>{teamb_name}</Text>
-                    </View>
-                    <View
-                        style={{
-                            flex: 2,
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <Text style={styles.scoreText}>{teambScore}</Text>
+                        <Text style={styles.scoreTextBig}>{liveUpdate}</Text>
                     </View>
                 </View>
 
                 {matchStatus != matchUpcoming ? (
                     <View>
-                        <View style={styles.divider}></View>
+                        <View
+                            style={[
+                                styles.divider,
+                                {
+                                    marginTop: 20,
+                                },
+                            ]}
+                        ></View>
                         <Text style={styles.text}>{statusNote}</Text>
                     </View>
                 ) : null}
-            </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -335,11 +332,10 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 1,
         backgroundColor: '#E6E6E6',
-        marginTop: 3,
     },
     image: {
-        height: 32,
-        width: 32,
+        height: 40,
+        width: 40,
     },
     teamNameText: {
         fontFamily: 'inter-700',
@@ -350,7 +346,15 @@ const styles = StyleSheet.create({
         fontFamily: 'inter-500',
         color: 'rgba(99,99,99,1)',
         fontSize: 12,
-        textAlign: 'right',
+        marginTop: 10,
+    },
+    scoreTextBig: {
+        fontFamily: 'inter-700',
+        color: '#0024A5',
+        fontSize: 25,
+        alignSelf: 'center',
+        marginTop: 15,
+        textTransform: 'uppercase',
     },
     imageRow: {
         height: 32,
@@ -379,4 +383,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default MatchCard
+export default InnerMatchCard

@@ -15,7 +15,7 @@ import AppApi from '../api/AppApi'
 import News from '../screens/News'
 // import BannerAd from '../components/BannerAd'
 
-function Today() {
+function Today(props) {
     const navigation = useNavigation()
 
     const [results, setResults] = useState([])
@@ -23,10 +23,7 @@ function Today() {
         try {
             const response = await RequestApi.get('matches/', {
                 params: {
-                    status: 1,
-                    format: 6,
-                    paged: 1,
-                    per_page: 10,
+                    date: `${props.startDate}_${props.endDate}`,
                 },
             })
             setResults(response.data.response.items)
@@ -85,7 +82,9 @@ function Today() {
                 showsVerticalScrollIndicator={false}
                 onRefresh={() => onRefresh()}
                 refreshing={isFetching}
-                data={results}
+                data={results.sort(function (a, b) {
+                    return a.timestamp_start - b.timestamp_start
+                })}
                 keyExtractor={(results) => results.match_id.toString()}
                 renderItem={(items) => {
                     return (

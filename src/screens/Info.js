@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import RequestApi from '../api/RequestApi'
 import MatchCard from '../components/MatchCard'
+import InnerMatchCard from '../components/InnerMatchCard'
 function Info({ matchDetail }) {
     let umpire = matchDetail.umpires
     let referee = matchDetail.referee
@@ -19,6 +20,9 @@ function Info({ matchDetail }) {
     let teamAname = matchDetail.teama.name
     let teamBname = matchDetail.teamb.name
     let matchId = matchDetail.match_id
+
+    const matchLive = 3
+    let matchStatus = matchDetail.status
 
     const [teamAPlayers, setTeamAplayer] = useState([])
     const [teamBPlayers, setTeaBAplayer] = useState([])
@@ -36,7 +40,11 @@ function Info({ matchDetail }) {
     }, [])
     return (
         <View style={styles.container}>
-            <MatchCard matchData={matchDetail} />
+            {matchStatus === matchLive ? (
+                <InnerMatchCard matchData={matchDetail} />
+            ) : (
+                <MatchCard matchData={matchDetail} />
+            )}
             <Text style={styles.title}>Match Info</Text>
             <View style={styles.card}>
                 <View style={styles.infoRow}>

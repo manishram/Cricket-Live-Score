@@ -8,38 +8,104 @@ import {
 } from 'react-native'
 import RequestApi from '../api/RequestApi'
 import MatchCard from '../components/MatchCard'
+import InnerMatchCard from '../components/InnerMatchCard'
 import Circle from '../components/Circle'
 
 function Hightlights({ matchDetail }) {
+    const matchLive = 3
+    let matchStatus = matchDetail.status
+
     let matchId = matchDetail.match_id
 
-    const [batsman, setBatsman] = useState([])
-    const [bowler, setBowler] = useState([])
-    const [commentary, setCommentary] = useState([])
+    const [commentaryInningOne, setcommentaryInningOne] = useState([])
+    const [commentaryInningTwo, setcommentaryInningTwo] = useState([])
 
-    const livePlayers = async () => {
+    const getCommentaryInningOne = async () => {
         try {
-            const response = await RequestApi.get(`matches/${matchId}/live`)
-            setBatsman(response.data.response.batsmen)
-            setBowler(response.data.response.bowlers)
-            setCommentary(response.data.response.commentaries)
+            const response = await RequestApi.get(
+                `matches/${matchId}/innings/1/commentary`
+            )
+            setcommentaryInningOne(response.data.response.commentaries)
         } catch (err) {
             console.log(err)
         }
     }
+
+    const getCommentaryInningTwo = async () => {
+        try {
+            const response = await RequestApi.get(
+                `matches/${matchId}/innings/2/commentary`
+            )
+            setcommentaryInningTwo(response.data.response.commentaries)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     useEffect(() => {
-        livePlayers()
+        getCommentaryInningOne()
+        getCommentaryInningTwo()
     }, [])
     return (
         <View style={styles.container}>
-            <MatchCard matchData={matchDetail} />
+            {matchStatus === matchLive ? (
+                <InnerMatchCard matchData={matchDetail} />
+            ) : (
+                <MatchCard matchData={matchDetail} />
+            )}
             <Text style={styles.title}>Highlights</Text>
 
             <View style={styles.card}>
+                <Text style={styles.title}>Inning 1</Text>
+                <View style={styles.divider}></View>
                 <FlatList
-                    data={commentary}
+                    data={commentaryInningOne}
                     inverted={true}
-                    keyExtractor={(commentary, index) => index.toString()}
+                    keyExtractor={(commentaryInningOne) =>
+                        `${commentaryInningOne.over}.${commentaryInningOne.ball}`
+                    }
+                    renderItem={(items) => {
+                        return items.item.event !== 'overend' ? (
+                            items.item.score > 3 ||
+                            items.item.event === 'wicket' ? (
+                                <View style={[styles.CommetaryRow]}>
+                                    <View
+                                        style={{
+                                            flex: 1,
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <Text
+                                            style={{ fontFamily: 'inter-600' }}
+                                        >
+                                            {items.item.over +
+                                                '.' +
+                                                items.item.ball}
+                                        </Text>
+                                        <Circle
+                                            textValue={items.item.score}
+                                            style={styles.circle}
+                                        />
+                                    </View>
+                                    <Text style={styles.CommentaryText}>
+                                        {items.item.commentary}
+                                    </Text>
+                                </View>
+                            ) : null
+                        ) : null
+                    }}
+                />
+            </View>
+
+            <View style={styles.card}>
+                <Text style={styles.title}>Inning 2</Text>
+                <View style={styles.divider}></View>
+                <FlatList
+                    data={commentaryInningTwo}
+                    inverted={true}
+                    keyExtractor={(commentaryInningTwo) =>
+                        `${commentaryInningTwo.over}.${commentaryInningTwo.ball}.`
+                    }
                     renderItem={(items) => {
                         return items.item.event !== 'overend' ? (
                             items.item.score > 3 ||
@@ -159,6 +225,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     CommentaryText: { flex: 6, marginLeft: 10 },
+    divider: {
+        width: '100%',
+        height: 1,
+        backgroundColor: '#E6E6E6',
+        marginTop: 3,
+    },
 })
 
 export default Hightlights

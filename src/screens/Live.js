@@ -7,10 +7,14 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import RequestApi from '../api/RequestApi'
+import InnerMatchCard from '../components/InnerMatchCard'
 import MatchCard from '../components/MatchCard'
 import Circle from '../components/Circle'
 
 function Live({ matchDetail }) {
+    const matchLive = 3
+    let matchStatus = matchDetail.status
+
     let matchId = matchDetail.match_id
 
     const [batsman, setBatsman] = useState([])
@@ -39,8 +43,11 @@ function Live({ matchDetail }) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Live Score</Text>
-            <MatchCard matchData={matchDetail} />
-
+            {matchStatus === matchLive ? (
+                <InnerMatchCard matchData={matchDetail} />
+            ) : (
+                <MatchCard matchData={matchDetail} />
+            )}
             <Text style={styles.title}>Player Stats</Text>
             <View style={styles.card}>
                 <View style={styles.livePlayerRow}>
@@ -118,7 +125,7 @@ function Live({ matchDetail }) {
                 <FlatList
                     data={bowler}
                     extraData={update}
-                    keyExtractor={(bowler) => bowler.bowler_id}
+                    keyExtractor={(bowler) => bowler.bowler_id.toString()}
                     renderItem={(items) => {
                         return (
                             <View style={styles.livePlayerRow}>
@@ -156,7 +163,9 @@ function Live({ matchDetail }) {
                     data={commentary}
                     extraData={update}
                     inverted={true}
-                    keyExtractor={(commentary, index) => index.toString()}
+                    keyExtractor={(commentary) =>
+                        `${commentary.over}.${commentary.ball}.`
+                    }
                     renderItem={(items) => {
                         return items.item.event !== 'overend' ? (
                             <View style={[styles.CommetaryRow]}>

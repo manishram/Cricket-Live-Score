@@ -10,7 +10,7 @@ const Series = ({ navigation }) => {
         try {
             const response = await RequestApi.get('competitions/', {
                 params: {
-                    paged: 1,
+                    paged: 57,
                     per_page: 10,
                 },
             })
@@ -27,6 +27,7 @@ const Series = ({ navigation }) => {
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
                 <FlatList
+                    inverted={true}
                     data={results}
                     keyExtractor={(results) => results.cid.toString()}
                     renderItem={(items) => {

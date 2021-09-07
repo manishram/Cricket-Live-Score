@@ -14,6 +14,7 @@ function SeriesCard(props) {
     let matchType = props.seriesData.category
     let format = props.seriesData.game_format
     let cid = props.seriesData.cid
+    let status = props.seriesData.status
     return (
         <TouchableOpacity
             onPress={() =>
@@ -31,6 +32,60 @@ function SeriesCard(props) {
                 </View>
 
                 <View style={styles.line}></View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        marginLeft: 10,
+                        marginRight: 10,
+                    }}
+                >
+                    {status === 'result' ? (
+                        <Text
+                            style={{
+                                marginTop: 5,
+                                color: '#616161',
+                                backgroundColor: '#dcdcdc',
+                                paddingLeft: 5,
+                                paddingRight: 5,
+                                borderRadius: 5,
+                                fontSize: 12,
+                                fontFamily: 'inter-600',
+                            }}
+                        >
+                            Finished
+                        </Text>
+                    ) : status === 'fixture' ? (
+                        <Text
+                            style={{
+                                marginTop: 5,
+                                color: 'white',
+                                backgroundColor: '#5283e4',
+                                paddingLeft: 5,
+                                paddingRight: 5,
+                                borderRadius: 5,
+                                fontSize: 12,
+                                fontFamily: 'inter-600',
+                            }}
+                        >
+                            Upcoming
+                        </Text>
+                    ) : status === 'live' ? (
+                        <Text
+                            style={{
+                                marginTop: 5,
+                                color: 'white',
+                                backgroundColor: 'rgba(219,0,0,1)',
+                                paddingLeft: 5,
+                                paddingRight: 5,
+                                borderRadius: 5,
+                                fontSize: 12,
+                                fontFamily: 'inter-600',
+                            }}
+                        >
+                            Ongoing
+                        </Text>
+                    ) : null}
+                </View>
                 <View style={styles.infoRow}>
                     <Text style={styles.left}>Starting</Text>
                     <Text style={styles.right}>{starting}</Text>

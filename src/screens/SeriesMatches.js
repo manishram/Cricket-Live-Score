@@ -34,7 +34,10 @@ function SeriesMatches(props) {
             <View style={styles.container}>
                 <Text style={styles.seriesName}>{seriesName}</Text>
                 <FlatList
-                    data={results}
+                    inverted={true}
+                    data={results.sort(function (a, b) {
+                        return a.timestamp_start - b.timestamp_start
+                    })}
                     keyExtractor={(results) => results.match_id.toString()}
                     renderItem={(items) => {
                         return <MatchCard matchData={items.item} />

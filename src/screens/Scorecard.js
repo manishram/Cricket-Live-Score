@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import {
-    StyleSheet,
-    View,
-    Text,
-    FlatList,
-    TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, View, Text, FlatList } from 'react-native'
 import RequestApi from '../api/RequestApi'
 import MatchCard from '../components/MatchCard'
-import Circle from '../components/Circle'
+import InnerMatchCard from '../components/InnerMatchCard'
 
 function Scorecard({ matchDetail }) {
     let matchId = matchDetail.match_id
+    const matchLive = 3
+    let matchStatus = matchDetail.status
 
     const [batsman, setBatsman] = useState([])
     const [bowler, setBowler] = useState([])
-    const [commentary, setCommentary] = useState([])
 
     const livePlayers = async () => {
         try {
             const response = await RequestApi.get(`matches/${matchId}/live`)
             setBatsman(response.data.response.batsmen)
             setBowler(response.data.response.bowlers)
-            setCommentary(response.data.response.commentaries)
         } catch (err) {
             console.log(err)
         }
@@ -32,7 +26,11 @@ function Scorecard({ matchDetail }) {
     }, [])
     return (
         <View style={styles.container}>
-            <MatchCard matchData={matchDetail} />
+            {matchStatus === matchLive ? (
+                <InnerMatchCard matchData={matchDetail} />
+            ) : (
+                <MatchCard matchData={matchDetail} />
+            )}
             <Text style={styles.title}>Scorecard</Text>
 
             <View style={styles.card}>
