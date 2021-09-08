@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 function NewsCard(props) {
+    const navigation = useNavigation()
+
     let featuredLabel = (
         <View style={styles.featuredLabel}>
             <View style={styles.labelBox}>
@@ -20,7 +23,15 @@ function NewsCard(props) {
         <View style={styles.container}>
             <View style={styles.newsBodyStack}>
                 <View style={styles.newsBody}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigation.navigate('NewsDetail', {
+                                title: title,
+                                image: image,
+                                newsBody: news_body,
+                            })
+                        }
+                    >
                         <View style={styles.newsRect}>
                             {isFeatured == 1 ? featuredLabel : null}
 
