@@ -44,7 +44,7 @@ function Live({ matchDetail }) {
         <View style={styles.container}>
             <Text style={styles.title}>Live Score</Text>
             {matchStatus === matchLive ? (
-                <InnerMatchCard matchData={matchDetail} />
+                <InnerMatchCard matchData={matchDetail} ads={true} />
             ) : (
                 <MatchCard matchData={matchDetail} />
             )}

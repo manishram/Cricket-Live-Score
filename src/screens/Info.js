@@ -41,7 +41,7 @@ function Info({ matchDetail }) {
     return (
         <View style={styles.container}>
             {matchStatus === matchLive ? (
-                <InnerMatchCard matchData={matchDetail} />
+                <InnerMatchCard matchData={matchDetail} ads={false} />
             ) : (
                 <MatchCard matchData={matchDetail} />
             )}

@@ -20,16 +20,17 @@ function NewsCard(props) {
     let news_body = props.newsData.news_body
     let isFeatured = props.newsData.featured
     function onNewsCardPress() {
+        window.InterstitialAdComponent.showAd()
+
         navigation.navigate('NewsDetail', {
             title: title,
             image: image,
             newsBody: news_body,
         })
-
-        windows.InterstitialAdComponent.showAd()
     }
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <View style={styles.newsBodyStack}>
                 <View style={styles.newsBody}>
                     <TouchableOpacity onPress={() => onNewsCardPress()}>
