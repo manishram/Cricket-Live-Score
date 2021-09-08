@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -18,7 +18,11 @@ function TopHeaderBox(props) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.leftIconButtonRowFiller}>
-                    <View>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <Image
+                            source={require('../assets/images/logo-sm.png')}
+                            style={styles.image}
+                        ></Image>
                         <Text numberOfLines={1} style={styles.iplLive2021}>
                             CricScore
                         </Text>
@@ -59,11 +63,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#FFFFFF',
         backgroundColor: 'transparent',
+        flex: 1,
     },
     leftIconButtonRowFiller: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'flex-end',
         justifyContent: 'center',
     },
     menuIcon: {
@@ -75,6 +79,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         flexDirection: 'row',
+    },
+    image: {
+        height: 28,
+        width: 28,
+        resizeMode: 'contain',
+        marginTop: 0,
     },
 })
 

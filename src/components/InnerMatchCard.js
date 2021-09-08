@@ -3,10 +3,10 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
+import InterstitialAd from './InterstitialAd'
 
 function InnerMatchCard(props) {
     const navigation = useNavigation()
-
     const matchUpcoming = 1
     const matchComplete = 2
     const matchLive = 3
@@ -51,6 +51,7 @@ function InnerMatchCard(props) {
     const [battingTeamScore, setbattingTeamScore] = useState('-')
     const [battingTeam, setBattingTeam] = useState('-')
     const [liveUpdate, setLiveUpdate] = useState('-')
+    let showAds = true
     const updateScore = async () => {
         try {
             const response = await RequestApi.get(`/matches/${matchId}/live`)
@@ -63,21 +64,39 @@ function InnerMatchCard(props) {
                 ].event
             ) {
                 case 'ball': {
-                    return setLiveUpdate(
-                        response.data.response.commentaries[
-                            response.data.response.commentaries.length - 1
-                        ].score == 0
-                            ? 'Ball'
-                            : response.data.response.commentaries[
-                                  response.data.response.commentaries.length - 1
-                              ].score
-                    )
+                    function whenBall() {
+                        showAds = true
+                        setLiveUpdate(
+                            response.data.response.commentaries[
+                                response.data.response.commentaries.length - 1
+                            ].score == 0
+                                ? 'Ball'
+                                : response.data.response.commentaries[
+                                      response.data.response.commentaries
+                                          .length - 1
+                                  ].score
+                        )
+                    }
+                    return whenBall()
                 }
                 case 'wicket': {
-                    return setLiveUpdate('WKT')
+                    function whenWicket() {
+                        showAds = true
+                        setLiveUpdate('WKT')
+                    }
+
+                    return whenWicket()
                 }
                 case 'overend': {
-                    return setLiveUpdate('OVER')
+                    function whenOverEnd() {
+                        if (showAds === true && props.ads === true) {
+                            window.InterstitialAdComponent.showAd()
+                            showAds = false
+                            setLiveUpdate('OVER')
+                        }
+                    }
+
+                    return whenOverEnd()
                 }
                 default: {
                     return setLiveUpdate('..')
@@ -93,6 +112,7 @@ function InnerMatchCard(props) {
             updateScore()
             const interval = setInterval(() => {
                 updateScore()
+                console.log(`------------------- ${showAds} ${props.ads}`)
             }, 10000)
             return () => clearInterval(interval)
         } else {
@@ -102,6 +122,7 @@ function InnerMatchCard(props) {
     }, [])
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <View>
                 <TouchableOpacity
                     style={styles.matchNameRow}

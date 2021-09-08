@@ -10,6 +10,7 @@ import { TabView } from 'react-native-tab-view'
 import Today from './Today'
 import { TabBar } from 'react-native-tab-view'
 import MatchLists from './MatchLists'
+import BannerAd from '../components/BannerAd'
 const initialLayout = { width: Dimensions.get('window').width }
 
 const wait = (timeout) => {
@@ -108,13 +109,16 @@ function TabSwitchScreen({ navigation }) {
                 )
             case '4':
                 return (
-                    <ScrollView>
-                        <Today
-                            navigation={navigation}
-                            startDate={today.toISOString().slice(0, 10)}
-                            endDate={day1.toISOString().slice(0, 10)}
-                        />
-                    </ScrollView>
+                    <View style={{ flex: 1 }}>
+                        <ScrollView showsVerticalScrollIndicator={true}>
+                            <Today
+                                navigation={navigation}
+                                startDate={today.toISOString().slice(0, 10)}
+                                endDate={day1.toISOString().slice(0, 10)}
+                            />
+                        </ScrollView>
+                        <BannerAd style={styles.bannerAd} />
+                    </View>
                 )
             case '5':
                 return (
@@ -182,6 +186,12 @@ const styles = StyleSheet.create({
     },
     tabStyle: {
         width: 'auto',
+    },
+    bannerAd: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
     },
 })
 export default TabSwitchScreen
