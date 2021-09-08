@@ -11,14 +11,28 @@ import {
 import CountDown from 'react-native-countdown-component'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
-import NewsCard from '../components/NewsCard'
+import { AdSettings } from 'react-native-fbads'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
 import AppApi from '../api/AppApi'
 import News from '../screens/News'
-// import BannerAd from '../components/BannerAd'
+import BannerAd from '../components/BannerAd'
 
 function Today(props) {
+    async function adFunction() {
+        AdSettings.setLogLevel('debug')
+        AdSettings.addTestDevice(AdSettings.currentDeviceHash)
+        const requestedStatus = await AdSettings.requestTrackingPermission()
+
+        if (
+            requestedStatus === 'authorized' ||
+            requestedStatus === 'unavailable'
+        ) {
+            AdSettings.setAdvertiserIDCollectionEnabled(true)
+            AdSettings.setAdvertiserTrackingEnabled(true)
+        }
+    }
+
     const navigation = useNavigation()
     const iplMatches = []
     const specialTournamentCid = 118273
@@ -102,6 +116,10 @@ function Today(props) {
     let now = new Date().getTime()
     let timeLeft = (ipldate - now) / 1000
 
+    useEffect(() => {
+        adFunction()
+        AdSettings.clearTestDevices()
+    }, [])
     return (
         <View style={styles.container}>
             {timeLeft > 0 ? (
@@ -196,7 +214,7 @@ function Today(props) {
                     style={styles.navigationBtn}
                     title="Winners"
                 ></NavigationBtn>
-                {/* <BannerAd id="1249709505449779_1249712162116180" /> */}
+                {/* <BannerAd /> */}
             </View>
 
             <FlatList

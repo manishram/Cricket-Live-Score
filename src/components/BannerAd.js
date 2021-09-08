@@ -1,12 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
 import { BannerView } from 'react-native-fbads'
+import { bannerAdPlacementId } from './Variables'
 
 function BannerAd(props) {
     return (
         <View>
             <BannerView
-                placementId={props.id}
+                placementId={bannerAdPlacementId}
                 type="standard"
                 onPress={() => console.log('click')}
                 onLoad={() => console.log('loaded')}

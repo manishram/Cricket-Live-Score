@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import InterstitialAd from './InterstitialAd'
 
 function NewsCard(props) {
     const navigation = useNavigation()
@@ -18,20 +19,20 @@ function NewsCard(props) {
     let description = props.newsData.description
     let news_body = props.newsData.news_body
     let isFeatured = props.newsData.featured
+    function onNewsCardPress() {
+        navigation.navigate('NewsDetail', {
+            title: title,
+            image: image,
+            newsBody: news_body,
+        })
 
+        windows.InterstitialAdComponent.showAd()
+    }
     return (
         <View style={styles.container}>
             <View style={styles.newsBodyStack}>
                 <View style={styles.newsBody}>
-                    <TouchableOpacity
-                        onPress={() =>
-                            navigation.navigate('NewsDetail', {
-                                title: title,
-                                image: image,
-                                newsBody: news_body,
-                            })
-                        }
-                    >
+                    <TouchableOpacity onPress={() => onNewsCardPress()}>
                         <View style={styles.newsRect}>
                             {isFeatured == 1 ? featuredLabel : null}
 
