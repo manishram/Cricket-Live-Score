@@ -14,8 +14,7 @@ const PointsTable = () => {
                     params: {},
                 }
             )
-            setPointsTable(response.data.response.response)
-            console.log(pointsTable)
+            setPointsTable(response.data.response.standings[0].standings)
         } catch (err) {
             console.log(err)
         }
@@ -31,9 +30,9 @@ const PointsTable = () => {
                 <Text style={styles.m11}>M</Text>
                 <Text style={styles.w}>W</Text>
                 <Text style={styles.l}>L</Text>
-                <Text style={styles.l}>D</Text>
                 <Text style={styles.nrr}>NRR</Text>
                 <Text style={styles.pts}>PTS</Text>
+                <Text style={styles.last5}>Last 5</Text>
             </View>
             <View style={styles.divider}></View>
             <FlatList
@@ -42,14 +41,14 @@ const PointsTable = () => {
                 renderItem={(items) => {
                     return (
                         <PointsTableRow
-                            name={items.item.title}
+                            name={items.item.team.abbr}
                             match={items.item.played}
                             win={items.item.win}
                             loss={items.item.loss}
-                            draw={items.item.draw}
                             nrr={items.item.netrr}
                             points={items.item.points}
-                            image={items.item.thumb_url}
+                            image={items.item.team.thumb_url}
+                            last5={items.item.lastfivematchresult}
                         />
                     )
                 }}
@@ -60,52 +59,62 @@ const PointsTable = () => {
 
 const styles = StyleSheet.create({
     container: { padding: 10 },
-    teamName: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-    },
-    m11: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 17,
-    },
-    w: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 19,
-    },
-    l: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 22,
-    },
-    nrr: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 23,
-    },
-    pts: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 26,
-    },
-    last5: {
-        fontFamily: 'inter-700',
-        color: '#121212',
-        fontSize: 12,
-        marginLeft: 35,
-    },
     teamNameRow: {
         height: 15,
         flexDirection: 'row',
         marginTop: 5,
     },
+    teamName: {
+        flex: 2,
+        fontFamily: 'inter-700',
+        color: '#121212',
+        fontSize: 12,
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    m11: {
+        textAlign: 'center',
+        fontFamily: 'inter-700',
+        color: '#121212',
+        fontSize: 12,
+        flex: 1,
+    },
+    w: {
+        fontFamily: 'inter-700',
+        color: '#121212',
+        textAlign: 'center',
+        fontSize: 12,
+        flex: 1,
+    },
+    l: {
+        fontFamily: 'inter-700',
+        color: '#121212',
+        textAlign: 'center',
+        fontSize: 12,
+        flex: 1,
+    },
+    nrr: {
+        fontFamily: 'inter-700',
+        color: '#121212',
+        textAlign: 'center',
+        fontSize: 12,
+        flex: 1.5,
+    },
+    pts: {
+        fontFamily: 'inter-700',
+        color: '#121212',
+        textAlign: 'center',
+        fontSize: 12,
+        flex: 1,
+    },
+    last5: {
+        fontFamily: 'inter-700',
+        color: '#121212',
+        fontSize: 12,
+        textAlign: 'center',
+        flex: 2,
+    },
+
     divider: {
         width: '100%',
         height: 2,
