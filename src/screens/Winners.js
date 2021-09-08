@@ -33,6 +33,9 @@ const Winners = () => {
                     data={winnerList}
                     keyExtractor={(winnerList) => winnerList.year.toString()}
                     renderItem={(items) => {
+                        console.log(
+                            `${AppApi.defaults.baseURL}/winners/images/${items.item.image}`
+                        )
                         return (
                             <View style={styles.card}>
                                 <Text
