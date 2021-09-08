@@ -214,7 +214,6 @@ function Today(props) {
                     style={styles.navigationBtn}
                     title="Winners"
                 ></NavigationBtn>
-                {/* <BannerAd /> */}
             </View>
 
             <FlatList
@@ -247,7 +246,7 @@ function Today(props) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <News />
+            <News ad={false} />
         </View>
     )
 }

@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from 'react'
 import { StyleSheet, View, ScrollView, Text, FlatList } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import RequestApi from '../api/RequestApi'
+import BannerAd from '../components/BannerAd'
 
 const Recent = ({ navigation, startDate, endDate }) => {
     const [results, setResults] = useState([])
@@ -46,13 +47,21 @@ const Recent = ({ navigation, startDate, endDate }) => {
                     )
                 }}
             />
+            <BannerAd style={styles.bannerAd} />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: 'rgba(240, 240, 240, 1)',
+    },
+    bannerAd: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
     },
 })
 

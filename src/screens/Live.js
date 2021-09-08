@@ -5,11 +5,13 @@ import {
     Text,
     FlatList,
     TouchableOpacity,
+    ScrollView,
 } from 'react-native'
 import RequestApi from '../api/RequestApi'
 import InnerMatchCard from '../components/InnerMatchCard'
 import MatchCard from '../components/MatchCard'
 import Circle from '../components/Circle'
+import BannerAd from '../components/BannerAd'
 
 function Live({ matchDetail }) {
     const matchLive = 3
@@ -41,155 +43,257 @@ function Live({ matchDetail }) {
         return () => clearInterval(interval)
     }, [])
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Live Score</Text>
-            {matchStatus === matchLive ? (
-                <InnerMatchCard matchData={matchDetail} ads={true} />
-            ) : (
-                <MatchCard matchData={matchDetail} />
-            )}
-            <Text style={styles.title}>Player Stats</Text>
-            <View style={styles.card}>
-                <View style={styles.livePlayerRow}>
-                    <Text style={[styles.livePlayerHeaderText, styles.a]}>
-                        Batsman
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.b]}>
-                        R
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.c]}>
-                        B
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.d]}>
-                        4s
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.e]}>
-                        6s
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.f]}>
-                        SR
-                    </Text>
-                </View>
-                <FlatList
-                    data={batsman}
-                    extraData={update}
-                    keyExtractor={(batsman) => batsman.batsman_id.toString()}
-                    renderItem={(items) => {
-                        return (
-                            <View style={styles.livePlayerRow}>
-                                <Text style={[styles.livePlayerText, styles.a]}>
-                                    {items.item.name}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.b]}>
-                                    {items.item.runs}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.c]}>
-                                    {items.item.balls_faced}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.d]}>
-                                    {items.item.fours}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.e]}>
-                                    {items.item.sixes}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.f]}>
-                                    {items.item.strike_rate}
-                                </Text>
-                            </View>
-                        )
-                    }}
-                />
+        <View style={{ flex: 1 }}>
+            <ScrollView showsVerticalScrollIndicator={true}>
+                <View style={styles.container}>
+                    <Text style={styles.title}>Live Score</Text>
+                    {matchStatus === matchLive ? (
+                        <InnerMatchCard matchData={matchDetail} ads={true} />
+                    ) : (
+                        <MatchCard matchData={matchDetail} />
+                    )}
+                    <Text style={styles.title}>Player Stats</Text>
+                    <View style={styles.card}>
+                        <View style={styles.livePlayerRow}>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.a]}
+                            >
+                                Batsman
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.b]}
+                            >
+                                R
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.c]}
+                            >
+                                B
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.d]}
+                            >
+                                4s
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.e]}
+                            >
+                                6s
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.f]}
+                            >
+                                SR
+                            </Text>
+                        </View>
+                        <FlatList
+                            data={batsman}
+                            extraData={update}
+                            keyExtractor={(batsman) =>
+                                batsman.batsman_id.toString()
+                            }
+                            renderItem={(items) => {
+                                return (
+                                    <View style={styles.livePlayerRow}>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.a,
+                                            ]}
+                                        >
+                                            {items.item.name}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.b,
+                                            ]}
+                                        >
+                                            {items.item.runs}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.c,
+                                            ]}
+                                        >
+                                            {items.item.balls_faced}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.d,
+                                            ]}
+                                        >
+                                            {items.item.fours}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.e,
+                                            ]}
+                                        >
+                                            {items.item.sixes}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.f,
+                                            ]}
+                                        >
+                                            {items.item.strike_rate}
+                                        </Text>
+                                    </View>
+                                )
+                            }}
+                        />
 
-                <View style={styles.lineStyle} />
-                <View style={styles.livePlayerRow}>
-                    <Text style={[styles.livePlayerHeaderText, styles.a]}>
-                        Bowler
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.b]}>
-                        O
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.c]}>
-                        M
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.d]}>
-                        R
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.e]}>
-                        W
-                    </Text>
-                    <Text style={[styles.livePlayerHeaderText, styles.f]}>
-                        ER
-                    </Text>
-                </View>
+                        <View style={styles.lineStyle} />
+                        <View style={styles.livePlayerRow}>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.a]}
+                            >
+                                Bowler
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.b]}
+                            >
+                                O
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.c]}
+                            >
+                                M
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.d]}
+                            >
+                                R
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.e]}
+                            >
+                                W
+                            </Text>
+                            <Text
+                                style={[styles.livePlayerHeaderText, styles.f]}
+                            >
+                                ER
+                            </Text>
+                        </View>
 
-                <FlatList
-                    data={bowler}
-                    extraData={update}
-                    keyExtractor={(bowler) => bowler.bowler_id.toString()}
-                    renderItem={(items) => {
-                        return (
-                            <View style={styles.livePlayerRow}>
-                                <Text style={[styles.livePlayerText, styles.a]}>
-                                    {items.item.name}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.b]}>
-                                    {items.item.overs}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.c]}>
-                                    {items.item.maidens}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.d]}>
-                                    {items.item.runs_conceded}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.e]}>
-                                    {items.item.wickets}
-                                </Text>
-                                <Text style={[styles.livePlayerText, styles.f]}>
-                                    {items.item.econ}
-                                </Text>
-                            </View>
-                        )
-                    }}
-                />
-            </View>
-            <View style={styles.card}>
-                <View style={styles.overBoxTopRow}>
-                    <Text style={[styles.title, { flex: 1 }]}>
-                        Commentaries
-                    </Text>
+                        <FlatList
+                            data={bowler}
+                            extraData={update}
+                            keyExtractor={(bowler) =>
+                                bowler.bowler_id.toString()
+                            }
+                            renderItem={(items) => {
+                                return (
+                                    <View style={styles.livePlayerRow}>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.a,
+                                            ]}
+                                        >
+                                            {items.item.name}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.b,
+                                            ]}
+                                        >
+                                            {items.item.overs}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.c,
+                                            ]}
+                                        >
+                                            {items.item.maidens}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.d,
+                                            ]}
+                                        >
+                                            {items.item.runs_conceded}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.e,
+                                            ]}
+                                        >
+                                            {items.item.wickets}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.livePlayerText,
+                                                styles.f,
+                                            ]}
+                                        >
+                                            {items.item.econ}
+                                        </Text>
+                                    </View>
+                                )
+                            }}
+                        />
+                    </View>
+                    <View style={styles.card}>
+                        <View style={styles.overBoxTopRow}>
+                            <Text style={[styles.title, { flex: 1 }]}>
+                                Commentaries
+                            </Text>
+                        </View>
+                        <View style={styles.lineStyle} />
+                        <FlatList
+                            data={commentary}
+                            extraData={update}
+                            inverted={true}
+                            keyExtractor={(commentary) =>
+                                `${commentary.over}.${commentary.ball}.`
+                            }
+                            renderItem={(items) => {
+                                return items.item.event !== 'overend' ? (
+                                    <View style={[styles.CommetaryRow]}>
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            <Text
+                                                style={{
+                                                    fontFamily: 'inter-600',
+                                                }}
+                                            >
+                                                {items.item.over +
+                                                    '.' +
+                                                    items.item.ball}
+                                            </Text>
+                                            <Circle
+                                                textValue={items.item.score}
+                                                style={styles.circle}
+                                            />
+                                        </View>
+                                        <Text style={styles.CommentaryText}>
+                                            {items.item.commentary}
+                                        </Text>
+                                    </View>
+                                ) : (
+                                    <View style={styles.lineStyle} />
+                                )
+                            }}
+                        />
+                    </View>
                 </View>
-                <View style={styles.lineStyle} />
-                <FlatList
-                    data={commentary}
-                    extraData={update}
-                    inverted={true}
-                    keyExtractor={(commentary) =>
-                        `${commentary.over}.${commentary.ball}.`
-                    }
-                    renderItem={(items) => {
-                        return items.item.event !== 'overend' ? (
-                            <View style={[styles.CommetaryRow]}>
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-                                    <Text style={{ fontFamily: 'inter-600' }}>
-                                        {items.item.over +
-                                            '.' +
-                                            items.item.ball}
-                                    </Text>
-                                    <Circle
-                                        textValue={items.item.score}
-                                        style={styles.circle}
-                                    />
-                                </View>
-                                <Text style={styles.CommentaryText}>
-                                    {items.item.commentary}
-                                </Text>
-                            </View>
-                        ) : (
-                            <View style={styles.lineStyle} />
-                        )
-                    }}
-                />
-            </View>
+            </ScrollView>
+            <BannerAd style={styles.bannerAd} />
         </View>
     )
 }
@@ -277,6 +381,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     CommentaryText: { flex: 6, marginLeft: 10 },
+    bannerAd: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
 })
 
 export default Live
