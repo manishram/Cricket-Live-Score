@@ -20,18 +20,26 @@ function AuctionPlayerCard(props) {
                     <View style={styles.divider}></View>
                     <View style={{ flexDirection: 'row', padding: 15 }}>
                         <View style={{ flex: 2 }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text
-                                    style={{ flex: 1, fontFamily: 'inter-600' }}
-                                >
-                                    Selling Price
-                                </Text>
-                                <Text
-                                    style={{ flex: 1, fontFamily: 'inter-500' }}
-                                >
-                                    {selling}
-                                </Text>
-                            </View>
+                            {status == 'Sold' ? (
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text
+                                        style={{
+                                            flex: 1,
+                                            fontFamily: 'inter-600',
+                                        }}
+                                    >
+                                        Selling Price
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            flex: 1,
+                                            fontFamily: 'inter-500',
+                                        }}
+                                    >
+                                        {selling}
+                                    </Text>
+                                </View>
+                            ) : null}
                             <View
                                 style={{ flexDirection: 'row', marginTop: 10 }}
                             >

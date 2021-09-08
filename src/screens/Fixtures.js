@@ -12,7 +12,7 @@ const Fixtures = () => {
                 `competitions/${cid}/matches/`,
                 {
                     params: {
-                        per_page: 50,
+                        per_page: 100,
                         paged: 1,
                     },
                 }

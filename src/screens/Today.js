@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
         height: 15,
         width: 39,
         fontSize: 12,
+        marginLeft: 10,
     },
     news3Filler: {
         flex: 1,
@@ -264,6 +265,7 @@ const styles = StyleSheet.create({
     group: {
         width: 40,
         height: 24,
+        marginRight: 10,
     },
     viewAll: {
         fontFamily: 'roboto-700',

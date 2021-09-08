@@ -27,7 +27,7 @@ const Records = () => {
                 <Text
                     style={{
                         fontFamily: 'inter-700',
-                        flex: 1,
+                        justifyContent: 'center',
                         textAlign: 'center',
                         marginTop: 10,
                     }}
