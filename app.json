@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "IPL Score 2021",
-    "slug": "iplscore2021",
+    "name": "CricScore",
+    "slug": "cricscore",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -14,15 +14,15 @@
     },
 	"icon": "./src/assets/images/logo.png",
     "splash": {
-        "image": "./src/assets/images/logo.png",
+        "image": "./src/assets/images/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#ffffff",
+        "backgroundColor": "#0826A5",
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "package": "com.ipllive2021.app" 
+      "package": "com.cricscore.app" 
     }
   }
 }
