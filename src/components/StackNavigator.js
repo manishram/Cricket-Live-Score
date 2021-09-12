@@ -29,7 +29,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/core'
 
 const Stack = createStackNavigator()
-const windowWidth = Dimensions.get('window').width
+
 const MainStackNavigator = ({ navigation }) => {
     return (
         <Stack.Navigator
@@ -40,15 +40,14 @@ const MainStackNavigator = ({ navigation }) => {
                     elevation: 0,
                     shadowOpacity: 0,
                 },
+                headerTitleAlign: 'center',
                 headerTitle: () => {
                     return (
                         <View
                             style={{
                                 flex: 1,
                                 flexDirection: 'row',
-                                borderColor: 'red',
-                                borderWidth: 2,
-                                justifyContent: 'space-around',
+                                alignItems: 'center',
                             }}
                         >
                             <Image
@@ -61,8 +60,8 @@ const MainStackNavigator = ({ navigation }) => {
                         </View>
                     )
                 },
-                headerRight: () => {},
                 headerLeft: () => {
+                    const navigation = useNavigation()
                     return (
                         <TouchableOpacity
                             style={{ paddingRight: 8 }}
@@ -115,13 +114,11 @@ const styles = StyleSheet.create({
         width: 28,
         resizeMode: 'contain',
         marginTop: 0,
-        justifyContent: 'center',
     },
     iplLive2021: {
         fontSize: 18,
         color: '#FFFFFF',
         backgroundColor: 'transparent',
-        flex: 1,
     },
 })
 
