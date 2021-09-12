@@ -14,6 +14,7 @@ import InterstitialAd from '../components/InterstitialAd'
 import MatchCard from '../components/MatchCard'
 
 const Fixtures = () => {
+    let i = 0
     let cid = 118273
     let ipldate = 1632050000
     const [fixture, setFixture] = useState([])
@@ -86,18 +87,33 @@ const Fixtures = () => {
                         })}
                         keyExtractor={(fixture) => fixture.match_id.toString()}
                         renderItem={(items) => {
-                            return (
-                                <View
-                                    style={{ marginLeft: 10, marginRight: 10 }}
-                                >
-                                    <MatchCard matchData={items.item} />
-                                </View>
-                            )
+                            if (i === 4) {
+                                i = 0
+                                return (
+                                    <View
+                                        style={{ backgroundColor: '#f6f6f6' }}
+                                    >
+                                        <BannerAd />
+                                    </View>
+                                )
+                            } else {
+                                i = i + 1
+                                return (
+                                    <View
+                                        style={{
+                                            marginLeft: 10,
+                                            marginRight: 10,
+                                        }}
+                                    >
+                                        <MatchCard matchData={items.item} />
+                                    </View>
+                                )
+                            }
                         }}
                     />
                 )}
             </ScrollView>
-            <BannerAd />
+            <BannerAd style={styles.bannerAd} />
         </View>
     )
 }
