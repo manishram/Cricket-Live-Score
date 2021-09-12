@@ -92,8 +92,8 @@ function InnerMatchCard(props) {
                         if (showAds === true && props.ads === true) {
                             window.InterstitialAdComponent.showAd()
                             showAds = false
-                            setLiveUpdate('OVER')
                         }
+                        setLiveUpdate('OVER')
                     }
 
                     return whenOverEnd()
