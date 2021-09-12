@@ -1,5 +1,12 @@
 import React, { Component, useState, useEffect } from 'react'
-import { StyleSheet, View, FlatList, Text, ScrollView } from 'react-native'
+import {
+    StyleSheet,
+    View,
+    FlatList,
+    Text,
+    ScrollView,
+    ActivityIndicator,
+} from 'react-native'
 import RequestApi from '../api/RequestApi'
 import BannerAd from '../components/BannerAd'
 import MatchCard from '../components/MatchCard'
@@ -8,7 +15,9 @@ const Fixtures = () => {
     let cid = 118273
     let ipldate = 1632050000
     const [fixture, setFixture] = useState([])
+    const [isLoading, setIsLoading] = useState()
     const getFixture = async () => {
+        setIsLoading(true)
         try {
             const response = await RequestApi.get(
                 `competitions/${cid}/matches/`,
@@ -20,7 +29,7 @@ const Fixtures = () => {
                 }
             )
             setFixture(response.data.response.items)
-            console.log(results)
+            setIsLoading(false)
         } catch (err) {
             console.log(err)
         }
@@ -41,21 +50,40 @@ const Fixtures = () => {
                 >
                     IPL 2021 Fixture
                 </Text>
-                <FlatList
-                    style={{ marginTop: 10 }}
-                    showsVerticalScrollIndicator={false}
-                    data={fixture.sort(function (a, b) {
-                        return a.timestamp_start - b.timestamp_start
-                    })}
-                    keyExtractor={(fixture) => fixture.match_id.toString()}
-                    renderItem={(items) => {
-                        return (
-                            <View style={{ marginLeft: 10, marginRight: 10 }}>
-                                <MatchCard matchData={items.item} />
-                            </View>
-                        )
-                    }}
-                />
+                {isLoading ? (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-around',
+                            padding: 10,
+                            height: 400,
+                        }}
+                    >
+                        <ActivityIndicator
+                            size="large"
+                            color="#0000ff"
+                            style={{ flex: 1, justifyContent: 'center' }}
+                        />
+                    </View>
+                ) : (
+                    <FlatList
+                        style={{ marginTop: 10 }}
+                        showsVerticalScrollIndicator={false}
+                        data={fixture.sort(function (a, b) {
+                            return a.timestamp_start - b.timestamp_start
+                        })}
+                        keyExtractor={(fixture) => fixture.match_id.toString()}
+                        renderItem={(items) => {
+                            return (
+                                <View
+                                    style={{ marginLeft: 10, marginRight: 10 }}
+                                >
+                                    <MatchCard matchData={items.item} />
+                                </View>
+                            )
+                        }}
+                    />
+                )}
             </ScrollView>
             <BannerAd />
         </View>

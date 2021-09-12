@@ -5,6 +5,7 @@ import {
     ScrollView,
     FlatList,
     Dimensions,
+    ActivityIndicator,
 } from 'react-native'
 import NewsCard from '../components/NewsCard'
 import AppApi from '../api/AppApi'
@@ -16,7 +17,9 @@ const wait = (timeout) => {
 
 const News = (props) => {
     const [featuredNews, setFeaturedNews] = useState([])
+    const [isNewsLoading, setIsNewsLoading] = useState()
     const getFeaturedNews = async () => {
+        setIsNewsLoading(true)
         try {
             const response = await AppApi.get('/news/', {
                 params: {
@@ -24,6 +27,7 @@ const News = (props) => {
                 },
             })
             setFeaturedNews(response.data.response)
+            setIsNewsLoading(false)
         } catch (err) {
             console.log(err)
         }
@@ -61,30 +65,52 @@ const News = (props) => {
         <View style={{ flex: 1 }}>
             <View style={[styles.container, { height: windowHeight - 173 }]}>
                 <ScrollView showsVerticalScrollIndicator={true}>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        onRefresh={() => onRefresh()}
-                        refreshing={isFetching}
-                        extraData={isFetching}
-                        inverted={true}
-                        data={featuredNews}
-                        keyExtractor={(news) => news.id.toString()}
-                        renderItem={(items) => {
-                            return <NewsCard newsData={items.item} />
-                        }}
-                    />
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        onRefresh={() => onRefresh()}
-                        refreshing={isFetching}
-                        extraData={isFetching}
-                        inverted={true}
-                        data={notFeaturedNews}
-                        keyExtractor={(news) => news.id.toString()}
-                        renderItem={(items) => {
-                            return <NewsCard newsData={items.item} />
-                        }}
-                    />
+                    {isNewsLoading ? (
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-around',
+                                padding: 10,
+                                height: 400,
+                            }}
+                        >
+                            <ActivityIndicator
+                                size="large"
+                                color="#0000ff"
+                                style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                }}
+                            />
+                        </View>
+                    ) : (
+                        <View>
+                            <FlatList
+                                showsVerticalScrollIndicator={false}
+                                onRefresh={() => onRefresh()}
+                                refreshing={isFetching}
+                                extraData={isFetching}
+                                inverted={true}
+                                data={featuredNews}
+                                keyExtractor={(news) => news.id.toString()}
+                                renderItem={(items) => {
+                                    return <NewsCard newsData={items.item} />
+                                }}
+                            />
+                            <FlatList
+                                showsVerticalScrollIndicator={false}
+                                onRefresh={() => onRefresh()}
+                                refreshing={isFetching}
+                                extraData={isFetching}
+                                inverted={true}
+                                data={notFeaturedNews}
+                                keyExtractor={(news) => news.id.toString()}
+                                renderItem={(items) => {
+                                    return <NewsCard newsData={items.item} />
+                                }}
+                            />
+                        </View>
+                    )}
                 </ScrollView>
             </View>
             {props.ads ? <BannerAd style={styles.bannerAd} /> : null}

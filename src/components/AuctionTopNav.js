@@ -5,6 +5,7 @@ import {
     Dimensions,
     FlatList,
     ScrollView,
+    ActivityIndicator,
 } from 'react-native'
 import { TabView } from 'react-native-tab-view'
 import { TabBar } from 'react-native-tab-view'
@@ -23,10 +24,13 @@ function AuctionTopNav() {
     ])
 
     const [auctionBatsmen, setAuctionBatsmen] = useState([])
+    const [isLoadingBatsMan, setisLoadingBatsMan] = useState()
     const getAuctionBatsmen = async () => {
+        setisLoadingBatsMan(true)
         try {
             const response = await AppApi.get(`/auction/batsmen/`)
             setAuctionBatsmen(response.data)
+            setisLoadingBatsMan(false)
         } catch (err) {
             console.log(err)
         }
@@ -36,10 +40,13 @@ function AuctionTopNav() {
     }, [])
 
     const [auctionBowlers, setAuctionBowlers] = useState([])
+    const [isLoadingBowlers, setisLoadingBowlers] = useState()
     const getAuctionBowlers = async () => {
+        setisLoadingBowlers(true)
         try {
             const response = await AppApi.get(`/auction/bowlers/`)
             setAuctionBowlers(response.data)
+            setisLoadingBowlers(false)
         } catch (err) {
             console.log(err)
         }
@@ -49,10 +56,14 @@ function AuctionTopNav() {
     }, [])
 
     const [auctionWicketKeepers, setAauctionWicketKeepers] = useState([])
+    const [isLoadingWK, setisLoadingWK] = useState()
+
     const getAuctionWicketKeepers = async () => {
+        setisLoadingWK(true)
         try {
             const response = await AppApi.get(`/auction/wicket-keepers/`)
             setAauctionWicketKeepers(response.data)
+            setisLoadingWK(false)
         } catch (err) {
             console.log(err)
         }
@@ -62,10 +73,13 @@ function AuctionTopNav() {
     }, [])
 
     const [auctionAllRounders, setAauctionAllRounders] = useState([])
+    const [isLoadingAR, setisLoadingAR] = useState()
     const getAuctionAllRounders = async () => {
+        setisLoadingAR(true)
         try {
             const response = await AppApi.get(`/auction/all-rounders/`)
             setAauctionAllRounders(response.data)
+            setisLoadingAR(false)
         } catch (err) {
             console.log(err)
         }
@@ -80,22 +94,42 @@ function AuctionTopNav() {
                 return (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.container}>
-                            <FlatList
-                                data={auctionBatsmen}
-                                keyExtractor={(auctionBatsmen) =>
-                                    auctionBatsmen.name
-                                }
-                                renderItem={(items) => {
-                                    return (
-                                        <AuctionPlayerCard
-                                            name={items.item.name}
-                                            team={items.item.team_name}
-                                            selling={items.item.selling}
-                                            status={items.item.status}
-                                        />
-                                    )
-                                }}
-                            />
+                            {isLoadingBatsMan ? (
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around',
+                                        padding: 10,
+                                        height: 400,
+                                    }}
+                                >
+                                    <ActivityIndicator
+                                        size="large"
+                                        color="#0000ff"
+                                        style={{
+                                            flex: 1,
+                                            justifyContent: 'center',
+                                        }}
+                                    />
+                                </View>
+                            ) : (
+                                <FlatList
+                                    data={auctionBatsmen}
+                                    keyExtractor={(auctionBatsmen) =>
+                                        auctionBatsmen.name
+                                    }
+                                    renderItem={(items) => {
+                                        return (
+                                            <AuctionPlayerCard
+                                                name={items.item.name}
+                                                team={items.item.team_name}
+                                                selling={items.item.selling}
+                                                status={items.item.status}
+                                            />
+                                        )
+                                    }}
+                                />
+                            )}
                         </View>
                     </ScrollView>
                 )
@@ -104,22 +138,42 @@ function AuctionTopNav() {
                 return (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.container}>
-                            <FlatList
-                                data={auctionBowlers}
-                                keyExtractor={(auctionBowlers) =>
-                                    auctionBowlers.name
-                                }
-                                renderItem={(items) => {
-                                    return (
-                                        <AuctionPlayerCard
-                                            name={items.item.name}
-                                            team={items.item.team_name}
-                                            selling={items.item.selling}
-                                            status={items.item.status}
-                                        />
-                                    )
-                                }}
-                            />
+                            {isLoadingBowlers ? (
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around',
+                                        padding: 10,
+                                        height: 400,
+                                    }}
+                                >
+                                    <ActivityIndicator
+                                        size="large"
+                                        color="#0000ff"
+                                        style={{
+                                            flex: 1,
+                                            justifyContent: 'center',
+                                        }}
+                                    />
+                                </View>
+                            ) : (
+                                <FlatList
+                                    data={auctionBowlers}
+                                    keyExtractor={(auctionBowlers) =>
+                                        auctionBowlers.name
+                                    }
+                                    renderItem={(items) => {
+                                        return (
+                                            <AuctionPlayerCard
+                                                name={items.item.name}
+                                                team={items.item.team_name}
+                                                selling={items.item.selling}
+                                                status={items.item.status}
+                                            />
+                                        )
+                                    }}
+                                />
+                            )}
                         </View>
                     </ScrollView>
                 )
@@ -128,22 +182,42 @@ function AuctionTopNav() {
                 return (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.container}>
-                            <FlatList
-                                data={auctionWicketKeepers}
-                                keyExtractor={(auctionWicketKeepers) =>
-                                    auctionWicketKeepers.name
-                                }
-                                renderItem={(items) => {
-                                    return (
-                                        <AuctionPlayerCard
-                                            name={items.item.name}
-                                            team={items.item.team_name}
-                                            selling={items.item.selling}
-                                            status={items.item.status}
-                                        />
-                                    )
-                                }}
-                            />
+                            {isLoadingWK ? (
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around',
+                                        padding: 10,
+                                        height: 400,
+                                    }}
+                                >
+                                    <ActivityIndicator
+                                        size="large"
+                                        color="#0000ff"
+                                        style={{
+                                            flex: 1,
+                                            justifyContent: 'center',
+                                        }}
+                                    />
+                                </View>
+                            ) : (
+                                <FlatList
+                                    data={auctionWicketKeepers}
+                                    keyExtractor={(auctionWicketKeepers) =>
+                                        auctionWicketKeepers.name
+                                    }
+                                    renderItem={(items) => {
+                                        return (
+                                            <AuctionPlayerCard
+                                                name={items.item.name}
+                                                team={items.item.team_name}
+                                                selling={items.item.selling}
+                                                status={items.item.status}
+                                            />
+                                        )
+                                    }}
+                                />
+                            )}
                         </View>
                     </ScrollView>
                 )
@@ -151,22 +225,42 @@ function AuctionTopNav() {
                 return (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.container}>
-                            <FlatList
-                                data={auctionAllRounders}
-                                keyExtractor={(auctionAllRounders) =>
-                                    auctionAllRounders.name
-                                }
-                                renderItem={(items) => {
-                                    return (
-                                        <AuctionPlayerCard
-                                            name={items.item.name}
-                                            team={items.item.team_name}
-                                            selling={items.item.selling}
-                                            status={items.item.status}
-                                        />
-                                    )
-                                }}
-                            />
+                            {isLoadingAR ? (
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around',
+                                        padding: 10,
+                                        height: 400,
+                                    }}
+                                >
+                                    <ActivityIndicator
+                                        size="large"
+                                        color="#0000ff"
+                                        style={{
+                                            flex: 1,
+                                            justifyContent: 'center',
+                                        }}
+                                    />
+                                </View>
+                            ) : (
+                                <FlatList
+                                    data={auctionAllRounders}
+                                    keyExtractor={(auctionAllRounders) =>
+                                        auctionAllRounders.name
+                                    }
+                                    renderItem={(items) => {
+                                        return (
+                                            <AuctionPlayerCard
+                                                name={items.item.name}
+                                                team={items.item.team_name}
+                                                selling={items.item.selling}
+                                                status={items.item.status}
+                                            />
+                                        )
+                                    }}
+                                />
+                            )}
                         </View>
                     </ScrollView>
                 )

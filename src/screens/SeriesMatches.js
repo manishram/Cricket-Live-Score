@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, FlatList, StyleSheet, Text } from 'react-native'
+import {
+    View,
+    ScrollView,
+    FlatList,
+    StyleSheet,
+    Text,
+    ActivityIndicator,
+} from 'react-native'
 import RequestApi from '../api/RequestApi'
 import MatchCard from '../components/MatchCard'
 
@@ -9,7 +16,9 @@ function SeriesMatches(props) {
     let totalMatches = props.route.params.totalMatches
     console.log(props.routes)
     const [results, setResults] = useState([])
+    const [isLoadingMatches, setisLoadingMatches] = useState()
     const seriesMatch = async () => {
+        setisLoadingMatches(true)
         try {
             const response = await RequestApi.get(
                 `competitions/${cid}/matches`,
@@ -21,6 +30,7 @@ function SeriesMatches(props) {
                 }
             )
             setResults(response.data.response.items)
+            setisLoadingMatches(false)
         } catch (err) {
             console.log(err)
         }
@@ -33,16 +43,36 @@ function SeriesMatches(props) {
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
                 <Text style={styles.seriesName}>{seriesName}</Text>
-                <FlatList
-                    inverted={true}
-                    data={results.sort(function (a, b) {
-                        return a.timestamp_start - b.timestamp_start
-                    })}
-                    keyExtractor={(results) => results.match_id.toString()}
-                    renderItem={(items) => {
-                        return <MatchCard matchData={items.item} />
-                    }}
-                />
+                {isLoadingMatches ? (
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-around',
+                            padding: 10,
+                            height: 400,
+                        }}
+                    >
+                        <ActivityIndicator
+                            size="large"
+                            color="#0000ff"
+                            style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                            }}
+                        />
+                    </View>
+                ) : (
+                    <FlatList
+                        inverted={true}
+                        data={results.sort(function (a, b) {
+                            return a.timestamp_start - b.timestamp_start
+                        })}
+                        keyExtractor={(results) => results.match_id.toString()}
+                        renderItem={(items) => {
+                            return <MatchCard matchData={items.item} />
+                        }}
+                    />
+                )}
             </View>
         </ScrollView>
     )
