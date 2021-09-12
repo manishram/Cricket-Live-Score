@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     matchNameRow: {
-        height: 30,
+        height: 40,
         flexDirection: 'row',
         marginTop: 4,
         marginLeft: 10,
@@ -353,7 +353,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 1,
         backgroundColor: '#E6E6E6',
-        marginTop: 3,
     },
     image: {
         height: 32,
