@@ -32,10 +32,8 @@ function App() {
                 />
 
                 <View style={{ flex: 1 }}>
-                    <View>
-                        <TopHeaderBox />
-                    </View>
-                    <View style={{ flex: 1, paddingTop: 50 }}>
+                    <View>{/* <TopHeaderBox /> */}</View>
+                    <View style={{ flex: 1 }}>
                         <NavigationContainer>
                             <DrawerNavigator />
                         </NavigationContainer>

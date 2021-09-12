@@ -1,4 +1,12 @@
 import React from 'react'
+import {
+    TouchableOpacity,
+    Image,
+    StyleSheet,
+    View,
+    Text,
+    Dimensions,
+} from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import TabSwitchScreen from '../screens/TabSwitchScreen'
@@ -17,16 +25,60 @@ import tNc from '../screens/tNc'
 import AboutUs from '../screens/AboutUs'
 import Winners from '../screens/Winners'
 import NewsDetail from '../screens/NewsDetail'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useNavigation } from '@react-navigation/core'
 
 const Stack = createStackNavigator()
-
-const screenOptionStyle = {
-    headerShown: false,
-}
-
-const MainStackNavigator = () => {
+const windowWidth = Dimensions.get('window').width
+const MainStackNavigator = ({ navigation }) => {
     return (
-        <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Navigator
+            screenOptions={(navigation) => ({
+                headerShown: true,
+                headerStyle: {
+                    backgroundColor: '#0024A5',
+                    elevation: 0,
+                    shadowOpacity: 0,
+                },
+                headerTitle: () => {
+                    return (
+                        <View
+                            style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                borderColor: 'red',
+                                borderWidth: 2,
+                                justifyContent: 'space-around',
+                            }}
+                        >
+                            <Image
+                                source={require('../assets/images/logo-sm.png')}
+                                style={styles.image}
+                            ></Image>
+                            <Text numberOfLines={1} style={styles.iplLive2021}>
+                                CricScore
+                            </Text>
+                        </View>
+                    )
+                },
+                headerRight: () => {},
+                headerLeft: () => {
+                    return (
+                        <TouchableOpacity
+                            style={{ paddingRight: 8 }}
+                            onPress={() => navigation.toggleDrawer()}
+                        >
+                            <Icon
+                                name="menu"
+                                color="#FFF"
+                                size={24}
+                                style={{ marginLeft: 15 }}
+                            />
+                        </TouchableOpacity>
+                    )
+                },
+            })}
+        >
             <Stack.Screen name="TabNavigator" component={TabNavigator} />
             <Stack.Screen name="PointsTable" component={PointsTable} />
             <Stack.Screen name="Fixtures" component={Fixtures} />
@@ -56,5 +108,21 @@ const ContactStackNavigator = () => {
         </Stack.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    image: {
+        height: 28,
+        width: 28,
+        resizeMode: 'contain',
+        marginTop: 0,
+        justifyContent: 'center',
+    },
+    iplLive2021: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        backgroundColor: 'transparent',
+        flex: 1,
+    },
+})
 
 export { MainStackNavigator, ContactStackNavigator }
