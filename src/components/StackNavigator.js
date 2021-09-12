@@ -65,7 +65,7 @@ const MainStackNavigator = ({ navigation }) => {
                     return (
                         <TouchableOpacity
                             style={{ paddingRight: 8 }}
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() => navigation.openDrawer()}
                         >
                             <Icon
                                 name="menu"

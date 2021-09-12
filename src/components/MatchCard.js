@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
+import InterstitialAd from './InterstitialAd'
 
 function MatchCard(props) {
     const navigation = useNavigation()
@@ -85,17 +86,18 @@ function MatchCard(props) {
     }, [])
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <View>
                 <TouchableOpacity
                     style={styles.matchNameRow}
-                    onPress={() =>
+                    onPress={() => {
                         navigation.navigate('SeriesMatches', {
                             cid: props.matchData.competition.cid,
                             seriesName: props.matchData.competition.title,
                             totalMatches:
                                 props.matchData.competition.total_matches,
                         })
-                    }
+                    }}
                 >
                     <View style={{ flex: 4 }}>
                         <View style={{ flexDirection: 'row' }}>
@@ -113,6 +115,7 @@ function MatchCard(props) {
             <View style={styles.divider}></View>
             <TouchableOpacity
                 onPress={() => {
+                    window.InterstitialAdComponent.showAd()
                     navigation.navigate('DetailMatchTopNav', {
                         matchData: props.matchData,
                     })

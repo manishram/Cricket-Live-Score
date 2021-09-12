@@ -6,9 +6,11 @@ import {
     Text,
     ScrollView,
     ActivityIndicator,
+    BackHandler,
 } from 'react-native'
 import RequestApi from '../api/RequestApi'
 import BannerAd from '../components/BannerAd'
+import InterstitialAd from '../components/InterstitialAd'
 import MatchCard from '../components/MatchCard'
 
 const Fixtures = () => {
@@ -37,9 +39,19 @@ const Fixtures = () => {
     useEffect(() => {
         getFixture()
     }, [])
+    const backAction = () => {
+        window.InterstitialAdComponent.showAd()
+    }
 
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backAction)
+
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', backAction)
+    }, [])
     return (
         <View style={{ flex: 1 }}>
+            <InterstitialAd />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Text
                     style={{

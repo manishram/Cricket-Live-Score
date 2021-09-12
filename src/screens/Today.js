@@ -223,36 +223,42 @@ function Today(props) {
                     icon="chart-bar"
                     style={styles.navigationBtn}
                     title="Points Table"
+                    ad={false}
                 ></NavigationBtn>
                 <NavigationBtn
                     navigateTo="Fixtures"
                     icon="tournament"
                     style={styles.navigationBtn}
                     title="Fixtures"
+                    ad={false}
                 ></NavigationBtn>
                 <NavigationBtn
                     navigateTo="Auction"
                     icon="gavel"
                     style={styles.navigationBtn}
                     title="Auction"
+                    ad={false}
                 ></NavigationBtn>
                 <NavigationBtn
                     navigateTo="Records"
                     icon="trophy"
                     style={styles.navigationBtn}
                     title="Records"
+                    ad={true}
                 ></NavigationBtn>
                 <NavigationBtn
                     navigateTo="Venues"
                     icon="google-maps"
                     style={styles.navigationBtn}
                     title="Venues"
+                    ad={false}
                 ></NavigationBtn>
                 <NavigationBtn
                     navigateTo="Winners"
                     icon="trophy-award"
                     style={styles.navigationBtn}
                     title="Winners"
+                    ad={false}
                 ></NavigationBtn>
             </View>
 

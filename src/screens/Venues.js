@@ -6,8 +6,10 @@ import {
     Text,
     Image,
     FlatList,
+    BackHandler,
 } from 'react-native'
 import AppApi from '../api/AppApi'
+import InterstitialAd from '../components/InterstitialAd'
 
 const Venues = () => {
     const [venueList, setvenueList] = useState([])
@@ -22,8 +24,19 @@ const Venues = () => {
     useEffect(() => {
         getVenues()
     }, [])
+    const backAction = () => {
+        window.InterstitialAdComponent.showAd()
+    }
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backAction)
+
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', backAction)
+    }, [])
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Text style={{ fontFamily: 'inter-700', textAlign: 'center' }}>
                     Venues

@@ -6,11 +6,13 @@ import {
     FlatList,
     ScrollView,
     ActivityIndicator,
+    BackHandler,
 } from 'react-native'
 import { TabView } from 'react-native-tab-view'
 import { TabBar } from 'react-native-tab-view'
 import AuctionPlayerCard from './AuctionPlayerCard'
 import AppApi from '../api/AppApi'
+import InterstitialAd from '../components/InterstitialAd'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
@@ -87,13 +89,23 @@ function AuctionTopNav() {
     useEffect(() => {
         getAuctionAllRounders()
     }, [])
+    const backAction = () => {
+        window.InterstitialAdComponent.showAd()
+    }
 
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backAction)
+
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', backAction)
+    }, [])
     const renderScene = ({ route }) => {
         switch (route.key) {
             case 'batsmen':
                 return (
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={styles.container}>
+                            <InterstitialAd />
                             {isLoadingBatsMan ? (
                                 <View
                                     style={{

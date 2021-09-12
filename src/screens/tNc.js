@@ -1,9 +1,21 @@
-import React from 'react'
-import { Text, ScrollView, StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
+import { Text, ScrollView, StyleSheet, BackHandler } from 'react-native'
+import InterstitialAd from '../components/InterstitialAd'
 
 function tNc() {
+    const backAction = () => {
+        window.InterstitialAdComponent.showAd()
+    }
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backAction)
+
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', backAction)
+    }, [])
     return (
         <ScrollView style={styles.container}>
+            <InterstitialAd />
             <Text style={{ fontWeight: '700', alignSelf: 'center' }}>
                 Terms and Conditions
             </Text>

@@ -6,11 +6,13 @@ import {
     Text,
     FlatList,
     ActivityIndicator,
+    BackHandler,
 } from 'react-native'
 import MatchCard from '../components/MatchCard'
 import RequestApi from '../api/RequestApi'
 import SeriesCard from '../components/SeriesCard'
 import BannerAd from '../components/BannerAd'
+import InterstitialAd from '../components/InterstitialAd'
 
 const Series = ({ navigation }) => {
     const [results, setResults] = useState([])
@@ -33,9 +35,19 @@ const Series = ({ navigation }) => {
     useEffect(() => {
         series()
     }, [])
+    const backAction = () => {
+        window.InterstitialAdComponent.showAd()
+    }
 
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backAction)
+
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', backAction)
+    }, [])
     return (
         <View style={{ flex: 1 }}>
+            <InterstitialAd />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
                     {isLoadingSeries ? (

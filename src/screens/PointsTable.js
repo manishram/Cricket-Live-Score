@@ -1,7 +1,8 @@
 import React, { Component, useState, useEffect } from 'react'
-import { StyleSheet, View, Text, FlatList } from 'react-native'
+import { StyleSheet, View, Text, FlatList, BackHandler } from 'react-native'
 import PointsTableRow from '../components/PointsTableRow'
 import RequestApi from '../api/RequestApi'
+import InterstitialAd from '../components/InterstitialAd'
 
 const PointsTable = () => {
     const cid = 118273
@@ -22,9 +23,19 @@ const PointsTable = () => {
     useEffect(() => {
         getPointsTable()
     }, [])
+    const backAction = () => {
+        window.InterstitialAdComponent.showAd()
+    }
 
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backAction)
+
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', backAction)
+    }, [])
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <View style={styles.teamNameRow}>
                 <Text style={styles.teamName}>Team Name</Text>
                 <Text style={styles.m11}>M</Text>

@@ -1,9 +1,12 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import InterstitialAd from '../components/InterstitialAd'
 
 function AboutUs() {
+    window.InterstitialAdComponent.showAd()
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <Text style={{ fontWeight: '700', alignSelf: 'center' }}>
                 About Us
             </Text>

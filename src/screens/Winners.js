@@ -6,8 +6,10 @@ import {
     Text,
     Image,
     FlatList,
+    BackHandler,
 } from 'react-native'
 import AppApi from '../api/AppApi'
+import InterstitialAd from '../components/InterstitialAd'
 
 const Winners = () => {
     const [winnerList, setwinnerList] = useState([])
@@ -22,8 +24,21 @@ const Winners = () => {
     useEffect(() => {
         getWinners()
     }, [])
+
+    const backAction = () => {
+        window.InterstitialAdComponent.showAd()
+    }
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', backAction)
+
+        return () =>
+            BackHandler.removeEventListener('hardwareBackPress', backAction)
+    }, [])
+
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Text
                     style={{

@@ -2,15 +2,20 @@ import React, { Component } from 'react'
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import InterstitialAd from './InterstitialAd'
 
-function NavigationBtn({ icon, title, navigateTo }) {
+function NavigationBtn({ icon, title, navigateTo, ad }) {
     const navigation = useNavigation()
     return (
         <View style={styles.container}>
+            <InterstitialAd />
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.button}
-                onPress={() => navigation.navigate(navigateTo)}
+                onPress={() => {
+                    ad ? window.InterstitialAdComponent.showAd() : null
+                    navigation.navigate(navigateTo)
+                }}
             >
                 <View style={styles.iconRow}>
                     <Icon name={icon} style={styles.icon}></Icon>
