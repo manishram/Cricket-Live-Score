@@ -32,16 +32,23 @@ function Today(props) {
             AdSettings.setAdvertiserTrackingEnabled(true)
         }
     }
-
+    let i
     const navigation = useNavigation()
-    const iplMatches = []
     const specialTournamentCid = 118273
-    let i = 0
-    const [specialMatches, setSpecialMatches] = useState([])
-    const [results, setResults] = useState([])
+
+    const [specialLiveMatches, setspecialLiveMatches] = useState([])
+    const [specialMatches, setspecialMatches] = useState([])
+
+    const [generalLiveMatches, setGeneralLiveMatches] = useState([])
+    const [generalMatches, setGeneralMatches] = useState([])
+
     const todayMatch = async () => {
+        i = 0
         specialMatchArray = []
         generalMatchArray = []
+        specialLiveMatchArray = []
+        generalLiveMatchArray = []
+
         try {
             const response = await RequestApi.get('matches/', {
                 params: {
@@ -54,19 +61,34 @@ function Today(props) {
                     response.data.response.items[i].competition.cid ===
                     specialTournamentCid
                 ) {
-                    specialMatchArray.push(response.data.response.items[i])
+                    if (response.data.response.items[i].status === 3) {
+                        specialLiveMatchArray.push(
+                            response.data.response.items[i]
+                        )
+                    } else {
+                        specialMatchArray.push(response.data.response.items[i])
+                    }
                 } else {
-                    generalMatchArray.push(response.data.response.items[i])
+                    if (response.data.response.items[i].status === 3) {
+                        generalLiveMatchArray.push(
+                            response.data.response.items[i]
+                        )
+                    } else {
+                        generalMatchArray.push(response.data.response.items[i])
+                    }
                 }
                 i = i + 1
             }
-            setResults(generalMatchArray)
-            setSpecialMatches(specialMatchArray)
-            console.log(results)
+
+            setspecialLiveMatches(specialLiveMatchArray)
+            setspecialMatches(specialMatchArray)
+            setGeneralLiveMatches(generalLiveMatchArray)
+            setGeneralMatches(generalMatchArray)
         } catch (err) {
             console.log(err)
         }
     }
+
     useEffect(() => {
         todayMatch()
     }, [])
@@ -161,22 +183,40 @@ function Today(props) {
                     </View>
                 </ImageBackground>
             ) : null}
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                data={specialMatches.sort(function (a, b) {
-                    return a.timestamp_start - b.timestamp_start
-                })}
-                keyExtractor={(specialMatches) =>
-                    specialMatches.match_id.toString()
-                }
-                renderItem={(items) => {
-                    return (
-                        <View style={{ marginLeft: 10, marginRight: 10 }}>
-                            <MatchCard matchData={items.item} />
-                        </View>
-                    )
-                }}
-            />
+            <View>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={specialLiveMatches.sort(function (a, b) {
+                        return a.timestamp_start - b.timestamp_start
+                    })}
+                    keyExtractor={(specialLiveMatches) =>
+                        specialLiveMatches.match_id.toString()
+                    }
+                    renderItem={(items) => {
+                        return (
+                            <View style={{ marginLeft: 10, marginRight: 10 }}>
+                                <MatchCard matchData={items.item} />
+                            </View>
+                        )
+                    }}
+                />
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={specialMatches.sort(function (a, b) {
+                        return a.timestamp_start - b.timestamp_start
+                    })}
+                    keyExtractor={(specialMatches) =>
+                        specialMatches.match_id.toString()
+                    }
+                    renderItem={(items) => {
+                        return (
+                            <View style={{ marginLeft: 10, marginRight: 10 }}>
+                                <MatchCard matchData={items.item} />
+                            </View>
+                        )
+                    }}
+                />
+            </View>
             <View style={styles.navContainer}>
                 <NavigationBtn
                     navigateTo="PointsTable"
@@ -220,10 +260,31 @@ function Today(props) {
                 showsVerticalScrollIndicator={false}
                 onRefresh={() => onRefresh()}
                 refreshing={isFetching}
-                data={results.sort(function (a, b) {
+                data={generalLiveMatches.sort(function (a, b) {
                     return a.timestamp_start - b.timestamp_start
                 })}
-                keyExtractor={(results) => results.match_id.toString()}
+                keyExtractor={(generalLiveMatches) =>
+                    generalLiveMatches.match_id.toString()
+                }
+                renderItem={(items) => {
+                    return (
+                        <View style={{ marginLeft: 10, marginRight: 10 }}>
+                            <MatchCard matchData={items.item} />
+                        </View>
+                    )
+                }}
+            />
+
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                onRefresh={() => onRefresh()}
+                refreshing={isFetching}
+                data={generalMatches.sort(function (a, b) {
+                    return a.timestamp_start - b.timestamp_start
+                })}
+                keyExtractor={(generalMatches) =>
+                    generalMatches.match_id.toString()
+                }
                 renderItem={(items) => {
                     return (
                         <View style={{ marginLeft: 10, marginRight: 10 }}>
