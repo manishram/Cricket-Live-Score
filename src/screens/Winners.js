@@ -25,7 +25,13 @@ const Winners = () => {
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Text style={{ fontFamily: 'inter-700', textAlign: 'center' }}>
+                <Text
+                    style={{
+                        fontFamily: 'inter-700',
+                        textAlign: 'center',
+                        fontSize: 20,
+                    }}
+                >
                     Winners
                 </Text>
                 <FlatList
@@ -43,6 +49,7 @@ const Winners = () => {
                                         fontFamily: 'inter-600',
                                         textAlign: 'center',
                                         marginBottom: 10,
+                                        fontSize: 24,
                                     }}
                                 >
                                     {items.item.year}
