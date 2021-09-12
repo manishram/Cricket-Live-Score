@@ -91,6 +91,7 @@ function Today(props) {
 
     useEffect(() => {
         todayMatch()
+        return () => {}
     }, [])
 
     const [featuredNews, setFeaturedNews] = useState([])
@@ -108,6 +109,7 @@ function Today(props) {
     }
     useEffect(() => {
         getFeaturedNews()
+        return () => {}
     }, [])
 
     const [notFeaturedNews, setNotFeatured] = useState([])
@@ -125,6 +127,7 @@ function Today(props) {
     }
     useEffect(() => {
         getNotFeaturedNews()
+        return () => {}
     }, [])
 
     const [isFetching, setIsFetching] = useState(false)
@@ -141,6 +144,7 @@ function Today(props) {
     useEffect(() => {
         adFunction()
         AdSettings.clearTestDevices()
+        return () => {}
     }, [])
     return (
         <View style={styles.container}>

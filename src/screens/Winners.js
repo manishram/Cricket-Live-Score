@@ -23,6 +23,7 @@ const Winners = () => {
     }
     useEffect(() => {
         getWinners()
+        return () => {}
     }, [])
 
     const backAction = () => {

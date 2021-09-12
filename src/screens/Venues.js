@@ -23,6 +23,7 @@ const Venues = () => {
     }
     useEffect(() => {
         getVenues()
+        return () => {}
     }, [])
     const backAction = () => {
         window.InterstitialAdComponent.showAd()

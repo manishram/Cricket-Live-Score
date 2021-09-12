@@ -20,6 +20,7 @@ const Records = () => {
     }
     useEffect(() => {
         getRecord()
+        return () => {}
     }, [])
     return (
         <View style={{ flexDirection: 'row', padding: 10 }}>

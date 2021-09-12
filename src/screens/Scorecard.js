@@ -23,6 +23,7 @@ function Scorecard({ matchDetail }) {
     }
     useEffect(() => {
         livePlayers()
+        return () => {}
     }, [])
     return (
         <View style={styles.container}>

@@ -34,6 +34,7 @@ const Series = ({ navigation }) => {
     }
     useEffect(() => {
         series()
+        return () => {}
     }, [])
     const backAction = () => {
         window.InterstitialAdComponent.showAd()

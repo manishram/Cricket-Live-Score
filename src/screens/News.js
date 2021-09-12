@@ -11,60 +11,95 @@ import NewsCard from '../components/NewsCard'
 import AppApi from '../api/AppApi'
 import BannerAd from '../components/BannerAd'
 
-const wait = (timeout) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout))
-}
-
 const News = (props) => {
-    const [featuredNews, setFeaturedNews] = useState([])
-    const [isNewsLoading, setIsNewsLoading] = useState()
-    const getFeaturedNews = async () => {
-        setIsNewsLoading(true)
-        try {
-            const response = await AppApi.get('/news/', {
-                params: {
-                    featured: 'true',
-                },
-            })
-            setFeaturedNews(response.data.response)
-            setIsNewsLoading(false)
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    useEffect(() => {
-        getFeaturedNews()
-    }, [])
+    let i = 0
+    let newsArrayNotFeatured = []
+    let newsArrayFeatured = []
 
-    const [notFeaturedNews, setNotFeatured] = useState([])
+    const [NewsData, setNews] = useState([])
+    const [isNewsLoading, setIsNewsLoading] = useState()
+
     const getNotFeaturedNews = async () => {
+        i = 0
         try {
             const response = await AppApi.get('/news/', {
                 params: {
                     featured: 'false',
                 },
             })
-            setNotFeatured(response.data.response)
+            while (i < response.data.response.length) {
+                newsArrayNotFeatured.push(response.data.response[i])
+                i = i + 1
+            }
+            i = 0
         } catch (err) {
             console.log(err)
         }
     }
+
+    const getFeaturedNews = async () => {
+        i = 0
+        try {
+            const response = await AppApi.get('/news/', {
+                params: {
+                    featured: 'true',
+                },
+            })
+
+            while (i < response.data.response.length) {
+                newsArrayFeatured.push(response.data.response[i])
+                i = i + 1
+            }
+            i = 0
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    async function processNews() {
+        setIsNewsLoading(true)
+        await getNotFeaturedNews()
+        await getFeaturedNews()
+        await setNews(newsArrayNotFeatured.concat(newsArrayFeatured).reverse())
+        setIsNewsLoading(false)
+    }
     useEffect(() => {
-        getNotFeaturedNews()
+        processNews()
+        return () => {}
     }, [])
+
     const [isFetching, setIsFetching] = useState(false)
     async function onRefresh() {
         setIsFetching(true)
-        await getFeaturedNews()
         await getNotFeaturedNews()
+        await getFeaturedNews()
+        await setNews(
+            newsArrayNotFeatured
+                .concat(newsArrayFeatured)
+                .reverse()
+                .slice(0, 10)
+        )
         setIsFetching(false)
+        return () => {}
     }
-    const windowWidth = Dimensions.get('window').width
+
+    const renderFooter = () => {
+        if (isFetching) {
+            return <ActivityIndicator size="large" />
+        } else {
+            return null
+        }
+    }
+    let pagination = 1
+    fetchMore = () => {
+        setNews(NewsData.slice(0, 10 * pagination))
+        pagination = pagination + 1
+    }
+
     const windowHeight = Dimensions.get('window').height
     return (
         <View style={{ flex: 1 }}>
-            <View style={[styles.container, { height: windowHeight - 173 }]}>
-                <ScrollView showsVerticalScrollIndicator={true}>
+            <View style={[styles.container]}>
+                <View>
                     {isNewsLoading ? (
                         <View
                             style={{
@@ -86,36 +121,49 @@ const News = (props) => {
                     ) : (
                         <View>
                             <FlatList
-                                initialNumToRender={2}
+                                showsVerticalScrollIndicator={true}
+                                onEndThreshold={0}
+                                onEndReachedThreshold={0.1}
+                                initialNumToRender={5}
                                 windowSize={1}
-                                showsVerticalScrollIndicator={false}
                                 onRefresh={() => onRefresh()}
+                                ListFooterComponent={renderFooter}
+                                onEndReached={fetchMore}
                                 refreshing={isFetching}
                                 extraData={isFetching}
-                                inverted={true}
-                                data={featuredNews}
-                                keyExtractor={(news) => news.id.toString()}
+                                data={NewsData}
+                                keyExtractor={(NewsData) => NewsData.id}
                                 renderItem={(items) => {
-                                    return <NewsCard newsData={items.item} />
-                                }}
-                            />
-                            <FlatList
-                                showsVerticalScrollIndicator={false}
-                                onRefresh={() => onRefresh()}
-                                refreshing={isFetching}
-                                extraData={isFetching}
-                                inverted={true}
-                                data={notFeaturedNews}
-                                keyExtractor={(news) => news.id.toString()}
-                                renderItem={(items) => {
-                                    return <NewsCard newsData={items.item} />
+                                    if (i === 2) {
+                                        i = 0
+                                        return (
+                                            <View>
+                                                <View
+                                                    style={{
+                                                        backgroundColor:
+                                                            '#f6f6f6',
+                                                        marginTop: 10,
+                                                    }}
+                                                >
+                                                    <BannerAd />
+                                                </View>
+                                                <NewsCard
+                                                    newsData={items.item}
+                                                />
+                                            </View>
+                                        )
+                                    } else {
+                                        i = i + 1
+                                        return (
+                                            <NewsCard newsData={items.item} />
+                                        )
+                                    }
                                 }}
                             />
                         </View>
                     )}
-                </ScrollView>
+                </View>
             </View>
-            {props.ads ? <BannerAd style={styles.bannerAd} /> : null}
         </View>
     )
 }
@@ -125,12 +173,13 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: 'rgba(240, 240, 240, 1)',
     },
+
     bannerAd: {
         position: 'absolute',
         left: 0,
         right: 0,
         bottom: 0,
-        marginBottom: 200,
+        marginTop: 10,
     },
 })
 

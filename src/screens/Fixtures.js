@@ -39,6 +39,7 @@ const Fixtures = () => {
     }
     useEffect(() => {
         getFixture()
+        return () => {}
     }, [])
     const backAction = () => {
         window.InterstitialAdComponent.showAd()
@@ -90,10 +91,22 @@ const Fixtures = () => {
                             if (i === 4) {
                                 i = 0
                                 return (
-                                    <View
-                                        style={{ backgroundColor: '#f6f6f6' }}
-                                    >
-                                        <BannerAd />
+                                    <View>
+                                        <View
+                                            style={{
+                                                backgroundColor: '#f6f6f6',
+                                            }}
+                                        >
+                                            <BannerAd />
+                                        </View>
+                                        <View
+                                            style={{
+                                                marginLeft: 10,
+                                                marginRight: 10,
+                                            }}
+                                        >
+                                            <MatchCard matchData={items.item} />
+                                        </View>
                                     </View>
                                 )
                             } else {

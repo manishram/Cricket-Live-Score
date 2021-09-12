@@ -22,6 +22,7 @@ const PointsTable = () => {
     }
     useEffect(() => {
         getPointsTable()
+        return () => {}
     }, [])
     const backAction = () => {
         window.InterstitialAdComponent.showAd()

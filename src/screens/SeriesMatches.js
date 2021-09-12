@@ -37,6 +37,7 @@ function SeriesMatches(props) {
     }
     useEffect(() => {
         seriesMatch()
+        return () => {}
     }, [])
 
     return (
