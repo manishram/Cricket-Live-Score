@@ -121,7 +121,7 @@ const News = (props) => {
                     ) : (
                         <View>
                             <FlatList
-                                showsVerticalScrollIndicator={true}
+                                showsVerticalScrollIndicator={false}
                                 onEndThreshold={0}
                                 onEndReachedThreshold={0.1}
                                 initialNumToRender={5}
