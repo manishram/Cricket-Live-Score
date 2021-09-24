@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Dimensions } from 'react-native'
-import { InterstitialAdManager } from 'react-native-fbads'
-import { InterstitialAdPlacementId } from './Variables'
+import { AdMobInterstitial } from 'react-native-admob'
+import { InterstitialAdUnitId } from './Variables'
 
 const { width } = Dimensions.get('window')
 
@@ -15,8 +15,8 @@ export default class InterstitialAd extends Component {
     }
 
     showAd() {
-        InterstitialAdManager.showAd(InterstitialAdPlacementId)
-            .then(() => {})
-            .catch(() => {})
+        AdMobInterstitial.setAdUnitID(InterstitialAdUnitId)
+        AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId])
+        AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd())
     }
 }

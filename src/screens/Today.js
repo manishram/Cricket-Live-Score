@@ -11,27 +11,13 @@ import {
 import CountDown from 'react-native-countdown-component'
 import MatchCard from '../components/MatchCard'
 import NavigationBtn from '../components/NavigationBtn'
-import { AdSettings } from 'react-native-fbads'
 import { useNavigation } from '@react-navigation/native'
 import RequestApi from '../api/RequestApi'
 import AppApi from '../api/AppApi'
 import News from '../screens/News'
-import BannerAd from '../components/BannerAd'
+// import MediationTestSuite from 'react-native-mediation-test-suite'
 
 function Today(props) {
-    async function adFunction() {
-        AdSettings.setLogLevel('debug')
-        AdSettings.addTestDevice(AdSettings.currentDeviceHash)
-        const requestedStatus = await AdSettings.requestTrackingPermission()
-
-        if (
-            requestedStatus === 'authorized' ||
-            requestedStatus === 'unavailable'
-        ) {
-            AdSettings.setAdvertiserIDCollectionEnabled(true)
-            AdSettings.setAdvertiserTrackingEnabled(true)
-        }
-    }
     let i
     const navigation = useNavigation()
     const specialTournamentCid = 118273
@@ -141,11 +127,6 @@ function Today(props) {
     let now = new Date().getTime()
     let timeLeft = (ipldate - now) / 1000
 
-    useEffect(() => {
-        adFunction()
-        AdSettings.clearTestDevices()
-        return () => {}
-    }, [])
     return (
         <View style={styles.container}>
             {timeLeft > 0 ? (
