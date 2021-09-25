@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Dimensions } from 'react-native'
-import { AdMobInterstitial } from 'react-native-admob'
+import { AdEventType, InterstitialAd } from '@react-native-firebase/admob'
 import { InterstitialAdUnitId } from './Variables'
 
 const { width } = Dimensions.get('window')
 
-export default class InterstitialAd extends Component {
+export default class InterstitialAds extends Component {
     constructor() {
         super()
         window.InterstitialAdComponent = this
@@ -15,8 +15,19 @@ export default class InterstitialAd extends Component {
     }
 
     showAd() {
-        AdMobInterstitial.setAdUnitID(InterstitialAdUnitId)
-        AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId])
-        AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd())
+        const interstitial = InterstitialAd.createForAdRequest(
+            InterstitialAdUnitId,
+            {
+                requestNonPersonalizedAdsOnly: true,
+            }
+        )
+
+        interstitial.onAdEvent((type) => {
+            if (type === AdEventType.LOADED) {
+                interstitial.show()
+            }
+        })
+
+        interstitial.load()
     }
 }
