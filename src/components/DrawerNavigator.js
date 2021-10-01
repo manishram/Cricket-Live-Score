@@ -20,7 +20,7 @@ const DrawerNavigator = () => {
         try {
             const result = await Share.share({
                 message:
-                    'Hey, download the CricScore app from the play store to get live cricket scores, cricket news, game statistics, and other updates.',
+                    'Download the CricScore from the play store: https://play.google.com/store/apps/details?id=com.cricscore.app and get live cricket scores, news, game stats, and much more.',
             })
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
