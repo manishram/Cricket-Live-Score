@@ -16,33 +16,33 @@ import InterstitialAd from '../components/InterstitialAd'
 
 const Series = ({ navigation }) => {
     const [results, setResults] = useState([])
-    const [totalItems, setTotalItems] = useState(0)
     const [isLoadingSeries, setisLoadingSeries] = useState()
-    const perPageSeries = 20
+    const inLastPage = 25
     const series = async () => {
         setisLoadingSeries(true)
 
         try {
-            const response = await RequestApi.get('competitions/', {
+            const responses = await RequestApi.get('competitions/', {
                 params: {
                     paged: 1,
                     per_page: 1,
                 },
             })
-            setTotalItems(response.data.response.total_items)
-        } catch (err) {
-            console.log(err)
-        }
 
-        try {
-            const response = await RequestApi.get('competitions/', {
-                params: {
-                    paged: Math.ceil(totalItems / perPageSeries),
-                    per_page: perPageSeries,
-                },
-            })
-            setResults(response.data.response.items)
-            setisLoadingSeries(false)
+            let totalItems = responses.data.response.total_items
+            try {
+                const response = await RequestApi.get('competitions/', {
+                    params: {
+                        paged: 2,
+                        per_page: totalItems - inLastPage,
+                    },
+                })
+
+                setResults(response.data.response.items)
+                setisLoadingSeries(false)
+            } catch (err) {
+                console.log(err)
+            }
         } catch (err) {
             console.log(err)
         }
