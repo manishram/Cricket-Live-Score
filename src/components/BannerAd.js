@@ -9,7 +9,7 @@ function BannerAds(props) {
             unitId={bannerAdUnitId}
             size={BannerAdSize.SMART_BANNER}
             requestOptions={{
-                requestNonPersonalizedAdsOnly: true,
+                requestNonPersonalizedAdsOnly: false,
             }}
             onAdLoaded={() => {
                 console.log('Advert loaded')

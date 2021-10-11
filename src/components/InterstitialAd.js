@@ -18,7 +18,7 @@ export default class InterstitialAds extends Component {
         const interstitial = InterstitialAd.createForAdRequest(
             InterstitialAdUnitId,
             {
-                requestNonPersonalizedAdsOnly: true,
+                requestNonPersonalizedAdsOnly: false,
             }
         )
 
