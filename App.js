@@ -6,11 +6,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import DrawerNavigator from './src/components/DrawerNavigator'
-import TopHeaderBox from './src/components/TopHeaderBox'
+import MediationTestSuite from 'react-native-mediation-test-suite'
 
 const Tab = createBottomTabNavigator()
 
 function App() {
+    // MediationTestSuite.launch()
     const [isLoadingComplete, setLoadingComplete] = useState(false)
     if (!isLoadingComplete) {
         return (

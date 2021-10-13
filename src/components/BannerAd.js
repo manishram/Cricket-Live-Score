@@ -4,10 +4,11 @@ import { bannerAdUnitId } from './Variables'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 function BannerAds(props) {
+    console.log(BannerAdSize)
     return (
         <BannerAd
             unitId={bannerAdUnitId}
-            size={BannerAdSize.SMART_BANNER}
+            size={BannerAdSize.ADAPTIVE_BANNER}
             requestOptions={{
                 requestNonPersonalizedAdsOnly: false,
             }}
