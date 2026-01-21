@@ -1,7 +1,6 @@
 # CricScore – Cricket Live Score, News & Stats 🏏
 <img width="225" height="400" alt="1" src="https://github.com/user-attachments/assets/f528cf88-8713-4df7-8fb2-42b3a16497a9" />
 <img width="225" height="400" alt="2" src="https://github.com/user-attachments/assets/81e38bfb-9a43-4f10-9181-8937817ea881" />
-<img width="225" height="400" alt="3" src="https://github.com/user-attachments/assets/be082bf3-19ff-4618-8483-6ea928c25567" />
 <img width="225" height="400" alt="4" src="https://github.com/user-attachments/assets/a654df64-1c4c-4510-883c-fa9e4cfc9dc9" />
 
 CricScore is a mobile application built using **React Native** that provides real-time cricket scores, fixtures, points tables, and detailed match information. The app focuses on delivering a clean UI and fast access to cricket data for fans.
@@ -32,6 +31,7 @@ This project was built as a production-style app to demonstrate mobile developme
 ---
 
 ## Screenshots
+<img width="225" height="400" alt="3" src="https://github.com/user-attachments/assets/be082bf3-19ff-4618-8483-6ea928c25567" />
 <img width="225" height="400" alt="8" src="https://github.com/user-attachments/assets/03212281-5fd2-4df2-a2ba-295cf8370a8b" />
 <img width="225" height="400" alt="5" src="https://github.com/user-attachments/assets/3e9befb2-1356-4d5f-b91e-46d2174a8964" />
 <img width="225" height="400" alt="6" src="https://github.com/user-attachments/assets/fd93cddc-766b-4707-b570-0efeb181324a" />
